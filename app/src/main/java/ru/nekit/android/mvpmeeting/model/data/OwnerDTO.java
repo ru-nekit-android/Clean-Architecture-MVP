@@ -4,7 +4,7 @@ package ru.nekit.android.mvpmeeting.model.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Owner {
+public class OwnerDTO {
 
     @SerializedName("login")
     @Expose

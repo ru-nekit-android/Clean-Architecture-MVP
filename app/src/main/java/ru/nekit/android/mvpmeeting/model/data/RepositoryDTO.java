@@ -4,7 +4,7 @@ package ru.nekit.android.mvpmeeting.model.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Repo {
+public class RepositoryDTO {
 
     @SerializedName("id")
     @Expose
@@ -17,7 +17,7 @@ public class Repo {
     private String fullName;
     @SerializedName("owner")
     @Expose
-    private Owner owner;
+    private OwnerDTO owner;
     @SerializedName("private")
     @Expose
     private Boolean _private;
@@ -256,14 +256,14 @@ public class Repo {
     /**
      * @return The owner
      */
-    public Owner getOwner() {
+    public OwnerDTO getOwner() {
         return owner;
     }
 
     /**
      * @param owner The owner
      */
-    public void setOwner(Owner owner) {
+    public void setOwner(OwnerDTO owner) {
         this.owner = owner;
     }
 

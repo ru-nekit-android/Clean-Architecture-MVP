@@ -2,7 +2,7 @@ package ru.nekit.android.mvpmeeting.model;
 
 import java.util.List;
 
-import ru.nekit.android.mvpmeeting.model.data.Repo;
+import ru.nekit.android.mvpmeeting.model.data.RepositoryDTO;
 import rx.Observable;
 
 /**
@@ -10,6 +10,6 @@ import rx.Observable;
  */
 public interface IModel {
 
-    Observable<List<Repo>> getRepoList(String name);
+    Observable<List<RepositoryDTO>> getRepoList(String name);
 
 }

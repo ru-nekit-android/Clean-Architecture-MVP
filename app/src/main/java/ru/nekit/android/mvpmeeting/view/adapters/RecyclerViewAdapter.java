@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.nekit.android.mvpmeeting.R;
-import ru.nekit.android.mvpmeeting.model.data.Repo;
+import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
-    private List<Repo> repoList = new ArrayList<>();
+    private List<Repository> repoList = new ArrayList<>();
 
-    public void setRepoList(List<Repo> repoList) {
+    public void setRepoList(List<Repository> repoList) {
         this.repoList = repoList;
         notifyDataSetChanged();
     }
@@ -31,8 +31,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Repo Repo = repoList.get(i);
-        viewHolder.name.setText(Repo.getName());
+        Repository repo = repoList.get(i);
+        viewHolder.name.setText(repo.toString());
     }
 
     @Override

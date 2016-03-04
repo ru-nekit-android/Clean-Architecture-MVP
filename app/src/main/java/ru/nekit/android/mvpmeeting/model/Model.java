@@ -4,7 +4,7 @@ import java.util.List;
 
 import ru.nekit.android.mvpmeeting.model.api.ApiInterface;
 import ru.nekit.android.mvpmeeting.model.api.ApiModule;
-import ru.nekit.android.mvpmeeting.model.data.Repo;
+import ru.nekit.android.mvpmeeting.model.data.RepositoryDTO;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -17,7 +17,7 @@ public class Model implements IModel {
     ApiInterface apiInterface = ApiModule.getApiInterface();
 
     @Override
-    public Observable<List<Repo>> getRepoList(String name) {
+    public Observable<List<RepositoryDTO>> getRepoList(String name) {
         return apiInterface.getRepositories(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
 }

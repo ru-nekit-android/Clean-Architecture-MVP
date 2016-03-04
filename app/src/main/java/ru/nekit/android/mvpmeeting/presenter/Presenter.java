@@ -2,6 +2,7 @@ package ru.nekit.android.mvpmeeting.presenter;
 
 import ru.nekit.android.mvpmeeting.model.IModel;
 import ru.nekit.android.mvpmeeting.model.Model;
+import ru.nekit.android.mvpmeeting.presenter.mapper.RepositoryListMapper;
 import ru.nekit.android.mvpmeeting.view.IView;
 import rx.Subscription;
 import rx.subscriptions.Subscriptions;
@@ -24,7 +25,7 @@ public class Presenter implements IPresenter {
     @Override
     public void onSearchClick() {
         unsubscribeIfNeedIt();
-        subscription = model.getRepoList(view.getUserName()).subscribe(result -> {
+        subscription = model.getRepoList(view.getUserName()).map(new RepositoryListMapper()).subscribe(result -> {
             if (result != null && !result.isEmpty()) {
                 view.showData(result);
             } else {

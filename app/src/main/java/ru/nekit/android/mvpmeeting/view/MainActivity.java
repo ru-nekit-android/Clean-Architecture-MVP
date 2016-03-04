@@ -15,8 +15,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.R;
-import ru.nekit.android.mvpmeeting.model.data.Repo;
 import ru.nekit.android.mvpmeeting.presenter.Presenter;
+import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 import ru.nekit.android.mvpmeeting.view.adapters.RecyclerViewAdapter;
 
 public class MainActivity extends AppCompatActivity implements IView, View.OnClickListener {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
     }
 
     @Override
-    public void showData(List<Repo> data) {
+    public void showData(List<Repository> data) {
         adapter.setRepoList(data);
     }
 
