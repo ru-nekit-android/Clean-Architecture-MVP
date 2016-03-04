@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -15,11 +14,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.R;
-import ru.nekit.android.mvpmeeting.presenter.Presenter;
+import ru.nekit.android.mvpmeeting.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 import ru.nekit.android.mvpmeeting.view.adapters.RecyclerViewAdapter;
 
-public class MainActivity extends AppCompatActivity implements IView, View.OnClickListener {
+public class RepositoryListActivity extends AppCompatActivity implements IView {
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -29,9 +28,8 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
     EditText userNameInput;
     @Bind(R.id.obtain_repos_button)
     Button obtainReposButton;
-    private Presenter presenter;
+    private RepositoryListPresenter presenter;
     private RecyclerViewAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +37,16 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        presenter = new Presenter(this);
-        obtainReposButton.setOnClickListener(this);
+        presenter = new RepositoryListPresenter(this);
+
+        obtainReposButton.setOnClickListener(view -> presenter.onSearchClick());
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
         adapter = new RecyclerViewAdapter();
         recyclerView.setAdapter(adapter);
+
+        presenter.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
     }
 
     @Override
-    public void showData(List<Repository> data) {
-        adapter.setRepoList(data);
+    public void showRepositoryList(List<Repository> repositoryList) {
+        adapter.setRepoList(repositoryList);
     }
 
     @Override
@@ -77,9 +78,10 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
     }
 
     @Override
-    public void onClick(View view) {
-        if (R.id.obtain_repos_button == view.getId()) {
-            presenter.onSearchClick();
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (presenter != null) {
+            presenter.onSaveInstanceState(outState);
         }
     }
 
