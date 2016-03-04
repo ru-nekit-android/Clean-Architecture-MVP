@@ -11,7 +11,7 @@ public interface IView {
 
     String getUserName();
 
-    void showData(List<Repository> data);
+    void showRepositoryList(List<Repository> repositoryList);
 
     void showEmptyList();
 
