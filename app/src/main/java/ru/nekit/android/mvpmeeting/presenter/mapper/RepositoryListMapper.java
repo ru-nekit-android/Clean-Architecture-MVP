@@ -1,11 +1,10 @@
 package ru.nekit.android.mvpmeeting.presenter.mapper;
 
-import ru.nekit.android.mvpmeeting.BaseMapper;
 import ru.nekit.android.mvpmeeting.model.data.RepositoryDTO;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 
 /**
- * Created by MacOS on 04.03.16.
+ * Created by ru.nekit.android on 04.03.16.
  */
 public class RepositoryListMapper extends BaseMapper<RepositoryDTO, Repository> {
 

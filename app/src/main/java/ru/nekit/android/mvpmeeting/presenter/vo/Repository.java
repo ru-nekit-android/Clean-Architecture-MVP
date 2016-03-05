@@ -1,7 +1,7 @@
 package ru.nekit.android.mvpmeeting.presenter.vo;
 
 /**
- * Created by MacOS on 04.03.16.
+ * Created by ru.nekit.android on 04.03.16.
  */
 public class Repository {
 

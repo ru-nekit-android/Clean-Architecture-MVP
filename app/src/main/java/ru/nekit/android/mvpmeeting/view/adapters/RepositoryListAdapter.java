@@ -24,7 +24,7 @@ public class RepositoryListAdapter extends BaseAdapter<Repository> {
         Repository repository = list.get(i);
         viewHolder.text.setText(repository.toString());
         if (presenterRef != null && presenterRef.get() != null) {
-            viewHolder.text.setOnClickListener(view -> presenterRef.get().onClickRepository(repository));
+            viewHolder.text.setOnClickListener(view -> presenterRef.get().selectRepository(repository));
         }
     }
 
