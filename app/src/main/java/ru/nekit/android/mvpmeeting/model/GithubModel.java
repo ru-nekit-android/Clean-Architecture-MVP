@@ -10,13 +10,12 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by MacOS on 02.03.16.
+ * Created by ru.nekit.android on 02.03.16.
  */
-public class Model implements IModel {
+public class GithubModel implements IMVPModel {
 
     ApiInterface apiInterface = ApiModule.getApiInterface();
 
-    @Override
     public Observable<List<RepositoryDTO>> getRepoList(String name) {
         return apiInterface.getRepositories(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
     }
