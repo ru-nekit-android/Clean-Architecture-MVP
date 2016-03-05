@@ -1,109 +1,136 @@
 package ru.nekit.android.mvpmeeting.view.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.R;
+import ru.nekit.android.mvpmeeting.presenter.MVPBasePresenter;
+import ru.nekit.android.mvpmeeting.presenter.RepositoryListPresenter;
+import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
+import ru.nekit.android.mvpmeeting.view.adapters.RepositoryListAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link RepositoryListFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link RepositoryListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class RepositoryListFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class RepositoryListFragment extends MVPBaseFragment implements IRepositoryListView {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @Bind(R.id.recyclerView)
+    RecyclerView recyclerView;
 
-    private OnFragmentInteractionListener mListener;
+    @Bind(R.id.user_name_input)
+    EditText userNameInput;
+
+    @Bind(R.id.obtain_repositories_button)
+    Button obtainRepositoriesButton;
+
+    private RepositoryListPresenter presenter;
+
+    private RepositoryListAdapter adapter;
+
+    private ActivityCallback mCallback;
 
     public RepositoryListFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment RepositoryListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static RepositoryListFragment newInstance(String param1, String param2) {
+    public static RepositoryListFragment newInstance() {
         RepositoryListFragment fragment = new RepositoryListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_epository_list, container, false);
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+        View view = inflater.inflate(R.layout.fragment_repository_list, container, false);
+        ButterKnife.bind(this, view);
+
+        presenter = new RepositoryListPresenter(this);
+
+        obtainRepositoriesButton.setOnClickListener(v -> presenter.onSearchClick());
+
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
+        recyclerView.setLayoutManager(llm);
+        adapter = new RepositoryListAdapter(presenter);
+        recyclerView.setAdapter(adapter);
+
+        presenter.onLoadState(savedInstanceState);
+        return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof ActivityCallback) {
+            mCallback = (ActivityCallback) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement ActivityCallback");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mCallback = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+    @Override
+    public void showError(String error) {
+        makeToast(error);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (presenter != null) {
+            presenter.onSaveState(outState);
+        }
+    }
+
+    private void makeToast(String text) {
+        Snackbar.make(recyclerView, text, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public String getUserName() {
+        return userNameInput.getText().toString();
+    }
+
+    @Override
+    public void showRepositoryList(List<Repository> repositoryList) {
+        adapter.setRepositoryList(repositoryList);
+    }
+
+    @Override
+    public void showEmptyList() {
+        makeToast(getString(R.string.result_is_empty));
+    }
+
+    @Override
+    public void showRepository(Repository repository) {
+        mCallback.showRepositoryInfoFragment(repository);
+    }
+
+    @Override
+    protected MVPBasePresenter getPresenter() {
+        return presenter;
+    }
+
+    public interface ActivityCallback {
+        void showRepositoryInfoFragment(Repository repository);
     }
 }
