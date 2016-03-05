@@ -44,16 +44,20 @@ public class RepositoryListPresenter extends BasePresenter {
         return repositoryList == null || repositoryList.isEmpty();
     }
 
-    public void onRestoreInstanceState(Bundle savedState) {
+    public void onLoadState(Bundle savedState) {
         if (savedState != null) {
             repositoryList = (List<Repository>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY);
             view.showRepositoryList(repositoryList);
         }
     }
 
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveState(Bundle outState) {
         if (!isRepoListEmpty()) {
-            outState.putSerializable(BUNDLE_REPOSITORY_LIST_KEY, new ArrayList<Repository>(repositoryList));
+            outState.putSerializable(BUNDLE_REPOSITORY_LIST_KEY, new ArrayList<>(repositoryList));
         }
+    }
+
+    public void onClickRepository(Repository repository) {
+        view.showNotification("Repository " + repository.toString() + " was clicked");
     }
 }
