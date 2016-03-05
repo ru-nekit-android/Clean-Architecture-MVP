@@ -7,9 +7,9 @@ import android.os.Bundle;
  */
 public interface IPresenter {
 
-    void onRestoreInstanceState(Bundle savedState);
+    void onLoadState(Bundle savedState);
 
-    void onSaveInstanceState(Bundle outSate);
+    void onSaveState(Bundle outSate);
 
     void onStop();
 }
