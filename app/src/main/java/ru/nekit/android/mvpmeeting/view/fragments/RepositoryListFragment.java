@@ -76,7 +76,6 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mPresenter.attachView(this);
         if (context instanceof ActivityCallback) {
             mCallback = (ActivityCallback) context;
         } else {
@@ -88,18 +87,7 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
     @Override
     public void onDetach() {
         super.onDetach();
-        if (mPresenter != null) {
-            mPresenter.detachView();
-        }
         mCallback = null;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.onDestroy();
-        }
     }
 
     @Override
