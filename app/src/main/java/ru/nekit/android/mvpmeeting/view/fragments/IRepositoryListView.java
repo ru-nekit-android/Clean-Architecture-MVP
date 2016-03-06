@@ -3,15 +3,14 @@ package ru.nekit.android.mvpmeeting.view.fragments;
 import java.util.List;
 
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
+import ru.nekit.android.mvpmeeting.view.base.ILceView;
 
 /**
  * Created by ru.nekit.android on 05.03.16.
  */
-public interface IRepositoryListView extends IMVPView {
+public interface IRepositoryListView extends ILceView<List<Repository>, Throwable> {
 
     String getUserName();
-
-    void showRepositoryList(List<Repository> repositoryList);
 
     void showEmptyList();
 
