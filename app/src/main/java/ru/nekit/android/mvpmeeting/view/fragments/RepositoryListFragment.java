@@ -10,16 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.R;
-import ru.nekit.android.mvpmeeting.presenter.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presenter.RepositoryListPresenter;
+import ru.nekit.android.mvpmeeting.presenter.base.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 import ru.nekit.android.mvpmeeting.view.adapters.RepositoryListAdapter;
+import ru.nekit.android.mvpmeeting.view.fragments.base.MVPBaseFragment;
 
 public class RepositoryListFragment extends MVPBaseFragment implements IRepositoryListView {
 
@@ -32,18 +34,20 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
     @Bind(R.id.obtain_repositories_button)
     Button obtainRepositoriesButton;
 
-    private RepositoryListPresenter presenter;
+    @Bind(R.id.message_view)
+    TextView messageView;
 
-    private RepositoryListAdapter adapter;
-
+    private RepositoryListPresenter mPresenter;
+    private RepositoryListAdapter mAdapter;
+    private List<Repository> mData;
     private ActivityCallback mCallback;
 
     public RepositoryListFragment() {
+        mPresenter = new RepositoryListPresenter();
     }
 
     public static RepositoryListFragment newInstance() {
-        RepositoryListFragment fragment = new RepositoryListFragment();
-        return fragment;
+        return new RepositoryListFragment();
     }
 
     @Override
@@ -58,22 +62,21 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
         View view = inflater.inflate(R.layout.fragment_repository_list, container, false);
         ButterKnife.bind(this, view);
 
-        presenter = new RepositoryListPresenter(this);
-
-        obtainRepositoriesButton.setOnClickListener(v -> presenter.onSearchClick());
+        obtainRepositoriesButton.setOnClickListener(v -> mPresenter.onSearchClick());
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(llm);
-        adapter = new RepositoryListAdapter(presenter);
-        recyclerView.setAdapter(adapter);
+        mAdapter = new RepositoryListAdapter(mPresenter);
+        recyclerView.setAdapter(mAdapter);
 
-        presenter.onLoadState(savedInstanceState);
+        mPresenter.onCreate(savedInstanceState);
         return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mPresenter.attachView(this);
         if (context instanceof ActivityCallback) {
             mCallback = (ActivityCallback) context;
         } else {
@@ -85,19 +88,30 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
     @Override
     public void onDetach() {
         super.onDetach();
+        if (mPresenter != null) {
+            mPresenter.detachView();
+        }
         mCallback = null;
     }
 
     @Override
-    public void showError(String error) {
-        makeToast(error);
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.onDestroy();
+        }
+    }
+
+    @Override
+    public void showError(Throwable error) {
+        makeToast(error.getMessage());
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (presenter != null) {
-            presenter.onSaveState(outState);
+        if (mPresenter != null) {
+            mPresenter.onSaveInstanceState(outState);
         }
     }
 
@@ -111,13 +125,8 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
     }
 
     @Override
-    public void showRepositoryList(List<Repository> repositoryList) {
-        adapter.setRepositoryList(repositoryList);
-    }
-
-    @Override
     public void showEmptyList() {
-        makeToast(getString(R.string.result_is_empty));
+        messageView.setText(getString(R.string.result_is_empty));
     }
 
     @Override
@@ -127,7 +136,23 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
 
     @Override
     protected MVPBasePresenter getPresenter() {
-        return presenter;
+        return mPresenter;
+    }
+
+    public void showLoading() {
+        messageView.setText(getString(R.string.loading_message));
+    }
+
+    public void hideLoading() {
+        messageView.setText("");
+    }
+
+    public void showContent() {
+        mAdapter.setRepositoryList(mData);
+    }
+
+    public void setData(List<Repository> data) {
+        mData = data;
     }
 
     public interface ActivityCallback {
