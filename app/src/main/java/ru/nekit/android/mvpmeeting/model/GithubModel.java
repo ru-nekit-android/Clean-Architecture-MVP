@@ -1,5 +1,8 @@
 package ru.nekit.android.mvpmeeting.model;
 
+import javax.inject.Inject;
+
+import ru.nekit.android.mvpmeeting.GithubApp;
 import ru.nekit.android.mvpmeeting.model.api.ApiInterface;
 import ru.nekit.android.mvpmeeting.model.api.ApiModule;
 import ru.nekit.android.mvpmeeting.model.base.IMVPModel;
@@ -9,7 +12,12 @@ import ru.nekit.android.mvpmeeting.model.base.IMVPModel;
  */
 public class GithubModel implements IGithubModel {
 
-    private ApiInterface mApiInterface = ApiModule.getApiInterface();
+    @Inject
+    protected ApiInterface mApiInterface;
+
+    public GithubModel() {
+        GithubApp.getComponent().inject(this);
+    }
 
     public ApiInterface getApiInterface() {
         return mApiInterface;
