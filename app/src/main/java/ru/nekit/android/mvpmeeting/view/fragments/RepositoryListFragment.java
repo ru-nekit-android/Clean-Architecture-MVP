@@ -18,12 +18,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presenter.RepositoryListPresenter;
-import ru.nekit.android.mvpmeeting.presenter.base.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 import ru.nekit.android.mvpmeeting.view.adapters.RepositoryListAdapter;
 import ru.nekit.android.mvpmeeting.view.fragments.base.MVPBaseFragment;
 
-public class RepositoryListFragment extends MVPBaseFragment implements IRepositoryListView {
+public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -74,6 +73,11 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
     }
 
     @Override
+    protected RepositoryListPresenter getPresenter() {
+        return mPresenter;
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof ActivityCallback) {
@@ -95,14 +99,6 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
         makeToast(error.getMessage());
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (mPresenter != null) {
-            mPresenter.onSaveInstanceState(outState);
-        }
-    }
-
     private void makeToast(String text) {
         Snackbar.make(recyclerView, text, Snackbar.LENGTH_LONG).show();
     }
@@ -120,11 +116,6 @@ public class RepositoryListFragment extends MVPBaseFragment implements IReposito
     @Override
     public void showRepository(Repository repository) {
         mCallback.showRepositoryInfoFragment(repository);
-    }
-
-    @Override
-    protected MVPBasePresenter getPresenter() {
-        return mPresenter;
     }
 
     public void showLoading() {
