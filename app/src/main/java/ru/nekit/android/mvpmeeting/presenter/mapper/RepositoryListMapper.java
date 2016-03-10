@@ -1,6 +1,7 @@
 package ru.nekit.android.mvpmeeting.presenter.mapper;
 
 import ru.nekit.android.mvpmeeting.model.data.RepositoryDTO;
+import ru.nekit.android.mvpmeeting.presenter.mapper.base.BaseMapper;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 
 /**
