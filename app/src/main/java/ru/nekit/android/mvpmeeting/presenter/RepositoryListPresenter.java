@@ -23,7 +23,6 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     private static final String BUNDLE_REPOSITORY_LIST_KEY = "repository_list_key";
 
     private final RepositoryListMapper mMapper;
-    private List<Repository> mRepositoryList;
 
     public RepositoryListPresenter() {
         super(new GithubModel());
@@ -55,26 +54,32 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
                     }))
                     .subscribe(result -> {
                         if (result != null && !result.isEmpty()) {
-                            mRepositoryList = result;
+                            getModel().setRepositoryList(result);
                             view.setData(result);
                             view.showContent();
                         } else {
                             view.showEmptyList();
                         }
-                    }, view::showError));
+                    }, error -> {
+                        if (isAttached()) {
+                            view.showError(error);
+                            view.showEmptyList();
+                        }
+                    }));
         }
     }
 
     private boolean isRepoListEmpty() {
-        return mRepositoryList == null || mRepositoryList.isEmpty();
+        List<Repository> list = getModel().getRepositoryList();
+        return list == null || list.isEmpty();
     }
 
     public void onCreate(Bundle savedState) {
         IRepositoryListView view = getView();
         if (savedState != null) {
-            mRepositoryList = (List<Repository>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY);
+            getModel().setRepositoryList((List<Repository>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY));
             if (isAttached()) {
-                view.setData(mRepositoryList);
+                view.setData(getModel().getRepositoryList());
                 view.showContent();
             }
         } else {
@@ -84,7 +89,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     public void onSaveInstanceState(Bundle outState) {
         if (!isRepoListEmpty()) {
-            outState.putSerializable(BUNDLE_REPOSITORY_LIST_KEY, new ArrayList<>(mRepositoryList));
+            outState.putSerializable(BUNDLE_REPOSITORY_LIST_KEY, new ArrayList<>(getModel().getRepositoryList()));
         }
     }
 
