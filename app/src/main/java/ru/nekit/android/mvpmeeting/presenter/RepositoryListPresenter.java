@@ -24,14 +24,16 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     private static final String BUNDLE_REPOSITORY_LIST_KEY = "repository_list_key";
 
+    //DI
     private List<Repository> mRepositoryList;
-
+    private GetRepositoriesInteractor mInteractor;
     private RepositoryListMapper mMapper;
 
     @Inject
-    public RepositoryListPresenter(GithubModel model, RepositoryListMapper mapper) {
+    public RepositoryListPresenter(GithubModel model, RepositoryListMapper mapper, GetRepositoriesInteractor interactor) {
         super(model);
         mMapper = mapper;
+        mInteractor = interactor;
     }
 
     @Override
@@ -44,7 +46,8 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (isAttached()) {
             String userName = view.getUserName();
             if (TextUtils.isEmpty(userName)) return;
-            addSubscriber(new GetRepositoriesInteractor(getModel().getApiInterface(), view.getUserName()).execute()
+            mInteractor.setUserName(view.getUserName());
+            addSubscriber(mInteractor.execute()
                     .map(mMapper)
                     .compose(RxTransformers.applyOperationBeforeAndAfter((Runnable) () -> {
                         if (isAttached()) {
