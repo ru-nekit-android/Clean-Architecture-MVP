@@ -33,8 +33,8 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseAdapter.Vi
         return list == null ? 0 : list.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        TextView text;
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView text;
 
         public ViewHolder(View itemView) {
             super(itemView);
