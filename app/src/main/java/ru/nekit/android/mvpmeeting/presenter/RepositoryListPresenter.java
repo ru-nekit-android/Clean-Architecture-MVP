@@ -6,6 +6,8 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ru.nekit.android.mvpmeeting.model.GithubModel;
 import ru.nekit.android.mvpmeeting.model.IGithubModel;
 import ru.nekit.android.mvpmeeting.model.interactors.GetRepositoriesInteractor;
@@ -22,12 +24,14 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     private static final String BUNDLE_REPOSITORY_LIST_KEY = "repository_list_key";
 
-    private final RepositoryListMapper mMapper;
     private List<Repository> mRepositoryList;
 
-    public RepositoryListPresenter() {
-        super(new GithubModel());
-        mMapper = new RepositoryListMapper();
+    private RepositoryListMapper mMapper;
+
+    @Inject
+    public RepositoryListPresenter(GithubModel model, RepositoryListMapper mapper) {
+        super(model);
+        mMapper = mapper;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (isAttached()) {
             String userName = view.getUserName();
             if (TextUtils.isEmpty(userName)) return;
-            addSubscriber(new GetRepositoriesInteractor(getModel().getApiInterface(), userName).execute()
+            addSubscriber(new GetRepositoriesInteractor(getModel().getApiInterface(), view.getUserName()).execute()
                     .map(mMapper)
                     .compose(RxTransformers.applyOperationBeforeAndAfter((Runnable) () -> {
                         if (isAttached()) {

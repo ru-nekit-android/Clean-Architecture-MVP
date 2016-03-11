@@ -14,8 +14,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import ru.nekit.android.mvpmeeting.GithubApp;
 import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
@@ -36,13 +39,15 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Bind(R.id.message_view)
     TextView messageView;
 
-    private RepositoryListPresenter mPresenter;
+    @Inject
+    protected RepositoryListPresenter mPresenter;
+
     private RepositoryListAdapter mAdapter;
     private List<Repository> mData;
     private ActivityCallback mCallback;
 
     public RepositoryListFragment() {
-        mPresenter = new RepositoryListPresenter();
+        GithubApp.getComponent().inject(this);
     }
 
     public static RepositoryListFragment newInstance() {
