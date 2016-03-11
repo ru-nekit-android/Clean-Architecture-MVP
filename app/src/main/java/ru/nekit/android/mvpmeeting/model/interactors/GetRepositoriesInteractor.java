@@ -2,6 +2,9 @@ package ru.nekit.android.mvpmeeting.model.interactors;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import ru.nekit.android.mvpmeeting.model.api.ApiInterface;
 import ru.nekit.android.mvpmeeting.model.data.RepositoryDTO;
 import ru.nekit.android.mvpmeeting.model.interactors.base.IInteractor;
@@ -13,11 +16,17 @@ import rx.Observable;
  */
 public class GetRepositoriesInteractor implements IInteractor<List<RepositoryDTO>> {
 
-    private final ApiInterface apiInterface;
-    private final String name;
+    @Inject
+    protected ApiInterface apiInterface;
+    private String name;
 
-    public GetRepositoriesInteractor(ApiInterface apiInterface, String name) {
-        this.apiInterface = apiInterface;
+    @Singleton
+    @Inject
+    public GetRepositoriesInteractor() {
+
+    }
+
+    public void setUserName(String name) {
         this.name = name;
     }
 
