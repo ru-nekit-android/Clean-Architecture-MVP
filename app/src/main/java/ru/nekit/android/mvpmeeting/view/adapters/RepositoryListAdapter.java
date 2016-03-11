@@ -5,6 +5,7 @@ import java.util.List;
 
 import ru.nekit.android.mvpmeeting.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
+import ru.nekit.android.mvpmeeting.view.adapters.base.BaseAdapter;
 
 public class RepositoryListAdapter extends BaseAdapter<Repository> {
 
