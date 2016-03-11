@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.view.adapters;
+package ru.nekit.android.mvpmeeting.view.adapters.base;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

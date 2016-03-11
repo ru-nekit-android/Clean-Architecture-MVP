@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.view;
+package ru.nekit.android.mvpmeeting.view.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
