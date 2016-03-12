@@ -1,5 +1,7 @@
 package ru.nekit.android.mvpmeeting.presenter.base;
 
+import android.support.annotation.NonNull;
+
 import java.lang.ref.WeakReference;
 
 import ru.nekit.android.mvpmeeting.model.base.IMVPModel;
@@ -18,6 +20,7 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
 
     protected MVPBasePresenter(M model) {
         this.model = model;
+        //TODO: inject
         subscriptionList = new CompositeSubscription();
     }
 
@@ -33,7 +36,7 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
     }
 
     @Override
-    public void attachView(V view) {
+    public void attachView(@NonNull V view) {
         mViewRef = new WeakReference<>(view);
     }
 

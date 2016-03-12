@@ -12,14 +12,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import ru.nekit.android.mvpmeeting.GithubApp;
 import ru.nekit.android.mvpmeeting.R;
+import ru.nekit.android.mvpmeeting.model.IGithubRepositoryListModel;
 import ru.nekit.android.mvpmeeting.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 import ru.nekit.android.mvpmeeting.view.adapters.RepositoryListAdapter;
@@ -28,27 +26,23 @@ import ru.nekit.android.mvpmeeting.view.fragments.base.MVPBaseFragment;
 public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
+    protected RecyclerView recyclerView;
 
     @Bind(R.id.user_name_input)
-    EditText userNameInput;
+    protected EditText userNameInput;
 
     @Bind(R.id.obtain_repositories_button)
-    Button obtainRepositoriesButton;
+    protected Button obtainRepositoriesButton;
 
     @Bind(R.id.message_view)
-    TextView messageView;
+    protected TextView messageView;
 
     @Inject
     protected RepositoryListPresenter mPresenter;
 
     private RepositoryListAdapter mAdapter;
-    private List<Repository> mData;
+    private IGithubRepositoryListModel mData;
     private ActivityCallback mCallback;
-
-    public RepositoryListFragment() {
-        GithubApp.getComponent().inject(this);
-    }
 
     public static RepositoryListFragment newInstance() {
         return new RepositoryListFragment();
@@ -127,10 +121,10 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     public void showContent() {
-        mAdapter.setRepositoryList(mData);
+        mAdapter.setRepositoryList(mData.getRepositoryList());
     }
 
-    public void setData(List<Repository> data) {
+    public void setData(IGithubRepositoryListModel data) {
         mData = data;
     }
 

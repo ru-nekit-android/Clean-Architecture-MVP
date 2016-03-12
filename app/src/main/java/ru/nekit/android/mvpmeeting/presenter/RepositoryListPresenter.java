@@ -8,11 +8,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ru.nekit.android.mvpmeeting.model.GithubModel;
-import ru.nekit.android.mvpmeeting.model.IGithubModel;
-import ru.nekit.android.mvpmeeting.model.interactors.GetRepositoriesInteractor;
+import ru.nekit.android.mvpmeeting.model.GithubRepositoryListModel;
+import ru.nekit.android.mvpmeeting.model.IGithubRepositoryListModel;
+import ru.nekit.android.mvpmeeting.model.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.presenter.base.MVPBasePresenter;
-import ru.nekit.android.mvpmeeting.presenter.mapper.RepositoryListMapper;
+import ru.nekit.android.mvpmeeting.presenter.mapper.RepositoryDTOtoVOMapper;
 import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 import ru.nekit.android.mvpmeeting.utils.rx.RxTransformers;
 import ru.nekit.android.mvpmeeting.view.fragments.IRepositoryListView;
@@ -20,24 +20,39 @@ import ru.nekit.android.mvpmeeting.view.fragments.IRepositoryListView;
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
-public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListView, IGithubModel> {
+public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListView, IGithubRepositoryListModel> {
 
     private static final String BUNDLE_REPOSITORY_LIST_KEY = "repository_list_key";
 
     //DI
-    private List<Repository> mRepositoryList;
-    private GetRepositoriesInteractor mInteractor;
-    private RepositoryListMapper mMapper;
+    private ObtainRepositoriesInteractor mInteractor;
+    private RepositoryDTOtoVOMapper mMapper;
 
     @Inject
-    public RepositoryListPresenter(GithubModel model, RepositoryListMapper mapper, GetRepositoriesInteractor interactor) {
+    public RepositoryListPresenter(GithubRepositoryListModel model, RepositoryDTOtoVOMapper mapper, ObtainRepositoriesInteractor interactor) {
         super(model);
         mMapper = mapper;
         mInteractor = interactor;
     }
 
+    private void beforeLoad() {
+        IRepositoryListView view = getView();
+        if (isAttached()) {
+            getModel().setRepositoryList(null);
+            view.showContent();
+            view.showLoading();
+        }
+    }
+
+    private void afterLoad() {
+        IRepositoryListView view = getView();
+        if (isAttached()) {
+            view.hideLoading();
+        }
+    }
+
     @Override
-    public IGithubModel getModel() {
+    public IGithubRepositoryListModel getModel() {
         return model;
     }
 
@@ -46,52 +61,50 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (isAttached()) {
             String userName = view.getUserName();
             if (TextUtils.isEmpty(userName)) return;
-            mInteractor.setUserName(view.getUserName());
+            mInteractor.setUserName(userName);
             addSubscriber(mInteractor.execute()
                     .map(mMapper)
-                    .compose(RxTransformers.applyOperationBeforeAndAfter((Runnable) () -> {
-                        if (isAttached()) {
-                            view.setData(null);
-                            view.showContent();
-                            view.showLoading();
-                        }
-                    }, (Runnable) () -> {
-                        if (isAttached()) {
-                            view.hideLoading();
-                        }
-                    }))
+                    .compose(RxTransformers.applyOperationBeforeAndAfter(this::beforeLoad, this::afterLoad))
                     .subscribe(result -> {
-                        if (result != null && !result.isEmpty()) {
-                            mRepositoryList = result;
-                            view.setData(result);
-                            view.showContent();
-                        } else {
+                        if (isAttached()) {
+                            if (result != null && !result.isEmpty()) {
+                                getModel().setRepositoryList(result);
+                                view.showContent();
+                            } else {
+                                view.showEmptyList();
+                            }
+                        }
+                    }, error -> {
+                        if (isAttached()) {
+                            view.showError(error);
                             view.showEmptyList();
                         }
-                    }, view::showError));
+                    }));
         }
     }
 
     private boolean isRepoListEmpty() {
-        return mRepositoryList == null || mRepositoryList.isEmpty();
+        List<Repository> list = getModel().getRepositoryList();
+        return list == null || list.isEmpty();
     }
 
     public void onCreate(Bundle savedState) {
         IRepositoryListView view = getView();
-        if (savedState != null) {
-            mRepositoryList = (List<Repository>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY);
-            if (isAttached()) {
-                view.setData(mRepositoryList);
+        if (isAttached()) {
+            if (savedState != null) {
+                List<Repository> repositoryList = (List<Repository>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY);
+                getModel().setRepositoryList(repositoryList);
                 view.showContent();
+            } else {
+                view.showEmptyList();
             }
-        } else {
-            view.showEmptyList();
+            view.setData(getModel());
         }
     }
 
     public void onSaveInstanceState(Bundle outState) {
         if (!isRepoListEmpty()) {
-            outState.putSerializable(BUNDLE_REPOSITORY_LIST_KEY, new ArrayList<>(mRepositoryList));
+            outState.putSerializable(BUNDLE_REPOSITORY_LIST_KEY, new ArrayList<>(getModel().getRepositoryList()));
         }
     }
 

@@ -1,6 +1,9 @@
 package ru.nekit.android.mvpmeeting.utils.rx;
 
+import javax.inject.Inject;
+
 import rx.Observable;
+import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -9,9 +12,9 @@ import rx.schedulers.Schedulers;
  */
 public class RxTransformers {
 
-    public static <T> Observable.Transformer<T, T> applySchedulers() {
-        return tObservable -> tObservable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    public static <T> Observable.Transformer<T, T> applySchedulers(Scheduler preScheduler, Scheduler postScheduler) {
+        return tObservable -> tObservable.subscribeOn(preScheduler)
+                .observeOn(postScheduler);
     }
 
     public static <T> Observable.Transformer<T, T> applyOperationBeforeAndAfter(Runnable before, Runnable after) {

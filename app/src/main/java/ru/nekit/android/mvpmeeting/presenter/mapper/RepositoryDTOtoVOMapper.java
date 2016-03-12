@@ -10,11 +10,11 @@ import ru.nekit.android.mvpmeeting.presenter.vo.Repository;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public class RepositoryListMapper extends BaseMapper<RepositoryDTO, Repository> {
+@Singleton
+public class RepositoryDTOtoVOMapper extends BaseMapper<RepositoryDTO, Repository> {
 
-    @Singleton
     @Inject
-    public RepositoryListMapper() {
+    public RepositoryDTOtoVOMapper() {
     }
 
     public Repository convert(RepositoryDTO value) {
