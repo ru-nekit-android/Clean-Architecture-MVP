@@ -3,6 +3,8 @@ package ru.nekit.android.mvpmeeting.presentation.view.adapters;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.vo.Repository;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.base.BaseAdapter;
@@ -11,6 +13,7 @@ public class RepositoryListAdapter extends BaseAdapter<Repository> {
 
     private WeakReference<RepositoryListPresenter> presenterRef;
 
+    @Inject
     public RepositoryListAdapter(RepositoryListPresenter presenter) {
         this.presenterRef = new WeakReference<>(presenter);
     }

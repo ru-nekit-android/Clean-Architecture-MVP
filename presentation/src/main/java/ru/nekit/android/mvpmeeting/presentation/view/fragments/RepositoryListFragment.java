@@ -20,8 +20,8 @@ import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.vo.Repository;
-import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
+import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 
 public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView> implements IRepositoryListView {
 
@@ -40,7 +40,9 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Inject
     protected RepositoryListPresenter mPresenter;
 
-    private RepositoryListAdapter mAdapter;
+    @Inject
+    protected RepositoryListAdapter mAdapter;
+
     private IGithubRepositoryListModel mData;
     private ActivityCallback mCallback;
 
@@ -59,7 +61,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(llm);
-        mAdapter = new RepositoryListAdapter(mPresenter);
         recyclerView.setAdapter(mAdapter);
 
         mPresenter.onCreate(savedInstanceState);
