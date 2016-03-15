@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.data;
+package ru.nekit.android.mvpmeeting.model;
 
 /**
  * Created by MacOS on 12.03.16.

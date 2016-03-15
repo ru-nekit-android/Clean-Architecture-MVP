@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.data.api;
+package ru.nekit.android.mvpmeeting.model.api;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;

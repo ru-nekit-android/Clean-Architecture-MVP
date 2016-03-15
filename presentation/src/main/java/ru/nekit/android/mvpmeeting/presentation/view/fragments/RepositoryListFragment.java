@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.Repository;
+import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 
@@ -109,7 +109,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public void showRepository(Repository repository) {
+    public void showRepository(RepositoryVO repository) {
         mCallback.showRepositoryInfoFragment(repository);
     }
 
@@ -130,6 +130,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     public interface ActivityCallback {
-        void showRepositoryInfoFragment(Repository repository);
+        void showRepositoryInfoFragment(RepositoryVO repository);
     }
 }

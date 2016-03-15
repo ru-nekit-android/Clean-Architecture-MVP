@@ -1,10 +1,9 @@
-package ru.nekit.android.mvpmeeting.data.api;
+package ru.nekit.android.mvpmeeting.model.api;
 
 import java.util.List;
 
 import retrofit.http.GET;
 import retrofit.http.Path;
-import ru.nekit.android.mvpmeeting.data.RepositoryDTO;
 import rx.Observable;
 
 /**
@@ -13,6 +12,6 @@ import rx.Observable;
 public interface ApiInterface {
 
     @GET("users/{user}/repos")
-    Observable<List<RepositoryDTO>> getRepositories(@Path("user") String user);
+    Observable<List<ru.nekit.android.mvpmeeting.model.RepositoryDTO>> getRepositories(@Path("user") String user);
 
 }

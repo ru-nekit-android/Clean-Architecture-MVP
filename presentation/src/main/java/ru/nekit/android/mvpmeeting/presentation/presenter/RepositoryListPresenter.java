@@ -13,8 +13,8 @@ import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel
 import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryDTOtoVOMapper;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.Repository;
-import ru.nekit.android.mvpmeeting.data.utils.rx.RxTransformers;
+import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
+import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.IRepositoryListView;
 
 /**
@@ -84,7 +84,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     private boolean isRepoListEmpty() {
-        List<Repository> list = getModel().getRepositoryList();
+        List<RepositoryVO> list = getModel().getRepositoryList();
         return list == null || list.isEmpty();
     }
 
@@ -92,7 +92,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         IRepositoryListView view = getView();
         if (isAttached()) {
             if (savedState != null) {
-                List<Repository> repositoryList = (List<Repository>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY);
+                List<RepositoryVO> repositoryList = (List<RepositoryVO>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY);
                 getModel().setRepositoryList(repositoryList);
                 view.showContent();
             } else {
@@ -108,7 +108,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         }
     }
 
-    public void selectRepository(Repository repository) {
+    public void selectRepository(RepositoryVO repository) {
         if (isAttached()) {
             getView().showRepository(repository);
         }

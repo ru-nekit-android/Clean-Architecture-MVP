@@ -11,7 +11,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.presentation.GithubApp;
 import ru.nekit.android.mvpmeeting.R;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.Repository;
+import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.RepositoryListFragment;
 
 public class RepositoryListActivity extends AppCompatActivity implements RepositoryListFragment.ActivityCallback {
@@ -46,7 +46,7 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
         transaction.commit();
     }
 
-    public void showRepositoryInfoFragment(Repository repository) {
+    public void showRepositoryInfoFragment(RepositoryVO repository) {
 
     }
 }

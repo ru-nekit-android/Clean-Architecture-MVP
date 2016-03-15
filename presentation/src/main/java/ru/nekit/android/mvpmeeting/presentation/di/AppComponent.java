@@ -9,7 +9,7 @@ import ru.nekit.android.mvpmeeting.presentation.view.fragments.RepositoryListFra
  * Created by ru.nekit.android on 08.03.16.
  */
 @Singleton
-@Component(modules = {DomainModule.class})
+@Component(modules = {PresentationModule.class, DomainModule.class, ModelModule.class})
 public interface AppComponent {
 
     void inject(RepositoryListFragment value);

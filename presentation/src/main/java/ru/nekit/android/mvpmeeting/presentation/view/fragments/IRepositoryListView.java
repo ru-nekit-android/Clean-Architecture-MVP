@@ -1,7 +1,7 @@
 package ru.nekit.android.mvpmeeting.presentation.view.fragments;
 
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.Repository;
+import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.view.base.ILceView;
 
 /**
@@ -13,5 +13,5 @@ public interface IRepositoryListView extends ILceView<IGithubRepositoryListModel
 
     void showEmptyList();
 
-    void showRepository(Repository repository);
+    void showRepository(RepositoryVO repository);
 }

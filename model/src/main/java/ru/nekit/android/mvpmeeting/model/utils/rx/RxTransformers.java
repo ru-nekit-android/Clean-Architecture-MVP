@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.data.utils.rx;
+package ru.nekit.android.mvpmeeting.model.utils.rx;
 
 import rx.Observable;
 import rx.Scheduler;

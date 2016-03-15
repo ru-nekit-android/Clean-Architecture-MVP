@@ -3,12 +3,12 @@ package ru.nekit.android.mvpmeeting.presentation.presenter.vo;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public class Repository {
+public class RepositoryVO {
 
     private String repoName;
     private String ownerName;
 
-    public Repository(String repoName, String ownerName) {
+    public RepositoryVO(String repoName, String ownerName) {
         this.repoName = repoName;
         this.ownerName = ownerName;
     }

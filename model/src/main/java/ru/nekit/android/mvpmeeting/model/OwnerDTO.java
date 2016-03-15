@@ -1,5 +1,5 @@
 
-package ru.nekit.android.mvpmeeting.data;
+package ru.nekit.android.mvpmeeting.model;
 
 
 import com.google.gson.annotations.Expose;
