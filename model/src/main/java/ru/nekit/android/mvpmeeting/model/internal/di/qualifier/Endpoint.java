@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.model.internal.di;
+package ru.nekit.android.mvpmeeting.model.internal.di.qualifier;
 
 import java.lang.annotation.Retention;
 
