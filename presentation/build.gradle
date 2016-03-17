@@ -20,7 +20,7 @@ android {
         versionCode _rootExt.androidVersionCode
         versionName _rootExt.androidVersionName
 
-        buildConfigField "String", "API_URL", '"http://api.randomuser.me/"'
+        buildConfigField "String", "API_URL", '"https://api.github.com/"'
     }
     buildTypes {
         release {
