@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.presentation.di;
+package ru.nekit.android.mvpmeeting.presentation.internal.di.modules;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -6,10 +6,11 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ru.nekit.android.mvpmeeting.model.Const;
-import ru.nekit.android.mvpmeeting.model.api.ApiInterface;
-import ru.nekit.android.mvpmeeting.model.api.ApiModule;
-import ru.nekit.android.mvpmeeting.model.repositiory.IRepository;
-import ru.nekit.android.mvpmeeting.model.repositiory.Repository;
+import ru.nekit.android.mvpmeeting.model.mapper.RepositoryEntityToRepositoryMapper;
+import ru.nekit.android.mvpmeeting.model.net.ApiInterface;
+import ru.nekit.android.mvpmeeting.model.net.ApiModule;
+import ru.nekit.android.mvpmeeting.domain.repository.IGithubRepository;
+import ru.nekit.android.mvpmeeting.model.repository.GithubRepository;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -43,8 +44,8 @@ public class ModelModule {
 
     @Provides
     @Singleton
-    IRepository provideRepository(ApiInterface apiInterface, @Named(Const.PRE_THREAD) Scheduler preScheduler, @Named(Const.POST_THREAD) Scheduler postScheduler) {
-        return new Repository(apiInterface, preScheduler, postScheduler);
+    IGithubRepository provideRepository(ApiInterface apiInterface, RepositoryEntityToRepositoryMapper mapper, @Named(Const.PRE_THREAD) Scheduler preScheduler, @Named(Const.POST_THREAD) Scheduler postScheduler) {
+        return new GithubRepository(apiInterface, mapper, preScheduler, postScheduler);
     }
 
 }

@@ -54,6 +54,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_repository_list, container, false);
         ButterKnife.bind(this, view);
 

@@ -12,7 +12,7 @@ import ru.nekit.android.mvpmeeting.presentation.model.GithubRepositoryListModel;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
 import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.MVPBasePresenter;
-import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryDTOtoVOMapper;
+import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToModelMapper;
 import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.IRepositoryListView;
@@ -26,10 +26,10 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     //DI
     private ObtainRepositoriesInteractor mInteractor;
-    private RepositoryDTOtoVOMapper mMapper;
+    private RepositoryToModelMapper mMapper;
 
     @Inject
-    public RepositoryListPresenter(GithubRepositoryListModel model, RepositoryDTOtoVOMapper mapper, ObtainRepositoriesInteractor interactor) {
+    public RepositoryListPresenter(GithubRepositoryListModel model, RepositoryToModelMapper mapper, ObtainRepositoriesInteractor interactor) {
         super(model);
         mMapper = mapper;
         mInteractor = interactor;

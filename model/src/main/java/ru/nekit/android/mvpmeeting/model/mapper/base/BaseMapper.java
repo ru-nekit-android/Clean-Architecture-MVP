@@ -1,4 +1,4 @@
-package ru.nekit.android.mvpmeeting.presentation.presenter.mapper.base;
+package ru.nekit.android.mvpmeeting.model.mapper.base;
 
 import java.util.List;
 

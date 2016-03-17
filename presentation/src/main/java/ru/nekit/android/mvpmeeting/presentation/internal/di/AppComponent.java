@@ -1,8 +1,11 @@
-package ru.nekit.android.mvpmeeting.presentation.di;
+package ru.nekit.android.mvpmeeting.presentation.internal.di;
 
 import javax.inject.Singleton;
 
 import dagger.Component;
+import ru.nekit.android.mvpmeeting.presentation.internal.di.modules.DomainModule;
+import ru.nekit.android.mvpmeeting.presentation.internal.di.modules.ModelModule;
+import ru.nekit.android.mvpmeeting.presentation.internal.di.modules.PresentationModule;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.RepositoryListFragment;
 
 /**

@@ -1,10 +1,10 @@
 
-package ru.nekit.android.mvpmeeting.model;
+package ru.nekit.android.mvpmeeting.model.entities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RepositoryDTO {
+public class RepositoryEntity {
 
     @SerializedName("id")
     @Expose
@@ -17,7 +17,7 @@ public class RepositoryDTO {
     private String fullName;
     @SerializedName("owner")
     @Expose
-    private OwnerDTO owner;
+    private OwnerEntity owner;
     @SerializedName("private")
     @Expose
     private Boolean _private;
@@ -256,14 +256,14 @@ public class RepositoryDTO {
     /**
      * @return The owner
      */
-    public OwnerDTO getOwner() {
+    public OwnerEntity getOwner() {
         return owner;
     }
 
     /**
      * @param owner The owner
      */
-    public void setOwner(OwnerDTO owner) {
+    public void setOwner(OwnerEntity owner) {
         this.owner = owner;
     }
 

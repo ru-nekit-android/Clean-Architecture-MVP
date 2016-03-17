@@ -2,28 +2,28 @@ package ru.nekit.android.mvpmeeting.domain.interactors;
 
 import java.util.List;
 
+import ru.nekit.android.mvpmeeting.domain.Repository;
 import ru.nekit.android.mvpmeeting.domain.interactors.base.IInteractor;
-import ru.nekit.android.mvpmeeting.model.RepositoryDTO;
-import ru.nekit.android.mvpmeeting.model.repositiory.IRepository;
+import ru.nekit.android.mvpmeeting.domain.repository.IGithubRepository;
 import rx.Observable;
 
 /**
  * Created by ru.nekit.android on 07.03.16.
  */
-public class ObtainRepositoriesInteractor implements IInteractor<List<RepositoryDTO>> {
+public class ObtainRepositoriesInteractor implements IInteractor<List<Repository>> {
 
-    private IRepository mRepository;
-    private String name;
+    private IGithubRepository mRepository;
+    private String mName;
 
-    public ObtainRepositoriesInteractor(IRepository repository) {
+    public ObtainRepositoriesInteractor(IGithubRepository repository) {
         mRepository = repository;
     }
 
-    public void setUserName(String value) {
-        name = value;
+    public void setUserName(String name) {
+        mName = name;
     }
 
-    public Observable<List<RepositoryDTO>> execute() {
-        return mRepository.getRepositoryList(name);
+    public Observable<List<Repository>> execute() {
+        return mRepository.getRepositories(mName);
     }
 }
