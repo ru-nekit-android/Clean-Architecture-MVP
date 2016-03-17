@@ -10,6 +10,6 @@ import rx.Observable;
  */
 public interface IGithubRepository {
 
-    Observable<List<Repository>> getRepositories(String userName);
+    Observable<List<Repository>> getRepositories(final String userName);
 
 }

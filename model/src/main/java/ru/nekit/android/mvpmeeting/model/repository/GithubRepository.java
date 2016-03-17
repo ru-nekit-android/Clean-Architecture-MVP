@@ -28,7 +28,7 @@ public class GithubRepository implements IGithubRepository {
     }
 
     @Override
-    public Observable<List<Repository>> getRepositories(String userName) {
+    public Observable<List<Repository>> getRepositories(final String userName) {
         return mApiInterface.getRepositories(userName).map(mMapper).compose(RxTransformers.applySchedulers(mPreScheduler, mPostScheduler));
     }
 }
