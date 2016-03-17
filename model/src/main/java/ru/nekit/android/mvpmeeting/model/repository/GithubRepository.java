@@ -2,8 +2,12 @@ package ru.nekit.android.mvpmeeting.model.repository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import ru.nekit.android.mvpmeeting.domain.Repository;
 import ru.nekit.android.mvpmeeting.domain.repository.IGithubRepository;
+import ru.nekit.android.mvpmeeting.model.Const;
 import ru.nekit.android.mvpmeeting.model.mapper.RepositoryEntityToRepositoryMapper;
 import ru.nekit.android.mvpmeeting.model.net.ApiInterface;
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
@@ -20,7 +24,8 @@ public class GithubRepository implements IGithubRepository {
     private Scheduler mPostScheduler;
     private RepositoryEntityToRepositoryMapper mMapper;
 
-    public GithubRepository(ApiInterface apiInterface, RepositoryEntityToRepositoryMapper mapper, Scheduler preScheduler, Scheduler postScheduler) {
+    @Inject
+    public GithubRepository(ApiInterface apiInterface, RepositoryEntityToRepositoryMapper mapper, @Named(Const.PRE_THREAD) Scheduler preScheduler, @Named(Const.POST_THREAD) Scheduler postScheduler) {
         mApiInterface = apiInterface;
         mPreScheduler = preScheduler;
         mPostScheduler = postScheduler;

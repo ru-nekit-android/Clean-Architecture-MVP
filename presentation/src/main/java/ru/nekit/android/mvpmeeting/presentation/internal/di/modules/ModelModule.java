@@ -44,8 +44,8 @@ public class ModelModule {
 
     @Provides
     @Singleton
-    IGithubRepository provideRepository(ApiInterface apiInterface, RepositoryEntityToRepositoryMapper mapper, @Named(Const.PRE_THREAD) Scheduler preScheduler, @Named(Const.POST_THREAD) Scheduler postScheduler) {
-        return new GithubRepository(apiInterface, mapper, preScheduler, postScheduler);
+    IGithubRepository provideGithubRepository(GithubRepository repository) {
+        return repository;
     }
 
 }

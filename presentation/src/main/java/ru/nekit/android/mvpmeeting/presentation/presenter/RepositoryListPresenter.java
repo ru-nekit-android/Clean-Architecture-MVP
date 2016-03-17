@@ -61,8 +61,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (isAttached()) {
             String userName = view.getUserName();
             if (TextUtils.isEmpty(userName)) return;
-            mInteractor.setUserName(userName);
-            addSubscriber(mInteractor.execute()
+            addSubscriber(mInteractor.execute(userName)
                     .map(mMapper)
                     .compose(RxTransformers.applyOperationBeforeAndAfter(this::beforeLoad, this::afterLoad))
                     .subscribe(result -> {
