@@ -7,6 +7,7 @@ import dagger.Provides;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 import retrofit.RxJavaCallAdapterFactory;
+import ru.nekit.android.mvpmeeting.model.internal.di.qualifier.Endpoint;
 import ru.nekit.android.mvpmeeting.model.net.GitHubApiService;
 
 /**
