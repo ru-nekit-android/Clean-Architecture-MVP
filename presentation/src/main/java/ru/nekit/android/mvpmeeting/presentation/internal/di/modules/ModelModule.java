@@ -48,4 +48,11 @@ public class ModelModule {
         return repository;
     }
 
+    @Provides
+    @Singleton
+    @Endpoint
+    String provideEndpoint() {
+        return BuildConfig.API_URL;
+    }
+
 }
