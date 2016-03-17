@@ -9,7 +9,7 @@ import ru.nekit.android.mvpmeeting.domain.Repository;
 import ru.nekit.android.mvpmeeting.domain.repository.IGithubRepository;
 import ru.nekit.android.mvpmeeting.model.Const;
 import ru.nekit.android.mvpmeeting.model.mapper.RepositoryEntityToRepositoryMapper;
-import ru.nekit.android.mvpmeeting.model.net.ApiInterface;
+import ru.nekit.android.mvpmeeting.model.net.GitHubApiService;
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
 import rx.Observable;
 import rx.Scheduler;
@@ -19,14 +19,14 @@ import rx.Scheduler;
  */
 public class GithubRepository implements IGithubRepository {
 
-    private ApiInterface mApiInterface;
+    private GitHubApiService mGitHubApiService;
     private Scheduler mPreScheduler;
     private Scheduler mPostScheduler;
     private RepositoryEntityToRepositoryMapper mMapper;
 
     @Inject
-    public GithubRepository(ApiInterface apiInterface, RepositoryEntityToRepositoryMapper mapper, @Named(Const.PRE_THREAD) Scheduler preScheduler, @Named(Const.POST_THREAD) Scheduler postScheduler) {
-        mApiInterface = apiInterface;
+    public GithubRepository(GitHubApiService gitHubApiService, RepositoryEntityToRepositoryMapper mapper, @Named(Const.PRE_THREAD) Scheduler preScheduler, @Named(Const.POST_THREAD) Scheduler postScheduler) {
+        mGitHubApiService = gitHubApiService;
         mPreScheduler = preScheduler;
         mPostScheduler = postScheduler;
         mMapper = mapper;
@@ -34,6 +34,6 @@ public class GithubRepository implements IGithubRepository {
 
     @Override
     public Observable<List<Repository>> getRepositories(final String userName) {
-        return mApiInterface.getRepositories(userName).map(mMapper).compose(RxTransformers.applySchedulers(mPreScheduler, mPostScheduler));
+        return mGitHubApiService.getRepositories(userName).map(mMapper).compose(RxTransformers.applySchedulers(mPreScheduler, mPostScheduler));
     }
 }
