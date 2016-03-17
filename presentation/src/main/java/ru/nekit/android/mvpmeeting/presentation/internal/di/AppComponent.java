@@ -3,6 +3,7 @@ package ru.nekit.android.mvpmeeting.presentation.internal.di;
 import javax.inject.Singleton;
 
 import dagger.Component;
+import ru.nekit.android.mvpmeeting.model.internal.di.ApiModule;
 import ru.nekit.android.mvpmeeting.presentation.internal.di.modules.DomainModule;
 import ru.nekit.android.mvpmeeting.presentation.internal.di.modules.ModelModule;
 import ru.nekit.android.mvpmeeting.presentation.internal.di.modules.PresentationModule;
@@ -12,7 +13,7 @@ import ru.nekit.android.mvpmeeting.presentation.view.fragments.RepositoryListFra
  * Created by ru.nekit.android on 08.03.16.
  */
 @Singleton
-@Component(modules = {PresentationModule.class, DomainModule.class, ModelModule.class})
+@Component(modules = {PresentationModule.class, DomainModule.class, ModelModule.class, ApiModule.class})
 public interface AppComponent {
 
     void inject(RepositoryListFragment value);

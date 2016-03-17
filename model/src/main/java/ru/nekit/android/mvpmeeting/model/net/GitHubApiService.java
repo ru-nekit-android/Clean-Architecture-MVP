@@ -10,7 +10,7 @@ import rx.Observable;
 /**
  * Created by MacOS on 02.03.16.
  */
-public interface ApiInterface {
+public interface GitHubApiService {
 
     @GET("users/{user}/repos")
     Observable<List<RepositoryEntity>> getRepositories(@Path("user") String user);
