@@ -2,16 +2,25 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 
+def _rootExt = parent.ext
+def _dependencies = _rootExt.dependencies
+def _testDependencies = _rootExt.testDependencies
+def _developmentDependencies = _rootExt.developmentDependencies
+
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+
+    compileSdkVersion _rootExt.androidCompileSdkVersion
+    buildToolsVersion _rootExt.androidBuildToolsVersion
 
     defaultConfig {
-        applicationId "ru.nekit.android.mvpmeeting"
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+
+        applicationId _rootExt.androidApplicationId
+        minSdkVersion _rootExt.androidMinSdkVersion
+        targetSdkVersion _rootExt.androidTargetSdkVersion
+        versionCode _rootExt.androidVersionCode
+        versionName _rootExt.androidVersionName
+
+        buildConfigField "String", "API_URL", '"http://api.randomuser.me/"'
     }
     buildTypes {
         release {
@@ -22,20 +31,30 @@ android {
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_6
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+
     compile project(':domain')
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:design:23.2.0'
-    compile 'com.android.support:support-v4:23.2.0'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'com.jakewharton:butterknife:7.0.1'
-    apt 'com.google.dagger:dagger-compiler:2.0.2'
-    compile 'com.google.dagger:dagger:2.0.2'
+    compile project(':model')
+
+    compile _dependencies.androidSupportv7
+    compile _dependencies.androidSupportv4
+    compile _dependencies.androidDesign
+
+    compile _dependencies.rxJava
+    compile _dependencies.rxBinding
+
+    compile _dependencies.butterknife
+
+    apt _dependencies.daggerCompiler
+    compile _dependencies.dagger
+
+    testCompile _testDependencies.junit
+
+    compile _developmentDependencies.leakCanary
+
 }

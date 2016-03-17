@@ -1,0 +1,38 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+
+    daggerVersion = '2.0.2'
+    retrofitVersion = '2.0.0-beta2'
+    leakCanaryVersion = '1.3.1'
+
+    supportLibraryVersion = "23.2.0"
+    dependencies = [androidSupportv7           : "com.android.support:appcompat-v7:$supportLibraryVersion",
+                    androidSupportv4           : "com.android.support:support-v4:$supportLibraryVersion",
+                    androidDesign              : "com.android.support:design:$supportLibraryVersion",
+
+                    rxJava                     : "io.reactivex:rxjava:1.0.14",
+                    rxAndroid                  : "io.reactivex:rxandroid:1.0.1",
+                    retrofit                   : "com.squareup.retrofit:retrofit:$retrofitVersion",
+                    retrofitAdapterRxJava      : "com.squareup.retrofit:adapter-rxjava:$retrofitVersion",
+                    retrofitConverterGson      : "com.squareup.retrofit:converter-gson:$retrofitVersion",
+                    rxBinding                  : "com.jakewharton.rxbinding:rxbinding:0.4.0",
+
+                    dagger                     : "com.google.dagger:dagger:$daggerVersion",
+                    daggerCompiler             : "com.google.dagger:dagger-compiler:$daggerVersion",
+
+                    butterknife                : "com.jakewharton:butterknife:7.0.1"
+
+                    ]
+
+    testDependencies =  [junit   : "junit:junit:4.12"
+                        ]
+
+    developmentDependencies = [
+            leakCanary: "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+    ]
+}

@@ -1,19 +1,12 @@
 apply plugin: 'java'
-apply plugin: 'application'
 apply plugin: 'me.tatarka.retrolambda'
 
-configurations {
-    provided
-}
-
-retrolambda {
-    javaVersion JavaVersion.VERSION_1_6
-}
+def _rootExt = parent.ext
+def _dependencies = _rootExt.dependencies
+def _testDependencies = _rootExt.testDependencies
 
 dependencies {
-    compile project(':model')
-    testCompile 'junit:junit:4.12'
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'com.google.dagger:dagger:2.0.2'
-    provided 'com.google.dagger:dagger-compiler:2.0.2'
+
+    compile _dependencies.rxJava
+    testCompile _testDependencies.junit
 }

@@ -1,22 +1,36 @@
-apply plugin: 'java'
-apply plugin: 'application'
+apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
 
-configurations {
-    provided
-}
+def _rootExt = parent.ext
+def _dependencies = _rootExt.dependencies
+def _testDependencies = _rootExt.testDependencies
 
-retrolambda {
-    javaVersion JavaVersion.VERSION_1_6
+android {
+
+    compileSdkVersion _rootExt.androidCompileSdkVersion
+    buildToolsVersion _rootExt.androidBuildToolsVersion
+    defaultConfig {
+        minSdkVersion _rootExt.androidMinSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'com.squareup.retrofit:retrofit:2.0.0-beta4'
-    compile 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
-    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
-    compile 'com.google.dagger:dagger:2.0.2'
-    provided 'com.google.dagger:dagger-compiler:2.0.2'
+
+    compile project(':domain')
+
+    compile _dependencies.rxJava
+    compile _dependencies.retrofit
+    compile _dependencies.retrofitAdapterRxJava
+    compile _dependencies.retrofitConverterGson
+
+    apt _dependencies.daggerCompiler
+    compile _dependencies.dagger
+
+    testCompile _testDependencies.junit
 }

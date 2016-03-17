@@ -1,6 +1,9 @@
+apply from: 'dependencies.gradle'
+
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.0-alpha1'
@@ -10,8 +13,21 @@ buildscript {
 }
 
 allprojects {
+
+    ext {
+        // Android config
+        androidBuildToolsVersion = '23.0.2'
+        androidMinSdkVersion = 14
+        androidTargetSdkVersion = 23
+        androidCompileSdkVersion = 23
+        androidApplicationId = 'ru.nekit.android.mvpmeeting'
+        androidVersionCode = 1
+        androidVersionName = '1.0'
+    }
+
     repositories {
         jcenter()
+        mavenCentral()
     }
 }
 
