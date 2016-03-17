@@ -5,8 +5,8 @@ import rx.Observable;
 /**
  * Created by MacOS on 10.03.16.
  */
-public interface IInteractor<T> {
+public interface IInteractor<T, P> {
 
-    Observable<T> execute();
+    Observable<T> execute(P parameter);
 
 }

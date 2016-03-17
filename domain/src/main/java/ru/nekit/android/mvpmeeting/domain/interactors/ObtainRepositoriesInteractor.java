@@ -10,20 +10,15 @@ import rx.Observable;
 /**
  * Created by ru.nekit.android on 07.03.16.
  */
-public class ObtainRepositoriesInteractor implements IInteractor<List<Repository>> {
+public class ObtainRepositoriesInteractor implements IInteractor<List<Repository>, String> {
 
     private IGithubRepository mRepository;
-    private String mName;
 
     public ObtainRepositoriesInteractor(IGithubRepository repository) {
         mRepository = repository;
     }
 
-    public void setUserName(String name) {
-        mName = name;
-    }
-
-    public Observable<List<Repository>> execute() {
-        return mRepository.getRepositories(mName);
+    public Observable<List<Repository>> execute(String name) {
+        return mRepository.getRepositories(name);
     }
 }
