@@ -1,15 +1,15 @@
 package ru.nekit.android.mvpmeeting.presentation.internal.di.modules;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import ru.nekit.android.mvpmeeting.BuildConfig;
 import ru.nekit.android.mvpmeeting.domain.repository.IGithubRepository;
-import ru.nekit.android.mvpmeeting.model.Const;
+import ru.nekit.android.mvpmeeting.model.internal.di.qualifier.Endpoint;
 import ru.nekit.android.mvpmeeting.model.repository.GithubRepository;
-import ru.nekit.android.mvpmeeting.model.internal.di.Endpoint;
+import ru.nekit.android.mvpmeeting.model.internal.di.qualifier.IOThread;
+import ru.nekit.android.mvpmeeting.model.internal.di.qualifier.UIThread;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -23,15 +23,15 @@ public class ModelModule {
 
     @Provides
     @Singleton
-    @Named(Const.PRE_THREAD)
-    Scheduler providePreScheduler() {
+    @IOThread
+    Scheduler provideLongOperationScheduler() {
         return Schedulers.io();
     }
 
     @Provides
     @Singleton
-    @Named(Const.POST_THREAD)
-    Scheduler providePostScheduler() {
+    @UIThread
+    Scheduler provideUIThreadScheduler() {
         return AndroidSchedulers.mainThread();
     }
 

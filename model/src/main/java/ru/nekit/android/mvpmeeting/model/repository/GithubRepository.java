@@ -7,7 +7,8 @@ import javax.inject.Named;
 
 import ru.nekit.android.mvpmeeting.domain.Repository;
 import ru.nekit.android.mvpmeeting.domain.repository.IGithubRepository;
-import ru.nekit.android.mvpmeeting.model.Const;
+import ru.nekit.android.mvpmeeting.model.internal.di.qualifier.IOThread;
+import ru.nekit.android.mvpmeeting.model.internal.di.qualifier.UIThread;
 import ru.nekit.android.mvpmeeting.model.mapper.RepositoryEntityToRepositoryMapper;
 import ru.nekit.android.mvpmeeting.model.net.GitHubApiService;
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
@@ -25,7 +26,7 @@ public class GithubRepository implements IGithubRepository {
     private RepositoryEntityToRepositoryMapper mMapper;
 
     @Inject
-    public GithubRepository(GitHubApiService gitHubApiService, RepositoryEntityToRepositoryMapper mapper, @Named(Const.PRE_THREAD) Scheduler preScheduler, @Named(Const.POST_THREAD) Scheduler postScheduler) {
+    public GithubRepository(GitHubApiService gitHubApiService, RepositoryEntityToRepositoryMapper mapper, @IOThread Scheduler preScheduler, @UIThread Scheduler postScheduler) {
         mGitHubApiService = gitHubApiService;
         mPreScheduler = preScheduler;
         mPostScheduler = postScheduler;
