@@ -5,7 +5,7 @@ import javax.inject.Singleton;
 
 import ru.nekit.android.mvpmeeting.domain.Repository;
 import ru.nekit.android.mvpmeeting.model.mapper.base.BaseMapper;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
+import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 
 /**
  * Created by ru.nekit.android on 04.03.16.
