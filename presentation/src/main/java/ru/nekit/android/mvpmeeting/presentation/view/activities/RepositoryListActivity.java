@@ -33,9 +33,7 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
 
         Fragment fragment = fragmentManager.findFragmentByTag(TAG);
         if (fragment == null) {
-            RepositoryListFragment repositoryListFragment = RepositoryListFragment.newInstance();
-            GithubApp.getApplicationComponent().inject(repositoryListFragment);
-            replaceFragment(repositoryListFragment, false);
+            replaceFragment(RepositoryListFragment.newInstance(), false);
         }
     }
 
