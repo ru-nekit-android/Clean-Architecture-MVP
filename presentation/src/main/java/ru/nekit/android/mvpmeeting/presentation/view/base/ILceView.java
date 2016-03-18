@@ -11,7 +11,7 @@ public interface ILceView<D, E> extends IMVPView {
 
     void showContent();
 
-    void setData(D data);
+    void hideContent();
 
     void showError(E e);
 }
