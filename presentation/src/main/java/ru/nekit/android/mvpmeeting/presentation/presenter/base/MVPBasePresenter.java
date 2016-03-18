@@ -16,7 +16,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> implements IMVPPresenter<V, M> {
 
-    protected final M model;
+    protected M model;
     @Inject
     protected CompositeSubscription subscriptionList;
     private WeakReference<V> mViewRef;
