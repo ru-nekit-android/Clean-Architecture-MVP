@@ -28,6 +28,7 @@ public abstract class MVPBaseFragment<P extends IMVPPresenter, V extends IMVPVie
 
     @CallSuper
     @Override
+    @SuppressWarnings("unchecked")
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onResume();
         if (getPresenter() != null) {
