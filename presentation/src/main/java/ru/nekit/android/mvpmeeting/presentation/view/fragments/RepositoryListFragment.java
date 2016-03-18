@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presentation.GithubApp;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
@@ -64,8 +65,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         View view = inflater.inflate(R.layout.fragment_repository_list, container, false);
         ButterKnife.bind(this, view);
 
-        obtainRepositoriesButton.setOnClickListener(v -> mPresenter.onSearchClick());
-
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(mAdapter);
@@ -73,6 +72,11 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         mPresenter.onCreate(savedInstanceState);
 
         return view;
+    }
+
+    @OnClick(value = R.id.obtain_repositories_button)
+    protected void onObtainClick() {
+        mPresenter.onSearchClick();
     }
 
     @Override
