@@ -1,9 +1,13 @@
 package ru.nekit.android.mvpmeeting.presentation.presenter.vo;
 
+import android.os.IBinder;
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public class RepositoryVO {
+public class RepositoryVO implements Parcelable {
 
     private String repoName;
     private String ownerName;
@@ -33,4 +37,26 @@ public class RepositoryVO {
         return repoName + " : " + ownerName;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(repoName);
+    }
+
+    public static final Parcelable.Creator<RepositoryVO> CREATOR = new Parcelable.Creator<RepositoryVO>() {
+
+        @Override
+        public RepositoryVO createFromParcel(Parcel source) {
+            return new RepositoryVO(source.readString(), source.readString());
+        }
+
+        @Override
+        public RepositoryVO[] newArray(int size) {
+            return new RepositoryVO[size];
+        }
+    };
 }
