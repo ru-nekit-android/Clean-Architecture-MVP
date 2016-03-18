@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,22 +18,20 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presentation.GithubApp;
-import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
+import ru.nekit.android.mvpmeeting.presentation.model.IGithubViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
+import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLceView;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 
-public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView> implements IRepositoryListView {
+public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView> implements IRepositoryListView<IGithubViewModel, Throwable, IStateableLceView.State> {
 
     @Bind(R.id.recyclerView)
     protected RecyclerView recyclerView;
 
     @Bind(R.id.user_name_input)
     protected EditText userNameInput;
-
-    @Bind(R.id.obtain_repositories_button)
-    protected Button obtainRepositoriesButton;
 
     @Bind(R.id.message_view)
     protected TextView messageView;
@@ -74,7 +71,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         return view;
     }
 
-    @OnClick(value = R.id.obtain_repositories_button)
+    @OnClick(R.id.obtain_repositories_button)
     protected void onObtainClick() {
         mPresenter.onSearchClick();
     }
@@ -102,8 +99,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public void showError(Throwable error) {
-        makeToast(error.getMessage());
+    public IGithubViewModel getModel() {
+        return getPresenter() != null ? getPresenter().getModel() : null;
     }
 
     private void makeToast(String text) {
@@ -125,26 +122,31 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         mCallback.showRepositoryInfoFragment(repository);
     }
 
+    @Override
     public void showLoading() {
         messageView.setText(getString(R.string.loading_message));
     }
 
+    @Override
     public void hideLoading() {
         messageView.setText("");
     }
 
+    @Override
     public void showContent() {
-        RepositoryListPresenter presenter = getPresenter();
-        if (presenter != null) {
-            IGithubRepositoryListModel model = presenter.getModel();
-            if (model != null) {
-                mAdapter.setRepositoryList(model.getRepositoryList());
-            }
+        if (getModel() != null) {
+            mAdapter.setRepositoryList(getModel().getRepositoriesList());
         }
     }
 
+    @Override
     public void hideContent() {
         mAdapter.setRepositoryList(null);
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        makeToast(e.getMessage());
     }
 
     @Override
@@ -152,6 +154,50 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         super.onDestroy();
         GithubApp.getRefWatcher().watch(this);
     }
+
+    @Override
+    public void setState(IStateableLceView.State state) {
+        getModel().setState(state);
+        switch (state) {
+            case CONTENT:
+
+                hideLoading();
+                showContent();
+
+                break;
+
+            case EMPTY:
+
+                hideLoading();
+                showEmptyList();
+
+                break;
+
+            case LOADING:
+
+                hideContent();
+                showLoading();
+
+                break;
+
+            case ERROR:
+
+                showError(getModel().getError());
+
+                break;
+
+            default:
+                break;
+
+
+        }
+    }
+
+    @Override
+    public IStateableLceView.State getState() {
+        return getModel().getState();
+    }
+
     public interface ActivityCallback {
         void showRepositoryInfoFragment(RepositoryVO repository);
     }

@@ -1,13 +1,14 @@
 package ru.nekit.android.mvpmeeting.presentation.view.fragments;
 
-import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
-import ru.nekit.android.mvpmeeting.presentation.view.base.ILceView;
+import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
+import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLceView;
+import ru.nekit.android.mvpmeeting.presentation.view.base.ViewState;
 
 /**
  * Created by ru.nekit.android on 05.03.16.
  */
-public interface IRepositoryListView extends ILceView<IGithubRepositoryListModel, Throwable> {
+public interface IRepositoryListView<M extends IViewModel, E, S extends IStateableLceView.State> extends IStateableLceView<M, E, S> {
 
     String getUserName();
 
@@ -15,3 +16,4 @@ public interface IRepositoryListView extends ILceView<IGithubRepositoryListModel
 
     void showRepository(RepositoryVO repository);
 }
+
