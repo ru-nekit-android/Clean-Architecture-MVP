@@ -1,6 +1,5 @@
-package ru.nekit.android.mvpmeeting.presentation.presenter.vo;
+package ru.nekit.android.mvpmeeting.presentation.model.vo;
 
-import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 
