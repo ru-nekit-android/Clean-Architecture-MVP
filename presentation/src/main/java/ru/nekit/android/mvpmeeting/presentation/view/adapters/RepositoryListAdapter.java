@@ -6,7 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
-import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
+import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.base.BaseAdapter;
 
 public class RepositoryListAdapter extends BaseAdapter<RepositoryVO> {
