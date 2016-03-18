@@ -24,6 +24,9 @@ import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresente
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 
+import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.CONTENT;
+import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.EMPTY;
+
 public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView, IGithubViewModel> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
@@ -98,7 +101,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public IGithubViewModel getModel() {
+    public IGithubViewModel getViewModel() {
         return getPresenter() != null ? getPresenter().getModel() : null;
     }
 
@@ -133,9 +136,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Override
     public void showContent() {
-        if (getModel() != null) {
-            mAdapter.setRepositoryList(getModel().getRepositoriesList());
-        }
+        mAdapter.setRepositoryList(getViewModel().getRepositoriesList());
     }
 
     @Override
@@ -155,8 +156,13 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public void setState(LCEViewState state) {
-        getModel().setState(state);
+    public void applyState() {
+        LCEViewState state = getViewModel().getViewState();
+        if (state == CONTENT) {
+            if (getViewModel().getRepositoriesList() == null || getViewModel().getRepositoriesList().isEmpty()) {
+                state = EMPTY;
+            }
+        }
         switch (state) {
             case CONTENT:
 
@@ -181,7 +187,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
             case ERROR:
 
-                showError(getModel().getError());
+                showEmptyList();
+                showError(getViewModel().getError());
 
                 break;
 
@@ -190,11 +197,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
 
         }
-    }
-
-    @Override
-    public LCEViewState getState() {
-        return getModel().getState();
     }
 
     public interface ActivityCallback {

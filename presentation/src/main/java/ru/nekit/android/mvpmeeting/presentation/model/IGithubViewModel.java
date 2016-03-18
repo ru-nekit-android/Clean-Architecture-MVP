@@ -21,9 +21,9 @@ public interface IGithubViewModel extends IViewModel, Parcelable {
     void setError(Throwable error);
     Throwable getError();
 
-    void setState(IStateableLCEView.LCEViewState state);
+    void setViewState(IStateableLCEView.LCEViewState state);
     @NonNull
-    IStateableLCEView.LCEViewState getState();
+    IStateableLCEView.LCEViewState getViewState();
 
     @Override
     int describeContents();

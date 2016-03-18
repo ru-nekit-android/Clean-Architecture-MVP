@@ -12,12 +12,15 @@ import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteract
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
 import ru.nekit.android.mvpmeeting.presentation.model.GithubViewModel;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToModelMapper;
-import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
+import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.IRepositoryListView;
 
-import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.*;
+import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.CONTENT;
+import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.ERROR;
+import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.LOADING;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
@@ -37,10 +40,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     private void onBeforeLoad() {
-        IRepositoryListView view = getView();
-        if (isAttached()) {
-            view.setState(LOADING);
-        }
+        setState(LOADING);
     }
 
     private void onAfterLoad() {
@@ -48,23 +48,19 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     private void onResult(List<RepositoryVO> result) {
-        IRepositoryListView view = getView();
-        if (isAttached()) {
-            if (result != null && !result.isEmpty()) {
-                getModel().setRepositoriesList(result);
-                view.setState(CONTENT);
-            } else {
-                view.setState(EMPTY);
-            }
-        }
+        getModel().setRepositoriesList(result);
+        setState(CONTENT);
     }
 
     private void onError(Throwable error) {
-        IRepositoryListView view = getView();
+        getModel().setError(error);
+        setState(ERROR);
+    }
+
+    private void setState(IStateableLCEView.LCEViewState state) {
+        getModel().setViewState(state);
         if (isAttached()) {
-            getModel().setError(error);
-            view.setState(EMPTY);
-            view.setState(ERROR);
+            getView().applyState();
         }
     }
 
@@ -86,14 +82,11 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     public void onCreate(@Nullable Bundle savedState) {
-        IRepositoryListView view = getView();
+        if (savedState != null) {
+            model = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
+        }
         if (isAttached()) {
-            if (savedState != null) {
-                model = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
-                view.setState(getModel().getState());
-            } else {
-                view.setState(EMPTY);
-            }
+            getView().applyState();
         }
     }
 

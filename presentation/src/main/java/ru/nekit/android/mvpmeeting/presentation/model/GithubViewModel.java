@@ -45,13 +45,13 @@ public class GithubViewModel implements IGithubViewModel {
     }
 
     @Override
-    public void setState(IStateableLCEView.LCEViewState state) {
+    public void setViewState(IStateableLCEView.LCEViewState state) {
         mState = state;
     }
 
     @Override
     @NonNull
-    public IStateableLCEView.LCEViewState getState() {
+    public IStateableLCEView.LCEViewState getViewState() {
         return mState;
     }
 
