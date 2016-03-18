@@ -18,7 +18,7 @@ public class RepositoryToModelMapper extends BaseMapper<Repository, RepositoryVO
     }
 
     public RepositoryVO convert(Repository value) {
-        return new RepositoryVO(value.getRepoName(), value.getOwnerName());
+        return new RepositoryVO(value.getName(), value.getOwnerName());
     }
 
 }
