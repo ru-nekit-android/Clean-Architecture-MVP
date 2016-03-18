@@ -3,14 +3,14 @@ package ru.nekit.android.mvpmeeting.presentation.presenter;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
+import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
 import ru.nekit.android.mvpmeeting.presentation.model.GithubRepositoryListModel;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
-import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToModelMapper;
 import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
@@ -90,6 +90,11 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (isAttached()) {
             if (savedState != null) {
                 model = savedState.getParcelable(BUNDLE_REPOSITORY_LIST_KEY);
+                if(isRepoListEmpty()){
+                    view.showEmptyList();
+                }else {
+                    view.showContent();
+                }
             } else {
                 view.showEmptyList();
             }
