@@ -5,20 +5,20 @@ package ru.nekit.android.mvpmeeting.domain;
  */
 public class Repository {
 
-    private String repoName;
+    private String name;
     private String ownerName;
 
-    public Repository(String repoName, String ownerName) {
-        this.repoName = repoName;
+    public Repository(String name, String ownerName) {
+        this.name = name;
         this.ownerName = ownerName;
     }
 
-    public String getRepoName() {
-        return repoName;
+    public String getName() {
+        return name;
     }
 
-    public void setRepoName(String repoName) {
-        this.repoName = repoName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getOwnerName() {
@@ -30,6 +30,6 @@ public class Repository {
     }
 
     public String toString() {
-        return repoName + " : " + ownerName;
+        return name + " : " + ownerName;
     }
 }
