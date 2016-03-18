@@ -1,6 +1,7 @@
 package ru.nekit.android.mvpmeeting.presentation.presenter;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import java.util.List;
@@ -85,14 +86,14 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         return list == null || list.isEmpty();
     }
 
-    public void onCreate(Bundle savedState) {
+    public void onCreate(@Nullable  Bundle savedState) {
         IRepositoryListView view = getView();
         if (isAttached()) {
             if (savedState != null) {
                 model = savedState.getParcelable(BUNDLE_REPOSITORY_LIST_KEY);
-                if(isRepoListEmpty()){
+                if (isRepoListEmpty()) {
                     view.showEmptyList();
-                }else {
+                } else {
                     view.showContent();
                 }
             } else {
