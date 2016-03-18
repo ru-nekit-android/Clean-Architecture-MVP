@@ -14,7 +14,6 @@ import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteract
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToModelMapper;
 import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
-import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.IRepositoryListView;
 
 /**
@@ -38,8 +37,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     private void beforeLoad() {
         IRepositoryListView view = getView();
         if (isAttached()) {
-            getModel().setRepositoryList(null);
-            view.showContent();
+            view.hideContent();
             view.showLoading();
         }
     }
@@ -91,20 +89,15 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         IRepositoryListView view = getView();
         if (isAttached()) {
             if (savedState != null) {
-                List<RepositoryVO> repositoryList = (List<RepositoryVO>) savedState.getSerializable(BUNDLE_REPOSITORY_LIST_KEY);
-                getModel().setRepositoryList(repositoryList);
-                view.showContent();
+                model = savedState.getParcelable(BUNDLE_REPOSITORY_LIST_KEY);
             } else {
                 view.showEmptyList();
             }
-            view.setData(getModel());
         }
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        if (!isRepoListEmpty()) {
-            outState.putSerializable(BUNDLE_REPOSITORY_LIST_KEY, new ArrayList<>(getModel().getRepositoryList()));
-        }
+        outState.putParcelable(BUNDLE_REPOSITORY_LIST_KEY, getModel());
     }
 
     public void selectRepository(RepositoryVO repository) {
