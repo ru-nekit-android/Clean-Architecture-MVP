@@ -15,8 +15,8 @@ ext {
                     androidSupportv4           : "com.android.support:support-v4:$supportLibraryVersion",
                     androidDesign              : "com.android.support:design:$supportLibraryVersion",
 
-                    rxJava                     : "io.reactivex:rxjava:1.0.14",
-                    rxAndroid                  : "io.reactivex:rxandroid:1.0.1",
+                    rxJava                     : "io.reactivex:rxjava:1.1.0",
+                    rxAndroid                  : "io.reactivex:rxandroid:1.1.0",
                     retrofit                   : "com.squareup.retrofit:retrofit:$retrofitVersion",
                     retrofitAdapterRxJava      : "com.squareup.retrofit:adapter-rxjava:$retrofitVersion",
                     retrofitConverterGson      : "com.squareup.retrofit:converter-gson:$retrofitVersion",
