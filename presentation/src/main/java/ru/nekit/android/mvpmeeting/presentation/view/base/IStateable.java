@@ -5,8 +5,6 @@ package ru.nekit.android.mvpmeeting.presentation.view.base;
  */
 public interface IStateable<T extends ViewState> {
 
-    void setState(T state);
-
-    T getState();
+    void applyState();
 
 }
