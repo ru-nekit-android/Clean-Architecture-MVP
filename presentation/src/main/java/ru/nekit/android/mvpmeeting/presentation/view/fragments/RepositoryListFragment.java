@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.mvpmeeting.R;
+import ru.nekit.android.mvpmeeting.presentation.GithubApp;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubRepositoryListModel;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.vo.RepositoryVO;
@@ -43,11 +44,16 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Inject
     protected RepositoryListAdapter mAdapter;
 
-    private IGithubRepositoryListModel mData;
     private ActivityCallback mCallback;
 
     public static RepositoryListFragment newInstance() {
         return new RepositoryListFragment();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        GithubApp.getApplicationComponent().inject(this);
     }
 
     @Override
@@ -65,6 +71,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         recyclerView.setAdapter(mAdapter);
 
         mPresenter.onCreate(savedInstanceState);
+
         return view;
     }
 
@@ -123,11 +130,17 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     public void showContent() {
-        mAdapter.setRepositoryList(mData.getRepositoryList());
+        RepositoryListPresenter presenter = getPresenter();
+        if (presenter != null) {
+            IGithubRepositoryListModel model = presenter.getModel();
+            if (model != null) {
+                mAdapter.setRepositoryList(model.getRepositoryList());
+            }
+        }
     }
 
-    public void setData(IGithubRepositoryListModel data) {
-        mData = data;
+    public void hideContent() {
+        mAdapter.setRepositoryList(null);
     }
 
     public interface ActivityCallback {
