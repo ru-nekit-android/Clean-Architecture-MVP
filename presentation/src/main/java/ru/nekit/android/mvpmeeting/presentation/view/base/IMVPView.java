@@ -7,6 +7,6 @@ import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
  */
 public interface IMVPView<M extends IViewModel> {
 
-    M getModel();
+    M getViewModel();
 
 }
