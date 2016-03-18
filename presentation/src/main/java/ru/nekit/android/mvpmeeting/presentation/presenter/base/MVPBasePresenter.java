@@ -6,7 +6,7 @@ import java.lang.ref.WeakReference;
 
 import javax.inject.Inject;
 
-import ru.nekit.android.mvpmeeting.presentation.model.base.IMVPModel;
+import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
 import ru.nekit.android.mvpmeeting.presentation.view.base.IMVPView;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -14,7 +14,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> implements IMVPPresenter<V, M> {
+public abstract class MVPBasePresenter<V extends IMVPView, M extends IViewModel> implements IMVPPresenter<V, M> {
 
     protected M model;
     @Inject
