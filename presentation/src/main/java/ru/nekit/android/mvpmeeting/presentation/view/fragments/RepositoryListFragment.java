@@ -147,6 +147,11 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         mAdapter.setRepositoryList(null);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        GithubApp.getRefWatcher().watch(this);
+    }
     public interface ActivityCallback {
         void showRepositoryInfoFragment(RepositoryVO repository);
     }
