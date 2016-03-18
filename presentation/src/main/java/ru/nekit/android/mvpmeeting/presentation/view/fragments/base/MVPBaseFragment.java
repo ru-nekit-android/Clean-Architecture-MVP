@@ -18,6 +18,7 @@ public abstract class MVPBaseFragment<P extends IMVPPresenter, V extends IMVPVie
 
     protected abstract P getPresenter();
 
+    @CallSuper
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -46,6 +47,7 @@ public abstract class MVPBaseFragment<P extends IMVPPresenter, V extends IMVPVie
         }
     }
 
+    @CallSuper
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
