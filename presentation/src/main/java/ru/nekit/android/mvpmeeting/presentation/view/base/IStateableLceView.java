@@ -5,9 +5,9 @@ import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface  IStateableLceView<M extends IViewModel, E, S extends IStateableLceView.State> extends ILceView<M, E>, IStateableView<S> {
+public interface IStateableLCEView<M extends IViewModel, E, S extends IStateableLCEView.LCEViewState> extends ILCEView<M, E>, IStateable<S> {
 
-    enum State implements ViewState {
+    enum LCEViewState implements ViewState {
         EMPTY,
         CONTENT,
         LOADING,

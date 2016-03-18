@@ -22,10 +22,9 @@ import ru.nekit.android.mvpmeeting.presentation.model.IGithubViewModel;
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
-import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLceView;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 
-public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView> implements IRepositoryListView<IGithubViewModel, Throwable, IStateableLceView.State> {
+public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView, IGithubViewModel> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
     protected RecyclerView recyclerView;
@@ -156,7 +155,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public void setState(IStateableLceView.State state) {
+    public void setState(LCEViewState state) {
         getModel().setState(state);
         switch (state) {
             case CONTENT:
@@ -194,7 +193,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public IStateableLceView.State getState() {
+    public LCEViewState getState() {
         return getModel().getState();
     }
 

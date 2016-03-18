@@ -5,7 +5,7 @@ import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface ILceView<M extends IViewModel, E> extends IMVPView {
+public interface ILCEView<M extends IViewModel, E> extends IMVPView<M> {
 
     void showLoading();
 
@@ -16,6 +16,4 @@ public interface ILceView<M extends IViewModel, E> extends IMVPView {
     void hideContent();
 
     void showError(E e);
-
-    M getModel();
 }

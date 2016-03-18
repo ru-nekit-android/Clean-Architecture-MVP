@@ -9,7 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLceView;
+import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
@@ -18,7 +18,7 @@ public class GithubViewModel implements IGithubViewModel {
 
     private List<RepositoryVO> mRepositoryList;
     private Throwable mError;
-    private IStateableLceView.State mState = IStateableLceView.State.EMPTY;
+    private IStateableLCEView.LCEViewState mState = IStateableLCEView.LCEViewState.EMPTY;
 
     @Inject
     public GithubViewModel() {
@@ -45,13 +45,13 @@ public class GithubViewModel implements IGithubViewModel {
     }
 
     @Override
-    public void setState(IStateableLceView.State state) {
+    public void setState(IStateableLCEView.LCEViewState state) {
         mState = state;
     }
 
     @Override
     @NonNull
-    public IStateableLceView.State getState() {
+    public IStateableLCEView.LCEViewState getState() {
         return mState;
     }
 
@@ -71,7 +71,7 @@ public class GithubViewModel implements IGithubViewModel {
 
         public GithubViewModel createFromParcel(Parcel source) {
             GithubViewModel model = new GithubViewModel();
-            model.mState = (IStateableLceView.State) source.readSerializable();
+            model.mState = (IStateableLCEView.LCEViewState) source.readSerializable();
             model.mError = (Throwable) source.readSerializable();
             source.readTypedList(model.mRepositoryList, RepositoryVO.CREATOR);
             return model;

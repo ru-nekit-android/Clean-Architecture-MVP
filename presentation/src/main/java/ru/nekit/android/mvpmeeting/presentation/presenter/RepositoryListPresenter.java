@@ -17,7 +17,7 @@ import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToMod
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.IRepositoryListView;
 
-import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLceView.State.*;
+import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.*;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
@@ -85,17 +85,12 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         }
     }
 
-    private boolean isRepoListEmpty() {
-        List<RepositoryVO> list = getModel().getRepositoriesList();
-        return list == null || list.isEmpty();
-    }
-
     public void onCreate(@Nullable Bundle savedState) {
         IRepositoryListView view = getView();
         if (isAttached()) {
             if (savedState != null) {
                 model = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
-                view.setState(model.getState());
+                view.setState(getModel().getState());
             } else {
                 view.setState(EMPTY);
             }
