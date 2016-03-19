@@ -9,24 +9,34 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView;
+import ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
 public class GithubViewModel implements IGithubViewModel {
 
+    public static final Parcelable.Creator<GithubViewModel> CREATOR = new Parcelable.Creator<GithubViewModel>() {
+
+        public GithubViewModel createFromParcel(Parcel source) {
+            GithubViewModel model = new GithubViewModel();
+            model.mState = (LCEViewState) source.readSerializable();
+            model.mError = (Throwable) source.readSerializable();
+            source.readTypedList(model.mRepositoryList, RepositoryVO.CREATOR);
+            return model;
+        }
+
+        public GithubViewModel[] newArray(int size) {
+            return new GithubViewModel[size];
+        }
+
+    };
     private List<RepositoryVO> mRepositoryList;
     private Throwable mError;
-    private IStateableLCEView.LCEViewState mState = IStateableLCEView.LCEViewState.EMPTY;
+    private LCEViewState mState = LCEViewState.EMPTY;
 
     @Inject
     public GithubViewModel() {
-    }
-
-    @Override
-    public void setRepositoriesList(List<RepositoryVO> value) {
-        mRepositoryList = value;
     }
 
     @Override
@@ -35,8 +45,8 @@ public class GithubViewModel implements IGithubViewModel {
     }
 
     @Override
-    public void setError(Throwable error) {
-        mError = error;
+    public void setRepositoriesList(List<RepositoryVO> value) {
+        mRepositoryList = value;
     }
 
     @Override
@@ -45,14 +55,19 @@ public class GithubViewModel implements IGithubViewModel {
     }
 
     @Override
-    public void setViewState(IStateableLCEView.LCEViewState state) {
-        mState = state;
+    public void setError(Throwable error) {
+        mError = error;
     }
 
     @Override
     @NonNull
-    public IStateableLCEView.LCEViewState getViewState() {
+    public LCEViewState getViewState() {
         return mState;
+    }
+
+    @Override
+    public void setViewState(LCEViewState state) {
+        mState = state;
     }
 
     @Override
@@ -66,20 +81,4 @@ public class GithubViewModel implements IGithubViewModel {
         dest.writeSerializable(mError);
         dest.writeList(mRepositoryList);
     }
-
-    public static final Parcelable.Creator<GithubViewModel> CREATOR = new Parcelable.Creator<GithubViewModel>() {
-
-        public GithubViewModel createFromParcel(Parcel source) {
-            GithubViewModel model = new GithubViewModel();
-            model.mState = (IStateableLCEView.LCEViewState) source.readSerializable();
-            model.mError = (Throwable) source.readSerializable();
-            source.readTypedList(model.mRepositoryList, RepositoryVO.CREATOR);
-            return model;
-        }
-
-        public GithubViewModel[] newArray(int size) {
-            return new GithubViewModel[size];
-        }
-
-    };
 }

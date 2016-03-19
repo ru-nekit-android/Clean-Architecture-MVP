@@ -24,9 +24,6 @@ import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresente
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 
-import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.CONTENT;
-import static ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView.LCEViewState.EMPTY;
-
 public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView, IGithubViewModel> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
@@ -102,7 +99,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Override
     public IGithubViewModel getViewModel() {
-        return getPresenter() != null ? getPresenter().getModel() : null;
+        return getPresenter() != null ? getPresenter().getViewModel() : null;
     }
 
     private void makeToast(String text) {
@@ -153,50 +150,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     public void onDestroy() {
         super.onDestroy();
         GithubApp.getRefWatcher().watch(this);
-    }
-
-    @Override
-    public void applyState() {
-        LCEViewState state = getViewModel().getViewState();
-        if (state == CONTENT) {
-            if (getViewModel().getRepositoriesList() == null || getViewModel().getRepositoriesList().isEmpty()) {
-                state = EMPTY;
-            }
-        }
-        switch (state) {
-            case CONTENT:
-
-                hideLoading();
-                showContent();
-
-                break;
-
-            case EMPTY:
-
-                hideLoading();
-                showEmptyList();
-
-                break;
-
-            case LOADING:
-
-                hideContent();
-                showLoading();
-
-                break;
-
-            case ERROR:
-
-                showEmptyList();
-                showError(getViewModel().getError());
-
-                break;
-
-            default:
-                break;
-
-
-        }
     }
 
     public interface ActivityCallback {

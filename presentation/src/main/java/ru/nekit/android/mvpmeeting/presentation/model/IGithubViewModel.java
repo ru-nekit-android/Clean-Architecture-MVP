@@ -8,22 +8,25 @@ import java.util.List;
 
 import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.mvpmeeting.presentation.view.base.IStateableLCEView;
+import ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
  */
 public interface IGithubViewModel extends IViewModel, Parcelable {
 
-    void setRepositoriesList(List<RepositoryVO> list);
     List<RepositoryVO> getRepositoriesList();
 
-    void setError(Throwable error);
+    void setRepositoriesList(List<RepositoryVO> list);
+
     Throwable getError();
 
-    void setViewState(IStateableLCEView.LCEViewState state);
+    void setError(Throwable error);
+
     @NonNull
-    IStateableLCEView.LCEViewState getViewState();
+    LCEViewState getViewState();
+
+    void setViewState(LCEViewState state);
 
     @Override
     int describeContents();
