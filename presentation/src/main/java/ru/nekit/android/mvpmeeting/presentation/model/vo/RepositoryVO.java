@@ -8,6 +8,18 @@ import android.os.Parcelable;
  */
 public class RepositoryVO implements Parcelable {
 
+    public static final Parcelable.Creator<RepositoryVO> CREATOR = new Parcelable.Creator<RepositoryVO>() {
+
+        @Override
+        public RepositoryVO createFromParcel(Parcel source) {
+            return new RepositoryVO(source.readString(), source.readString());
+        }
+
+        @Override
+        public RepositoryVO[] newArray(int size) {
+            return new RepositoryVO[size];
+        }
+    };
     private String repoName;
     private String ownerName;
 
@@ -45,17 +57,4 @@ public class RepositoryVO implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(repoName);
     }
-
-    public static final Parcelable.Creator<RepositoryVO> CREATOR = new Parcelable.Creator<RepositoryVO>() {
-
-        @Override
-        public RepositoryVO createFromParcel(Parcel source) {
-            return new RepositoryVO(source.readString(), source.readString());
-        }
-
-        @Override
-        public RepositoryVO[] newArray(int size) {
-            return new RepositoryVO[size];
-        }
-    };
 }

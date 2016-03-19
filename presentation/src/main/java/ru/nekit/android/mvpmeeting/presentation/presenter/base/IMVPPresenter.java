@@ -16,7 +16,7 @@ public interface IMVPPresenter<V extends IMVPView, M extends IViewModel> {
 
     V getView();
 
-    M getModel();
+    M getViewModel();
 
     boolean isAttached();
 

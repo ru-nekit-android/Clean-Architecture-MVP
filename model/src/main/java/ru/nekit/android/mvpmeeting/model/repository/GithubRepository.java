@@ -3,7 +3,6 @@ package ru.nekit.android.mvpmeeting.model.repository;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import ru.nekit.android.mvpmeeting.domain.Repository;
 import ru.nekit.android.mvpmeeting.domain.repository.IGithubRepository;

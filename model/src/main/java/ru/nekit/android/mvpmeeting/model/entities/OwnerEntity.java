@@ -1,4 +1,3 @@
-
 package ru.nekit.android.mvpmeeting.model.entities;
 
 
