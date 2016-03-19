@@ -4,7 +4,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import rx.subscriptions.CompositeSubscription;
+import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
+import ru.nekit.android.mvpmeeting.presentation.model.GithubViewModel;
+import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
+import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToModelMapper;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
@@ -15,8 +18,8 @@ public class PresentationModule {
 
     @Singleton
     @Provides
-    public CompositeSubscription provideCompositeSubscription() {
-        return new CompositeSubscription();
+    public RepositoryListPresenter providePresenter(GithubViewModel viewModel, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
+        return new RepositoryListPresenter(viewModel, interactor, mapper);
     }
 
 }
