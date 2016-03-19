@@ -20,6 +20,7 @@ public class GithubViewModel implements IGithubViewModel {
 
         public GithubViewModel createFromParcel(Parcel source) {
             GithubViewModel model = new GithubViewModel();
+            model.mUserName = source.readString();
             model.mState = (LCEViewState) source.readSerializable();
             model.mError = (Throwable) source.readSerializable();
             source.readTypedList(model.mRepositoryList, RepositoryVO.CREATOR);
@@ -31,9 +32,11 @@ public class GithubViewModel implements IGithubViewModel {
         }
 
     };
+
     private List<RepositoryVO> mRepositoryList;
     private Throwable mError;
     private LCEViewState mState = LCEViewState.EMPTY;
+    private String mUserName;
 
     @Inject
     public GithubViewModel() {
@@ -77,8 +80,19 @@ public class GithubViewModel implements IGithubViewModel {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mUserName);
         dest.writeSerializable(mState);
         dest.writeSerializable(mError);
         dest.writeList(mRepositoryList);
+    }
+
+    @Override
+    public void setUserName(String userName) {
+        mUserName = userName;
+    }
+
+    @Override
+    public String getUserName() {
+        return mUserName;
     }
 }

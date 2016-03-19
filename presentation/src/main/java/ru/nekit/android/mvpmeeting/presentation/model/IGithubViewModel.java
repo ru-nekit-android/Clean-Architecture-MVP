@@ -34,4 +34,6 @@ public interface IGithubViewModel extends IViewModel, Parcelable {
     @Override
     void writeToParcel(Parcel dest, int flags);
 
+    void setUserName(String userName);
+    String getUserName();
 }
