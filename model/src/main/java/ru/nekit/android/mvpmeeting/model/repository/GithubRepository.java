@@ -1,6 +1,7 @@
 package ru.nekit.android.mvpmeeting.model.repository;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -34,6 +35,6 @@ public class GithubRepository implements IGithubRepository {
 
     @Override
     public Observable<List<Repository>> getRepositories(final String userName) {
-        return mGitHubApiService.getRepositories(userName).map(mMapper).compose(RxTransformers.applySchedulers(mPreScheduler, mPostScheduler));
+        return mGitHubApiService.getRepositories(userName).map(mMapper).delay(10, TimeUnit.SECONDS).compose(RxTransformers.applySchedulers(mPreScheduler, mPostScheduler));
     }
 }
