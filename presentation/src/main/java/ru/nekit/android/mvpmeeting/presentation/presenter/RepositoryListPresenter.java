@@ -42,7 +42,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     private void onAfterLoad() {
-        //do nothing because after that the state of view will be set to CONTENT that automatically hide loading
+        //do nothing because after that the state of a view will be set to CONTENT state that automatically hides a loading
     }
 
     private void onResult(List<RepositoryVO> result) {
