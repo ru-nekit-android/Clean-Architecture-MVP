@@ -20,6 +20,7 @@ import ru.nekit.android.mvpmeeting.presentation.view.fragments.IRepositoryListVi
 import static ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState.CONTENT;
 import static ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState.EMPTY;
 import static ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState.ERROR;
+import static ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState.LOADING;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
@@ -72,11 +73,19 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (isAttached()) {
             String userName = view.getUserName();
             if (TextUtils.isEmpty(userName)) return;
-            addSubscriber(mInteractor.execute(userName)
-                    .map(mMapper)
-                    .compose(RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad))
-                    .subscribe(this::onResult, this::onError));
+            setState(LCEViewState.LOADING);
+            getViewModel().setUserName(userName);
+            performLoad();
         }
+    }
+
+    private void performLoad() {
+        String userName = getViewModel().getUserName();
+        if (TextUtils.isEmpty(userName)) return;
+        addSubscriber(mInteractor.execute(userName)
+                .map(mMapper)
+                .compose(RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad))
+                .subscribe(this::onResult, this::onError));
     }
 
     public void onCreate(@Nullable Bundle savedState) {
@@ -85,6 +94,9 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         }
         if (isAttached()) {
             applyState();
+        }
+        if(getViewModel().getViewState() == LOADING){
+            performLoad();
         }
     }
 
