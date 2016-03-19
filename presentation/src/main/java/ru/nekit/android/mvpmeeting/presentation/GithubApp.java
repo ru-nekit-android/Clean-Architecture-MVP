@@ -18,6 +18,14 @@ public class GithubApp extends Application {
     private static GithubApp instance;
     private RefWatcher refWatcher;
 
+    public static AppComponent getApplicationComponent() {
+        return applicationComponent;
+    }
+
+    public static RefWatcher getRefWatcher() {
+        return instance.refWatcher;
+    }
+
     public void onCreate() {
         super.onCreate();
         initializeInjector();
@@ -33,14 +41,6 @@ public class GithubApp extends Application {
         if (BuildConfig.DEBUG) {
             refWatcher = LeakCanary.install(this);
         }
-    }
-
-    public static AppComponent getApplicationComponent() {
-        return applicationComponent;
-    }
-
-    public static RefWatcher getRefWatcher() {
-        return instance.refWatcher;
     }
 
 }
