@@ -2,7 +2,6 @@ package ru.nekit.android.mvpmeeting.presentation.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,8 +38,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Inject
     protected RepositoryListPresenter mPresenter;
 
-    @Inject
-    protected RepositoryListAdapter mAdapter;
+
+    private RepositoryListAdapter mAdapter;
 
     private ActivityCallback mCallback;
 
@@ -64,6 +63,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
         LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(llm);
+
+        mAdapter = new RepositoryListAdapter(getPresenter());
         recyclerView.setAdapter(mAdapter);
 
         return view;

@@ -13,7 +13,6 @@ public class RepositoryListAdapter extends BaseAdapter<RepositoryVO> {
 
     private WeakReference<RepositoryListPresenter> presenterRef;
 
-    @Inject
     public RepositoryListAdapter(RepositoryListPresenter presenter) {
         this.presenterRef = new WeakReference<>(presenter);
     }
