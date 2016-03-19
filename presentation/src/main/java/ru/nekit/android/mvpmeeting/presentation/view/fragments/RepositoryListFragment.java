@@ -24,7 +24,7 @@ import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresente
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
 import ru.nekit.android.mvpmeeting.presentation.view.fragments.base.MVPBaseFragment;
 
-public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter, IRepositoryListView, IGithubViewModel> implements IRepositoryListView {
+public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
     protected RecyclerView recyclerView;
@@ -97,11 +97,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         mCallback = null;
     }
 
-    @Override
-    public IGithubViewModel getViewModel() {
-        return getPresenter() != null ? getPresenter().getViewModel() : null;
-    }
-
     private void makeToast(String text) {
         Snackbar.make(recyclerView, text, Snackbar.LENGTH_LONG).show();
     }
@@ -132,8 +127,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public void showContent() {
-        mAdapter.setRepositoryList(getViewModel().getRepositoriesList());
+    public void showContent(IGithubViewModel content) {
+        mAdapter.setRepositoryList(content.getRepositoriesList());
     }
 
     @Override

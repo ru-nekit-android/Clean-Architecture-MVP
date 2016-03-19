@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.IMVPPresenter;
 import ru.nekit.android.mvpmeeting.presentation.view.base.IMVPView;
 
 /**
  * Created by ru.nekit.android on 05.03.16.
  */
-public abstract class MVPBaseFragment<P extends IMVPPresenter, V extends IMVPView, M extends IViewModel> extends Fragment implements IMVPView<M> {
+public abstract class MVPBaseFragment<P extends IMVPPresenter> extends Fragment implements IMVPView {
 
     protected abstract P getPresenter();
 

@@ -14,15 +14,14 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public abstract class MVPBasePresenter<V extends IMVPView, M extends IViewModel> implements IMVPPresenter<V, M> {
+public abstract class MVPBasePresenter<V extends IMVPView, VM extends IViewModel> implements IMVPPresenter<V, VM> {
 
-    protected M model;
-    @Inject
-    protected CompositeSubscription subscriptionList;
+    protected VM viewModel;
+    private CompositeSubscription subscriptionList = new CompositeSubscription();
     private WeakReference<V> mViewRef;
 
-    protected MVPBasePresenter(M model) {
-        this.model = model;
+    protected MVPBasePresenter(VM viewModel) {
+        this.viewModel = viewModel;
     }
 
     protected void addSubscriber(Subscription subscription) {

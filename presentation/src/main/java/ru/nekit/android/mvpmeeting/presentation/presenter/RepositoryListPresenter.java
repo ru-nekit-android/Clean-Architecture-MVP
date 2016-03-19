@@ -6,8 +6,6 @@ import android.text.TextUtils;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
 import ru.nekit.android.mvpmeeting.presentation.model.GithubViewModel;
@@ -33,11 +31,10 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     private ObtainRepositoriesInteractor mInteractor;
     private RepositoryToModelMapper mMapper;
 
-    @Inject
-    public RepositoryListPresenter(GithubViewModel model, RepositoryToModelMapper mapper, ObtainRepositoriesInteractor interactor) {
+    public RepositoryListPresenter(GithubViewModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
         super(model);
-        mMapper = mapper;
         mInteractor = interactor;
+        mMapper = mapper;
     }
 
     private void onBeforeLoad() {
@@ -67,7 +64,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     @Override
     public IGithubViewModel getViewModel() {
-        return model;
+        return viewModel;
     }
 
     public void onSearchClick() {
@@ -84,7 +81,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     public void onCreate(@Nullable Bundle savedState) {
         if (savedState != null) {
-            model = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
+            viewModel = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
         }
         if (isAttached()) {
             applyState();
@@ -105,7 +102,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
                 case CONTENT:
 
                     view.hideLoading();
-                    view.showContent();
+                    view.showContent(getViewModel());
 
                     break;
 
