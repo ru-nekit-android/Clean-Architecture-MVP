@@ -28,22 +28,6 @@ public class RepositoryVO implements Parcelable {
         this.ownerName = ownerName;
     }
 
-    public String getRepoName() {
-        return repoName;
-    }
-
-    public void setRepoName(String repoName) {
-        this.repoName = repoName;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-
     public String toString() {
         return repoName + " : " + ownerName;
     }
@@ -56,5 +40,6 @@ public class RepositoryVO implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(repoName);
+        dest.writeString(ownerName);
     }
 }
