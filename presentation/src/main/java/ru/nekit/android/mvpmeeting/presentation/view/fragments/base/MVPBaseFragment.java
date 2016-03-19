@@ -30,12 +30,12 @@ public abstract class MVPBaseFragment<P extends IMVPPresenter> extends Fragment 
     @CallSuper
     @Override
     @SuppressWarnings("unchecked")
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if (getPresenter() != null) {
             getPresenter().attachView(this);
+            getPresenter().onCreate(savedInstanceState);
         }
-        return null;
     }
 
     @CallSuper
