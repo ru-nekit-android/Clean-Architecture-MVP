@@ -39,7 +39,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     private void onBeforeLoad() {
-        setState(LCEViewState.LOADING);
+        setState(LOADING);
     }
 
     private void onAfterLoad() {
@@ -58,44 +58,34 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     private void setState(LCEViewState state) {
         getViewModel().setViewState(state);
-        if (isAttached()) {
-            applyState();
-        }
-    }
-
-    @Override
-    public IGithubViewModel getViewModel() {
-        return viewModel;
+        applyState();
     }
 
     public void onSearchClick() {
-        IRepositoryListView view = getView();
-        if (isAttached()) {
-            String userName = view.getUserName();
-            if (TextUtils.isEmpty(userName)) return;
-            setState(LCEViewState.LOADING);
-            getViewModel().setUserName(userName);
-            performLoad();
-        }
+        String userName = getView().getUserName();
+        if (TextUtils.isEmpty(userName)) return;
+        setState(LCEViewState.LOADING);
+        getViewModel().setUserName(userName);
+        performLoad();
     }
 
     private void performLoad() {
         String userName = getViewModel().getUserName();
         if (TextUtils.isEmpty(userName)) return;
-        addSubscriber(mInteractor.execute(userName)
-                .map(mMapper)
-                .compose(RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad))
-                .subscribe(this::onResult, this::onError));
+        addSubscriber(
+                mInteractor.execute(userName).
+                        map(mMapper).
+                        compose(RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad)).
+                        subscribe(this::onResult, this::onError)
+        );
     }
 
     public void onCreate(@Nullable Bundle savedState) {
         if (savedState != null) {
             viewModel = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
         }
-        if (isAttached()) {
-            applyState();
-        }
-        if(getViewModel().getViewState() == LOADING){
+        applyState();
+        if (getViewModel().getViewState() == LOADING) {
             performLoad();
         }
     }
@@ -104,9 +94,10 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     public void applyState() {
         if (isAttached()) {
             IRepositoryListView view = getView();
-            LCEViewState state = getViewModel().getViewState();
+            IGithubViewModel model = getViewModel();
+            LCEViewState state = model.getViewState();
             if (state == CONTENT) {
-                if (getViewModel().getRepositoriesList() == null || getViewModel().getRepositoriesList().isEmpty()) {
+                if (model == null || model.getRepositoriesList().isEmpty()) {
                     state = EMPTY;
                 }
             }
@@ -114,7 +105,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
                 case CONTENT:
 
                     view.hideLoading();
-                    view.showContent(getViewModel());
+                    view.showContent(model);
 
                     break;
 
@@ -135,7 +126,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
                 case ERROR:
 
                     view.showEmptyList();
-                    view.showError(getViewModel().getError());
+                    view.showError(model.getError());
 
                     break;
 
@@ -148,6 +139,11 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY, getViewModel());
+    }
+
+    @Override
+    public IGithubViewModel getViewModel() {
+        return viewModel;
     }
 
     public void selectRepository(RepositoryVO repository) {
