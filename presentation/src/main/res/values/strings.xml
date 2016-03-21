@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">MVPMeeting</string>
-    <string name="obtain_repos">Obtain repos</string>
+    <string name="app_name">Clean Architecture</string>
     <string name="default_user_name">ru-nekit-android</string>
     <string name="result_is_empty">Result is empty</string>
-    <string name="loading_message">Loading...</string>
 </resources>
