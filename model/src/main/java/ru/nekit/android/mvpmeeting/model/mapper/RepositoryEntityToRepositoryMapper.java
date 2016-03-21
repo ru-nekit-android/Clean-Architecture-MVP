@@ -18,7 +18,7 @@ public class RepositoryEntityToRepositoryMapper extends BaseMapper<RepositoryEnt
     }
 
     public Repository convert(RepositoryEntity value) {
-        return new Repository(value.getName(), value.getOwner().getLogin());
+        return new Repository(value.getName(), value.getOwner().getLogin(), value.getDescription(), value.getStargazersCount(), value.getForks(), value.getWatchers());
     }
 
 }
