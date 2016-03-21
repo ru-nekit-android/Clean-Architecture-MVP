@@ -12,7 +12,7 @@ public class RepositoryVO implements Parcelable {
 
         @Override
         public RepositoryVO createFromParcel(Parcel source) {
-            return new RepositoryVO(source.readString(), source.readString());
+            return new RepositoryVO(source.readString(), source.readString(), source.readString(), source.readString(), source.readString(), source.readString());
         }
 
         @Override
@@ -20,16 +20,21 @@ public class RepositoryVO implements Parcelable {
             return new RepositoryVO[size];
         }
     };
-    private String repoName;
-    private String ownerName;
 
-    public RepositoryVO(String repoName, String ownerName) {
+    public String repoName;
+    public String ownerName;
+    public String description;
+    public String starsCount;
+    public String forksCount;
+    public String watchersCount;
+
+    public RepositoryVO(String repoName, String ownerName, String description, String starCount, String forksCount, String watchersCount) {
         this.repoName = repoName;
         this.ownerName = ownerName;
-    }
-
-    public String toString() {
-        return repoName + " : " + ownerName;
+        this.description = description;
+        this.starsCount = starCount;
+        this.forksCount = forksCount;
+        this.watchersCount = watchersCount;
     }
 
     @Override
@@ -41,5 +46,9 @@ public class RepositoryVO implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(repoName);
         dest.writeString(ownerName);
+        dest.writeString(description);
+        dest.writeString(starsCount);
+        dest.writeString(forksCount);
+        dest.writeString(watchersCount);
     }
 }

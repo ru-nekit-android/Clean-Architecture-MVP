@@ -5,31 +5,20 @@ package ru.nekit.android.mvpmeeting.domain;
  */
 public class Repository {
 
-    private String name;
-    private String ownerName;
+    public String name;
+    public String ownerName;
+    public String description;
+    public int startCount;
+    public int forks;
+    public int watchers;
 
-    public Repository(String name, String ownerName) {
+    public Repository(String name, String ownerName, String description, int starCount, int forks, int watchers) {
         this.name = name;
         this.ownerName = ownerName;
+        this.description = description;
+        this.startCount = starCount;
+        this.forks = forks;
+        this.watchers = watchers;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getOwnerName() {
-        return ownerName;
-    }
-
-    public void setOwnerName(String ownerName) {
-        this.ownerName = ownerName;
-    }
-
-    public String toString() {
-        return name + " : " + ownerName;
-    }
 }
