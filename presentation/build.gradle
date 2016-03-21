@@ -44,6 +44,8 @@ dependencies {
     compile _dependencies.androidSupportv7
     compile _dependencies.androidSupportv4
     compile _dependencies.androidDesign
+    compile _dependencies.cardView
+    compile _dependencies.recyclerView
 
     compile _dependencies.rxJava
     compile _dependencies.rxBinding

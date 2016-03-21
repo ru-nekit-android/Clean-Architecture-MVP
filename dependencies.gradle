@@ -14,6 +14,8 @@ ext {
     dependencies = [androidSupportv7           : "com.android.support:appcompat-v7:$supportLibraryVersion",
                     androidSupportv4           : "com.android.support:support-v4:$supportLibraryVersion",
                     androidDesign              : "com.android.support:design:$supportLibraryVersion",
+                    cardView                   : "com.android.support:cardview-v7:$supportLibraryVersion",
+                    recyclerView               : "com.android.support:recyclerview-v7:$supportLibraryVersion",
 
                     rxJava                     : "io.reactivex:rxjava:1.1.0",
                     rxAndroid                  : "io.reactivex:rxandroid:1.1.0",
