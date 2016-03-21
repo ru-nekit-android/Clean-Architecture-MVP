@@ -2,6 +2,9 @@ package ru.nekit.android.mvpmeeting.model.net;
 
 import java.util.List;
 
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import ru.nekit.android.mvpmeeting.model.entities.RepositoryEntity;
@@ -14,5 +17,15 @@ public interface GitHubApiService {
 
     @GET("users/{user}/repos")
     Observable<List<RepositoryEntity>> getRepositories(@Path("user") String user);
+
+    class Factory {
+        public static GitHubApiService create(String endpoint) {
+            Retrofit.Builder builder = new Retrofit.Builder().baseUrl(endpoint)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+
+            return builder.build().create(GitHubApiService.class);
+        }
+    }
 
 }

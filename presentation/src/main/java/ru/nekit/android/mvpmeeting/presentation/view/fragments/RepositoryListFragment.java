@@ -8,7 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -34,6 +36,9 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Bind(R.id.message_view)
     protected TextView messageView;
+
+    @Bind(R.id.progress)
+    protected ProgressBar progressView;
 
     @Inject
     protected RepositoryListPresenter mPresenter;
@@ -66,6 +71,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
         mAdapter = new RepositoryListAdapter(getPresenter());
         recyclerView.setAdapter(mAdapter);
+
+        messageView.setText(getString(R.string.result_is_empty));
 
         return view;
     }
@@ -108,7 +115,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Override
     public void showEmptyList() {
-        messageView.setText(getString(R.string.result_is_empty));
+        messageView.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -118,21 +125,25 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Override
     public void showLoading() {
-        messageView.setText(getString(R.string.loading_message));
+        messageView.setVisibility(View.INVISIBLE);
+        progressView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        messageView.setText("");
+        progressView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void showContent(IGithubViewModel content) {
+        messageView.setVisibility(View.INVISIBLE);
         mAdapter.setRepositoryList(content.getRepositoriesList());
+        hideSoftKeyboard();
     }
 
     @Override
     public void hideContent() {
+        messageView.setVisibility(View.VISIBLE);
         mAdapter.setRepositoryList(null);
     }
 
@@ -155,5 +166,10 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     public interface ActivityCallback {
         void showRepositoryInfoFragment(RepositoryVO repository);
+    }
+
+    private void hideSoftKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(userNameInput.getWindowToken(), 0);
     }
 }

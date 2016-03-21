@@ -1,15 +1,19 @@
 package ru.nekit.android.mvpmeeting.presentation.view.adapters;
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import javax.inject.Inject;
-
+import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.base.BaseAdapter;
 
-public class RepositoryListAdapter extends BaseAdapter<RepositoryVO> {
+public class RepositoryListAdapter extends BaseAdapter<RepositoryVO, RepositoryListAdapter.ViewHolder> {
 
     private WeakReference<RepositoryListPresenter> presenterRef;
 
@@ -23,12 +27,41 @@ public class RepositoryListAdapter extends BaseAdapter<RepositoryVO> {
     }
 
     @Override
-    public void onBindViewHolder(BaseAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(ViewHolder viewHolder, int i) {
         RepositoryVO repository = list.get(i);
-        viewHolder.text.setText(repository.toString());
+        viewHolder.titleView.setText(repository.repoName);
+        viewHolder.descriptionView.setText(repository.description);
+        viewHolder.starsView.setText(repository.starsCount);
+        viewHolder.forksView.setText(repository.forksCount);
+        viewHolder.watchersView.setText(repository.watchersCount);
         if (presenterRef != null && presenterRef.get() != null) {
-            viewHolder.text.setOnClickListener(view -> presenterRef.get().selectRepository(repository));
+            viewHolder.rootView.setOnClickListener(view -> presenterRef.get().selectRepository(repository));
         }
     }
 
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_repository_layout, viewGroup, false);
+        return new ViewHolder(v);
+    }
+
+    public class ViewHolder extends BaseAdapter.ViewHolder {
+
+        private TextView titleView;
+        private TextView descriptionView;
+        private TextView starsView;
+        private TextView watchersView;
+        private TextView forksView;
+        private View rootView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            titleView = (TextView) itemView.findViewById(R.id.text_title);
+            descriptionView = (TextView) itemView.findViewById(R.id.text_description);
+            starsView = (TextView) itemView.findViewById(R.id.text_stars);
+            watchersView = (TextView) itemView.findViewById(R.id.text_watchers);
+            forksView = (TextView) itemView.findViewById(R.id.text_forks);
+            rootView = itemView.findViewById(R.id.card_view);
+        }
+    }
 }
