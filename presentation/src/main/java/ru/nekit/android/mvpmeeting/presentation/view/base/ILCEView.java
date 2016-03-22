@@ -5,7 +5,7 @@ import ru.nekit.android.mvpmeeting.presentation.model.base.IModel;
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface ILCEView2<M extends IModel, E> extends IMVPView {
+public interface ILCEView<M extends IModel, E> extends IMVPView {
 
     void showLoading();
 
