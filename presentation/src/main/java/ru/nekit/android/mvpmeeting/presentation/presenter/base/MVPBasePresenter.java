@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 
-import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.base.IModel;
 import ru.nekit.android.mvpmeeting.presentation.view.base.IMVPView;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -12,14 +12,14 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public abstract class MVPBasePresenter<V extends IMVPView, VM extends IViewModel> implements IMVPPresenter<V, VM> {
+public abstract class MVPBasePresenter<V extends IMVPView, M extends IModel> implements IMVPPresenter<V, M> {
 
-    protected VM viewModel;
+    protected M model;
     private CompositeSubscription subscriptionList;
     private WeakReference<V> mViewRef;
 
-    protected MVPBasePresenter(VM viewModel) {
-        this.viewModel = viewModel;
+    protected MVPBasePresenter(M model) {
+        this.model = model;
     }
 
     protected void addSubscriber(Subscription subscription) {

@@ -8,8 +8,8 @@ import java.util.List;
 
 import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
-import ru.nekit.android.mvpmeeting.presentation.model.GithubViewModel;
-import ru.nekit.android.mvpmeeting.presentation.model.IGithubViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.GithubModel;
+import ru.nekit.android.mvpmeeting.presentation.model.IGithubModel;
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.MVPBasePresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToModelMapper;
@@ -25,14 +25,14 @@ import static ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEVi
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
-public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListView, IGithubViewModel> implements IStateable<LCEViewState> {
+public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListView, IGithubModel> implements IStateable<LCEViewState> {
 
     private static final String BUNDLE_REPOSITORY_VIEW_MODEL_KEY = "bundle_repository_view_model_key";
 
     private ObtainRepositoriesInteractor mInteractor;
     private RepositoryToModelMapper mMapper;
 
-    public RepositoryListPresenter(GithubViewModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter(GithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
         super(model);
         mInteractor = interactor;
         mMapper = mapper;
@@ -47,17 +47,17 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     private void onResult(List<RepositoryVO> result) {
-        getViewModel().setRepositoriesList(result);
+        getModel().setRepositoriesList(result);
         setState(CONTENT);
     }
 
     private void onError(Throwable error) {
-        getViewModel().setError(error);
+        getModel().setError(error);
         setState(ERROR);
     }
 
     private void setState(LCEViewState state) {
-        getViewModel().setViewState(state);
+        getModel().setViewState(state);
         applyState();
     }
 
@@ -65,27 +65,27 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         String userName = getView().getUserName();
         if (TextUtils.isEmpty(userName)) return;
         setState(LCEViewState.LOADING);
-        getViewModel().setUserName(userName);
+        getModel().setUserName(userName);
         performLoad();
     }
 
     private void performLoad() {
-        String userName = getViewModel().getUserName();
+        String userName = getModel().getUserName();
         if (TextUtils.isEmpty(userName)) return;
-        addSubscriber(
-                mInteractor.execute(userName).
-                        map(mMapper).
-                        compose(RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad)).
-                        subscribe(this::onResult, this::onError)
-        );
+        addSubscriber(mInteractor.execute(userName)
+                .map(mMapper)
+                .compose(
+                        RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad)
+                )
+                .subscribe(this::onResult, this::onError));
     }
 
     public void onCreate(@Nullable Bundle savedState) {
         if (savedState != null) {
-            viewModel = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
+            model = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
         }
         applyState();
-        if (getViewModel().getViewState() == LOADING) {
+        if (getModel().getViewState() == LOADING) {
             performLoad();
         }
     }
@@ -94,10 +94,10 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     public void applyState() {
         if (isAttached()) {
             IRepositoryListView view = getView();
-            IGithubViewModel model = getViewModel();
+            IGithubModel model = getModel();
             LCEViewState state = model.getViewState();
             if (state == CONTENT) {
-                if (model == null || model.getRepositoriesList().isEmpty()) {
+                if (model.getRepositoriesList().isEmpty()) {
                     state = EMPTY;
                 }
             }
@@ -138,12 +138,12 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY, getViewModel());
+        outState.putParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY, getModel());
     }
 
     @Override
-    public IGithubViewModel getViewModel() {
-        return viewModel;
+    public IGithubModel getModel() {
+        return model;
     }
 
     public void selectRepository(RepositoryVO repository) {

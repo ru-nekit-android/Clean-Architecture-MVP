@@ -1,11 +1,11 @@
 package ru.nekit.android.mvpmeeting.presentation.view.base;
 
-import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.base.IModel;
 
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface ILCEView<M extends IViewModel, E> extends IMVPView {
+public interface ILCEView<M extends IModel, E> extends IMVPView {
 
     void showLoading();
 

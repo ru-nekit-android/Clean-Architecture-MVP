@@ -14,12 +14,12 @@ import ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
-public class GithubViewModel implements IGithubViewModel {
+public class GithubModel implements IGithubModel {
 
-    public static final Parcelable.Creator<GithubViewModel> CREATOR = new Parcelable.Creator<GithubViewModel>() {
+    public static final Parcelable.Creator<GithubModel> CREATOR = new Parcelable.Creator<GithubModel>() {
 
-        public GithubViewModel createFromParcel(Parcel source) {
-            GithubViewModel model = new GithubViewModel();
+        public GithubModel createFromParcel(Parcel source) {
+            GithubModel model = new GithubModel();
             model.mUserName = source.readString();
             model.mState = (LCEViewState) source.readSerializable();
             model.mError = (Throwable) source.readSerializable();
@@ -27,8 +27,8 @@ public class GithubViewModel implements IGithubViewModel {
             return model;
         }
 
-        public GithubViewModel[] newArray(int size) {
-            return new GithubViewModel[size];
+        public GithubModel[] newArray(int size) {
+            return new GithubModel[size];
         }
 
     };
@@ -39,7 +39,7 @@ public class GithubViewModel implements IGithubViewModel {
     private String mUserName;
 
     @Inject
-    public GithubViewModel() {
+    public GithubModel() {
     }
 
     @Override

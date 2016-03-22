@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.nekit.android.mvpmeeting.R;
 import ru.nekit.android.mvpmeeting.presentation.GithubApp;
-import ru.nekit.android.mvpmeeting.presentation.model.IGithubViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.IGithubModel;
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presentation.view.adapters.RepositoryListAdapter;
@@ -135,7 +135,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public void showContent(IGithubViewModel content) {
+    public void showContent(IGithubModel content) {
         messageView.setVisibility(View.INVISIBLE);
         mAdapter.setRepositoryList(content.getRepositoriesList());
         hideSoftKeyboard();

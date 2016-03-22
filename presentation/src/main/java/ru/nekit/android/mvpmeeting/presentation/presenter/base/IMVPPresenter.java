@@ -2,13 +2,13 @@ package ru.nekit.android.mvpmeeting.presentation.presenter.base;
 
 import android.os.Bundle;
 
-import ru.nekit.android.mvpmeeting.presentation.model.base.IViewModel;
+import ru.nekit.android.mvpmeeting.presentation.model.base.IModel;
 import ru.nekit.android.mvpmeeting.presentation.view.base.IMVPView;
 
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface IMVPPresenter<V extends IMVPView, VM extends IViewModel> {
+public interface IMVPPresenter<V extends IMVPView, M extends IModel> {
 
     void attachView(V view);
 
@@ -16,7 +16,7 @@ public interface IMVPPresenter<V extends IMVPView, VM extends IViewModel> {
 
     V getView();
 
-    VM getViewModel();
+    M getModel();
 
     boolean isAttached();
 
