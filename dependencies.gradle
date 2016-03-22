@@ -31,7 +31,7 @@ ext {
 
                     ]
 
-    testDependencies =  [junit   : "junit:junit:4.12"
+    testDependencies =  [junit   : "junit:junit:4.12",
                         ]
 
     developmentDependencies = [
