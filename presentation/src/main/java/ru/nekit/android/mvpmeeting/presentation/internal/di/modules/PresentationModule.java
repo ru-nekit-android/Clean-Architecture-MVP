@@ -18,8 +18,8 @@ public class PresentationModule {
 
     @Singleton
     @Provides
-    public RepositoryListPresenter providePresenter(GithubModel viewModel, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
-        return new RepositoryListPresenter(viewModel, interactor, mapper);
+    public RepositoryListPresenter providePresenter(GithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
+        return new RepositoryListPresenter(model, interactor, mapper);
     }
 
 }
