@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.presentation.model.GithubModel;
+import ru.nekit.android.mvpmeeting.presentation.model.IGithubModel;
 import ru.nekit.android.mvpmeeting.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.mvpmeeting.presentation.presenter.mapper.RepositoryToModelMapper;
 
@@ -18,8 +19,14 @@ public class PresentationModule {
 
     @Singleton
     @Provides
-    public RepositoryListPresenter providePresenter(GithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter provideRepositoryListPresenter(IGithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
         return new RepositoryListPresenter(model, interactor, mapper);
+    }
+
+    @Singleton
+    @Provides
+    public IGithubModel provideIGithubModel(){
+        return new GithubModel();
     }
 
 }
