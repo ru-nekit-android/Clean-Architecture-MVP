@@ -9,6 +9,8 @@ def _testDependencies = _rootExt.testDependencies
 
 android {
 
+    defaultPublishConfig "debug"
+
     compileSdkVersion _rootExt.androidCompileSdkVersion
     buildToolsVersion _rootExt.androidBuildToolsVersion
     defaultConfig {
