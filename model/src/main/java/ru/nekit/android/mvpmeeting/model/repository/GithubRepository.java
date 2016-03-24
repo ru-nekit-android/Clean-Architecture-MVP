@@ -1,7 +1,5 @@
 package ru.nekit.android.mvpmeeting.model.repository;
 
-import com.fernandocejas.frodo.annotation.RxLogObservable;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,21 +21,24 @@ import rx.Scheduler;
 public class GithubRepository implements IGithubRepository {
 
     private GitHubApiService mGitHubApiService;
-    private Scheduler mPreScheduler;
-    private Scheduler mPostScheduler;
+    private Scheduler mSubscribeOnThread;
+    private Scheduler mObserveOnThread;
     private RepositoryEntityToRepositoryMapper mMapper;
 
     @Inject
-    public GithubRepository(GitHubApiService gitHubApiService, RepositoryEntityToRepositoryMapper mapper, @IOThread Scheduler preScheduler, @UIThread Scheduler postScheduler) {
+    public GithubRepository(GitHubApiService gitHubApiService,
+                            RepositoryEntityToRepositoryMapper mapper,
+                            @IOThread Scheduler subscribeOnThread,
+                            @UIThread Scheduler observeOnThread) {
         mGitHubApiService = gitHubApiService;
-        mPreScheduler = preScheduler;
-        mPostScheduler = postScheduler;
+        mSubscribeOnThread = subscribeOnThread;
+        mObserveOnThread = observeOnThread;
         mMapper = mapper;
     }
 
     @Override
-    @RxLogObservable
     public Observable<List<Repository>> getRepositories(final String userName) {
-        return mGitHubApiService.getRepositories(userName).map(mMapper).compose(RxTransformers.applySchedulers(mPreScheduler, mPostScheduler));
+        return mGitHubApiService.getRepositories(userName).map(mMapper)
+                .compose(RxTransformers.applySchedulers(mSubscribeOnThread, mObserveOnThread));
     }
 }
