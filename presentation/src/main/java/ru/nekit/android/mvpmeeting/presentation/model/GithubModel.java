@@ -6,8 +6,6 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.viewState.LCEViewState;
 
@@ -38,7 +36,6 @@ public class GithubModel implements IGithubModel {
     private LCEViewState mState = LCEViewState.EMPTY;
     private String mUserName;
 
-    @Inject
     public GithubModel() {
     }
 
