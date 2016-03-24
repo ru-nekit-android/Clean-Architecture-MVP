@@ -1,6 +1,7 @@
 package ru.nekit.android.mvpmeeting.presentation.presenter.base;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import ru.nekit.android.mvpmeeting.presentation.model.base.IModel;
 import ru.nekit.android.mvpmeeting.presentation.view.base.IMVPView;
@@ -10,7 +11,7 @@ import ru.nekit.android.mvpmeeting.presentation.view.base.IMVPView;
  */
 public interface IMVPPresenter<V extends IMVPView, M extends IModel> {
 
-    void attachView(V view);
+    void attachView(@NonNull V view);
 
     void detachView();
 
@@ -18,7 +19,7 @@ public interface IMVPPresenter<V extends IMVPView, M extends IModel> {
 
     M getModel();
 
-    boolean isAttached();
+    boolean isViewAttached();
 
     void onCreate(Bundle savedInstanceState);
 
