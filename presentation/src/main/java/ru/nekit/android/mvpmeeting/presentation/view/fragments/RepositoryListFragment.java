@@ -43,7 +43,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Inject
     protected RepositoryListPresenter mPresenter;
 
-
     private RepositoryListAdapter mAdapter;
 
     private ActivityCallback mCallback;
@@ -161,6 +160,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mAdapter.destroy();
         ButterKnife.unbind(this);
     }
 

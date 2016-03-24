@@ -39,6 +39,13 @@ public class RepositoryListAdapter extends BaseAdapter<RepositoryVO, RepositoryL
         }
     }
 
+    public void destroy() {
+        if (presenterRef != null) {
+            presenterRef.clear();
+        }
+        presenterRef = null;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_repository_layout, viewGroup, false);
