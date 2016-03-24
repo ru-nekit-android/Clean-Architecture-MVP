@@ -8,7 +8,6 @@ import java.util.List;
 
 import ru.nekit.android.mvpmeeting.domain.interactors.ObtainRepositoriesInteractor;
 import ru.nekit.android.mvpmeeting.model.utils.rx.RxTransformers;
-import ru.nekit.android.mvpmeeting.presentation.model.GithubModel;
 import ru.nekit.android.mvpmeeting.presentation.model.IGithubModel;
 import ru.nekit.android.mvpmeeting.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.mvpmeeting.presentation.presenter.base.MVPBasePresenter;
@@ -32,7 +31,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     private ObtainRepositoriesInteractor mInteractor;
     private RepositoryToModelMapper mMapper;
 
-    public RepositoryListPresenter(GithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter(IGithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
         super(model);
         mInteractor = interactor;
         mMapper = mapper;
@@ -92,7 +91,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     @Override
     public void applyState() {
-        if (isAttached()) {
+        if (isViewAttached()) {
             IRepositoryListView view = getView();
             IGithubModel model = getModel();
             LCEViewState state = model.getViewState();
@@ -147,7 +146,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     public void selectRepository(RepositoryVO repository) {
-        if (isAttached()) {
+        if (isViewAttached()) {
             getView().showRepository(repository);
         }
     }
