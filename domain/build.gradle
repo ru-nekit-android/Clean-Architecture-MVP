@@ -1,12 +1,9 @@
 apply plugin: 'java'
 apply plugin: 'me.tatarka.retrolambda'
 
-def _rootExt = parent.ext
-def _dependencies = _rootExt.dependencies
-def _testDependencies = _rootExt.testDependencies
-
 dependencies {
 
-    compile _dependencies.rxJava
-    testCompile _testDependencies.junit
+    compile libraries.rxJava
+
+    testCompile testLibraries.junit
 }

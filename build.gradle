@@ -1,34 +1,46 @@
 apply from: 'dependencies.gradle'
 
 buildscript {
+
+    apply from: 'dependencies.gradle'
+
     repositories {
         jcenter()
-        mavenCentral()
     }
+
     dependencies {
-        classpath "com.android.tools.build:gradle:2.1.0-alpha3"
-        classpath "me.tatarka:gradle-retrolambda:3.2.0"
-        classpath "com.neenbedankt.gradle.plugins:android-apt:1.8"
-        classpath "com.fernandocejas.frodo:frodo-plugin:0.8.1"
+
+        classpath gradlePlugins.android
+
+        // Compile-time annotation processing.
+        classpath gradlePlugins.apt
+
+        // Backport of some Java 8 language features such as Lambdas and method references.
+        classpath gradlePlugins.retrolambda
+
+        // Needed for Lint + Retrolambda.
+        // classpath gradlePlugins.lombok
+
+        // Generates build info without breaking incremental builds.
+        // classpath gradlePlugins.paperwork
+
+        // Code coverage.
+        classpath gradlePlugins.jacoco
+
+        // Performance metrics library for Android development.
+        // classpath gradlePlugins.androidDevMetrics
+        // classpath "com.fernandocejas.frodo:frodo-plugin:0.8.1"
     }
 }
 
 allprojects {
 
-    ext {
-        // Android config
-        androidBuildToolsVersion = '23.0.2'
-        androidMinSdkVersion = 14
-        androidTargetSdkVersion = 23
-        androidCompileSdkVersion = 23
-        androidApplicationId = 'ru.nekit.android.mvpmeeting'
-        androidVersionCode = 1
-        androidVersionName = '1.0'
-    }
-
     repositories {
         jcenter()
-        mavenCentral()
+    }
+
+    tasks.withType(JavaForkOptions) {
+        jvmArgs '-Djava.awt.headless=true'
     }
 }
 

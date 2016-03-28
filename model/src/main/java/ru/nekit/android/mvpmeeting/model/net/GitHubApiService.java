@@ -1,16 +1,15 @@
 package ru.nekit.android.mvpmeeting.model.net;
 
-import com.fernandocejas.frodo.annotation.RxLogObservable;
-
 import java.util.List;
 
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
-import retrofit.http.GET;
-import retrofit.http.Path;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
 import ru.nekit.android.mvpmeeting.model.entities.RepositoryEntity;
 import rx.Observable;
+
 
 /**
  * Created by MacOS on 02.03.16.
@@ -18,7 +17,6 @@ import rx.Observable;
 public interface GitHubApiService {
 
     @GET("users/{user}/repos")
-    @RxLogObservable
     Observable<List<RepositoryEntity>> getRepositories(@Path("user") String user);
 
     class Factory {

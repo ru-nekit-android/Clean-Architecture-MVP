@@ -2,25 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 
-def _rootExt = parent.ext
-def _dependencies = _rootExt.dependencies
-def _testDependencies = _rootExt.testDependencies
-def _developmentDependencies = _rootExt.developmentDependencies
-
 android {
 
-    defaultPublishConfig "debug"
-
-    compileSdkVersion _rootExt.androidCompileSdkVersion
-    buildToolsVersion _rootExt.androidBuildToolsVersion
+    compileSdkVersion versions.androidCompileSdkVersion
+    buildToolsVersion versions.androidBuildToolsVersion
 
     defaultConfig {
 
-        applicationId _rootExt.androidApplicationId
-        minSdkVersion _rootExt.androidMinSdkVersion
-        targetSdkVersion _rootExt.androidTargetSdkVersion
-        versionCode _rootExt.androidVersionCode
-        versionName _rootExt.androidVersionName
+        applicationId versions.androidApplicationId
+        minSdkVersion versions.androidMinSdkVersion
+        targetSdkVersion versions.androidTargetSdkVersion
+        versionCode versions.androidVersionCode
+        versionName versions.androidVersionName
 
         buildConfigField "String", "API_URL", '"https://api.github.com/"'
     }
@@ -31,17 +24,9 @@ android {
         }
     }
 
-    productFlavors {
-       //mock {}
-    }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    dexOptions {
-        incremental true
     }
 }
 
@@ -50,22 +35,21 @@ dependencies {
     compile project(':domain')
     compile project(':model')
 
-    compile _dependencies.androidSupportv7
-    compile _dependencies.androidSupportv4
-    compile _dependencies.androidDesign
-    compile _dependencies.cardView
-    compile _dependencies.recyclerView
+    compile libraries.androidSupportv7
+    compile libraries.androidDesign
+    compile libraries.cardView
+    compile libraries.recyclerView
 
-    compile _dependencies.rxJava
-    compile _dependencies.rxBinding
+    compile libraries.rxJava
+    //compile libraries.rxBinding
 
-    compile _dependencies.butterknife
+    compile libraries.butterknife
 
-    apt _dependencies.daggerCompiler
-    compile _dependencies.dagger
+    apt libraries.daggerCompiler
+    compile libraries.dagger
 
-    testCompile _testDependencies.junit
+    testCompile testLibraries.junit
 
-    compile _developmentDependencies.leakCanary
+    compile debugLibryries.leakCanary
 
 }
