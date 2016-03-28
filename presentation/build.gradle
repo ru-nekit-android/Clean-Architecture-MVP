@@ -41,6 +41,7 @@ dependencies {
     compile libraries.recyclerView
 
     compile libraries.rxJava
+    compile libraries.rxAndroid
     //compile libraries.rxBinding
 
     compile libraries.butterknife

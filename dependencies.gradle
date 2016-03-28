@@ -13,6 +13,7 @@ ext {
 
             supportLibrary              : '23.2.0',
             rxJava                      : '1.1.2',
+            rxAndroid                   : '1.1.0',
             dagger                      : '2.1',
             retrofit                    : '2.0.0',
 
@@ -50,7 +51,7 @@ ext {
             recyclerView                : "com.android.support:recyclerview-v7:$versions.supportLibrary",
 
             rxJava                      : "io.reactivex:rxjava:$versions.rxJava",
-            rxAndroid                   : "io.reactivex:rxandroid:$versions.rxJava",
+            rxAndroid                   : "io.reactivex:rxandroid:$versions.rxAndroid",
 
             retrofit                    : "com.squareup.retrofit2:retrofit:$versions.retrofit",
             retrofitConverterGson       : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
