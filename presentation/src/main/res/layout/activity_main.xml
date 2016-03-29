@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".presentation.view.activities.RepositoryListActivity">
+    tools:context="ru.nekit.android.clean_architecture.presentation.view.activities.RepositoryListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

@@ -3,7 +3,10 @@ apply plugin: 'me.tatarka.retrolambda'
 
 dependencies {
 
+    //noinspection GroovyAssignabilityCheck
     compile libraries.rxJava
 
+    //noinspection GroovyAssignabilityCheck
     testCompile testLibraries.junit
+
 }

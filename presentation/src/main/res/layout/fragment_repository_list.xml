@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".presentation.view.fragments.RepositoryListFragment"
+    tools:context="ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment"
     tools:showIn="@layout/activity_main">
 
     <ImageView
@@ -13,7 +13,8 @@
         android:layout_height="110dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/octocat" />
+        android:src="@drawable/octocat"
+        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -63,7 +64,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_search_white_36dp" />
+            android:src="@drawable/ic_search_white_36dp"
+            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/user_name_input"

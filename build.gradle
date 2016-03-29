@@ -19,7 +19,7 @@ buildscript {
         classpath gradlePlugins.retrolambda
 
         // Needed for Lint + Retrolambda.
-        // classpath gradlePlugins.lombok
+        classpath gradlePlugins.lombok
 
         // Generates build info without breaking incremental builds.
         // classpath gradlePlugins.paperwork
@@ -31,6 +31,8 @@ buildscript {
         // classpath gradlePlugins.androidDevMetrics
         // classpath "com.fernandocejas.frodo:frodo-plugin:0.8.1"
     }
+
+    configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
 
 allprojects {

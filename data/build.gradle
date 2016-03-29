@@ -24,6 +24,12 @@ dependencies {
     compile libraries.retrofit
     compile libraries.retrofitRxJavaAdapter
     compile libraries.retrofitConverterGson
+    compile libraries.annotationApi
+    compile libraries.timber
+
+    debugCompile debugLibryries.okHttpLoggingInterceptor
+    debugCompile debugLibryries.stetho
+    debugCompile debugLibryries.stethoOkHttp
 
     apt libraries.daggerCompiler
     compile libraries.dagger
