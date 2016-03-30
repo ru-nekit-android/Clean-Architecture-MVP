@@ -24,7 +24,7 @@ public class GithubApp extends Application {
     }
 
     @NonNull
-    public  ApplicationComponent getApplicationComponent() {
+    public  ApplicationComponent applicationComponent() {
         return applicationComponent;
     }
 
