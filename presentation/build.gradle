@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
+apply from: '../code_quality_tools/quality.gradle'
 
 android {
 
@@ -68,11 +69,6 @@ android {
     }*/
 }
 
-configurations.all {
-    resolutionStrategy {
-        force 'com.android.support:support-annotations:23.1.1'
-    }
-}
 dependencies {
 
     compile project(':domain')
@@ -95,4 +91,11 @@ dependencies {
 
     debugCompile debugLibryries.leakCanaryDebug
 
+}
+
+configurations.all {
+    resolutionStrategy {
+        // Force our version of support-annotations, we have a conflict between app and androidTest dependency resolution.
+        force libraries.supportAnnotations
+    }
 }

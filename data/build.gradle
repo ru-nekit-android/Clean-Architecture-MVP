@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
+apply from: '../code_quality_tools/quality.gradle'
 
 android {
 
@@ -24,7 +25,7 @@ dependencies {
     compile libraries.retrofit
     compile libraries.retrofitRxJavaAdapter
     compile libraries.retrofitConverterGson
-    compile libraries.annotationApi
+    compile libraries.supportAnnotations
     compile libraries.timber
 
     debugCompile debugLibryries.okHttpLoggingInterceptor
