@@ -14,7 +14,7 @@ import rx.subjects.ReplaySubject;
  * Created by ru.nekit.android on 07.03.16.
  */
 public class ObtainRepositoriesInteractor implements IInteractor<List<Repository>, String> {
-
+    
     private final IGithubRepository mRepository;
     private ReplaySubject<List<Repository>> mDelegateSubject;
     private Subscription mDelegateSubscription;

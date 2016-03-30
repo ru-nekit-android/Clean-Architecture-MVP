@@ -9,12 +9,14 @@ import ru.nekit.android.clean_architecture.data.api.ApiModule;
 import ru.nekit.android.clean_architecture.data.network.NetworkModule;
 import ru.nekit.android.clean_architecture.data.network.OkHttpInterceptorsModule;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
+import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsComponent;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsModule;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.ILeakCanaryProxy;
 import ru.nekit.android.clean_architecture.presentation.internal.di.modules.ApplicationModule;
 import ru.nekit.android.clean_architecture.presentation.internal.di.modules.DataModule;
 import ru.nekit.android.clean_architecture.presentation.internal.di.modules.DomainModule;
 import ru.nekit.android.clean_architecture.presentation.internal.di.modules.PresentationModule;
+import ru.nekit.android.clean_architecture.presentation.view.activities.RepositoryListActivity;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment;
 
 /**
@@ -33,11 +35,16 @@ import ru.nekit.android.clean_architecture.presentation.view.fragments.Repositor
 })
 public interface ApplicationComponent {
 
-    void inject(@NonNull RepositoryListFragment value);
-
     void inject(@NonNull GithubApp value);
+
+    void inject(@NonNull RepositoryListActivity value);
+
+    void inject(@NonNull RepositoryListFragment value);
 
     @NonNull
     ILeakCanaryProxy leakCanaryProxy();
-    
+
+    @NonNull
+    DeveloperSettingsComponent plusDeveloperSettingsComponent();
+
 }

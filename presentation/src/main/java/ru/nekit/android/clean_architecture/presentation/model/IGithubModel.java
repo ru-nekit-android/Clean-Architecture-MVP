@@ -6,14 +6,14 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.presentation.model.base.IModel;
+import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.viewState.LCEViewState;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
  */
-public interface IGithubModel extends IModel, Parcelable {
+public interface IGithubModel extends IMVPModel, Parcelable {
 
     List<RepositoryVO> getRepositoriesList();
 

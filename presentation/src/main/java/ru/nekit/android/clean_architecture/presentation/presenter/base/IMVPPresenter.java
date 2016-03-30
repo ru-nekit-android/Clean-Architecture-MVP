@@ -3,13 +3,13 @@ package ru.nekit.android.clean_architecture.presentation.presenter.base;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import ru.nekit.android.clean_architecture.presentation.model.base.IModel;
+import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
 import ru.nekit.android.clean_architecture.presentation.view.base.IMVPView;
 
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface IMVPPresenter<V extends IMVPView, M extends IModel> {
+public interface IMVPPresenter<V extends IMVPView, M extends IMVPModel> {
 
     void attachView(@NonNull V view);
 

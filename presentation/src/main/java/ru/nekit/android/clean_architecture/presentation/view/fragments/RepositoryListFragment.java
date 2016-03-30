@@ -54,7 +54,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GithubApp.get(getContext()).getApplicationComponent().inject(this);
+        GithubApp.get(getContext()).applicationComponent().inject(this);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        GithubApp.get(getContext()).getApplicationComponent().leakCanaryProxy().watch(this);
+        GithubApp.get(getContext()).applicationComponent().leakCanaryProxy().watch(this);
     }
 
     @Override
