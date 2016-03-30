@@ -28,9 +28,7 @@ public class OkHttpInterceptorsModule {
     @NonNull
     @OkHttpNetworkInterceptors
     public List<Interceptor> provideOkHttpInterceptors() {
-        return singletonList(new HttpLoggingInterceptor(message -> {
-            Timber.d(message);
-        }));
+        return singletonList(new HttpLoggingInterceptor(Timber::d));
     }
 
     @Singleton
