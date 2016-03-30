@@ -15,7 +15,7 @@ import rx.Observable;
 import rx.Scheduler;
 
 /**
- * Created by MacOS on 15.03.16.
+ * Created by ru.nekit.android on 15.03.16.
  */
 public class GithubRepository implements IGithubRepository {
 

@@ -26,7 +26,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     private final ObtainRepositoriesInteractor mInteractor;
     private final RepositoryToModelMapper mMapper;
 
-    public RepositoryListPresenter(IGithubModel model, ru.nekit.android.clean_architecture.domain.interactors.ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter(IGithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
         super(model);
         mInteractor = interactor;
         mMapper = mapper;

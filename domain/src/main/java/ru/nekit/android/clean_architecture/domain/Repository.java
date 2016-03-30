@@ -1,7 +1,7 @@
 package ru.nekit.android.clean_architecture.domain;
 
 /**
- * Created by MacOS on 17.03.16.
+ * Created by ru.nekit.android on 17.03.16.
  */
 public class Repository {
 

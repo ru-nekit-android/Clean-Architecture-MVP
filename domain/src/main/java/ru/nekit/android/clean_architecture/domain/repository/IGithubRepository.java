@@ -6,7 +6,7 @@ import ru.nekit.android.clean_architecture.domain.Repository;
 import rx.Observable;
 
 /**
- * Created by MacOS on 15.03.16.
+ * Created by ru.nekit.android on 15.03.16.
  */
 public interface IGithubRepository {
 
