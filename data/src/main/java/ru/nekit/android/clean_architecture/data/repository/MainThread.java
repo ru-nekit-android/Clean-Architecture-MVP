@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data.api.qualifier;
+package ru.nekit.android.clean_architecture.data.repository;
 
 import java.lang.annotation.Retention;
 
@@ -8,5 +8,5 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Qualifier
 @Retention(RUNTIME)
-public @interface LongOperationThread {
+public @interface MainThread {
 }

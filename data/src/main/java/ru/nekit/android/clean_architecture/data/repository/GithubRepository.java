@@ -5,8 +5,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.nekit.android.clean_architecture.data.api.GitHubApi;
-import ru.nekit.android.clean_architecture.data.api.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.data.api.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.data.mapper.RepositoryEntityToRepositoryMapper;
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.Repository;

@@ -87,10 +87,11 @@ dependencies {
     apt libraries.daggerCompiler
     compile libraries.dagger
 
-    testCompile testLibraries.junit
-
     debugCompile debugLibryries.leakCanaryDebug
+    debugCompile debugLibryries.lynx
 
+    testCompile testLibraries.junit
+    compile 'com.android.support:support-v4:23.2.1'
 }
 
 configurations.all {
