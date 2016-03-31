@@ -14,11 +14,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
-import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment;
 import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier;
 
-public class RepositoryListActivity extends AppCompatActivity implements RepositoryListFragment.ActivityCallback {
+public class RepositoryListActivity extends AppCompatActivity {
 
     private static final String TAG = "fragmentTag";
 
@@ -50,9 +49,5 @@ public class RepositoryListActivity extends AppCompatActivity implements Reposit
         transaction.replace(R.id.container, fragment, TAG);
         if (addBackStack) transaction.addToBackStack(null);
         transaction.commit();
-    }
-
-    public void showRepositoryInfoFragment(RepositoryVO repository) {
-
     }
 }

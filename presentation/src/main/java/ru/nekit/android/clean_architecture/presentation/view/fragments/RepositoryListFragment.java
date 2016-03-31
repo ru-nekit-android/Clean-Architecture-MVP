@@ -22,6 +22,8 @@ import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
+import ru.nekit.android.clean_architecture.presentation.navigation.NavigationCommand;
+import ru.nekit.android.clean_architecture.presentation.navigation.qualifier.NavigateToRepositoryInfo;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.base.MVPBaseFragment;
@@ -43,9 +45,11 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Inject
     protected RepositoryListPresenter mPresenter;
 
-    private RepositoryListAdapter mAdapter;
+    @Inject
+    @NavigateToRepositoryInfo
+    protected NavigationCommand navigateToRepositoryInfo;
 
-    private ActivityCallback mCallback;
+    private RepositoryListAdapter mAdapter;
 
     public static RepositoryListFragment newInstance() {
         return new RepositoryListFragment();
@@ -86,23 +90,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         return mPresenter;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ActivityCallback) {
-            mCallback = (ActivityCallback) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement ActivityCallback");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCallback = null;
-    }
-
     private void makeToast(String text) {
         Snackbar.make(recyclerView, text, Snackbar.LENGTH_LONG).show();
     }
@@ -119,7 +106,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Override
     public void showRepository(RepositoryVO repository) {
-        mCallback.showRepositoryInfoFragment(repository);
+        navigateToRepositoryInfo.navigate();
     }
 
     @Override
@@ -167,9 +154,5 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     private void hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(userNameInput.getWindowToken(), 0);
-    }
-
-    public interface ActivityCallback {
-        void showRepositoryInfoFragment(RepositoryVO repository);
     }
 }
