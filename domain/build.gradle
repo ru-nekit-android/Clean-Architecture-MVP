@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'me.tatarka.retrolambda'
-apply from: '../code_quality_tools/quality.gradle'
+
+//apply from: '../code_quality/quality.gradle'
 
 dependencies {
 

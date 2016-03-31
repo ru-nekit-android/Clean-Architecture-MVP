@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
-apply from: '../code_quality_tools/quality.gradle'
+
+apply from: '../code_quality/quality.gradle'
 
 android {
 
@@ -36,19 +37,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    //TODO: explore lint
-    lintOptions {
-        textReport true
-        textOutput 'stdout'
-        fatal 'UnusedResources'
-
-        warningsAsErrors true
-        abortOnError true // Fail early.
-
-        disable 'GoogleAppIndexingWarning' // App does not have deep linking.
-        //disable 'InvalidPackage' // Okio references java.nio that does not presented in Android SDK.
     }
 
     packagingOptions {

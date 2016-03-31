@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
-apply from: '../code_quality_tools/quality.gradle'
+
+apply from: '../code_quality/quality.gradle'
 
 android {
 
