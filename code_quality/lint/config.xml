@@ -51,7 +51,7 @@
     <issue id="HardcodedDebugMode" severity="ignore" />
     <issue id="HardcodedText" severity="ignore" />
     <issue id="IconColors" severity="ignore" />
-    <issue id="IconDensities" severity="error" />
+    <issue id="IconDensities" severity="ignore" />
     <issue id="IconDipSize" severity="error" />
     <issue id="IconDuplicates" severity="ignore" />
     <issue id="IconDuplicatesConfig" severity="ignore" />
