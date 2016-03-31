@@ -1,6 +1,7 @@
 import com.android.build.gradle.internal.tasks.AndroidTestTask
 
 apply from: 'dependencies.gradle'
+//apply from: 'code_quality/quality.gradle'
 
 buildscript {
 
@@ -59,7 +60,7 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
+/*
 ext.preDexLibs = !project.hasProperty('disablePreDex')
 subprojects {
     project.plugins.whenPluginAdded { plugin ->
@@ -69,13 +70,13 @@ subprojects {
         }
     }
     afterEvaluate {
-        //tasks.findByName('pmd').dependsOn('assemble')
-        //tasks.findByName('findbugs').dependsOn('assemble')
+        tasks.findByName('pmd').dependsOn('assemble')
+        tasks.findByName('findbugs').dependsOn('assemble')
 
         def checkTask = tasks.findByName('check')
 
-        //checkTask.dependsOn('pmd')
-        //checkTask.dependsOn('findbugs')
+        checkTask.dependsOn('pmd')
+        checkTask.dependsOn('findbugs')
         checkTask.dependsOn('checkstyle')
 
         // Log instrumentation tests results.
@@ -89,3 +90,4 @@ subprojects {
         }
     }
 }
+*/
