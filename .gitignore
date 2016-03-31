@@ -9,3 +9,5 @@
 /leakcanary_heap_dump
 
 .idea/dictionaries/MacOS.xml
+
+gradle.properties
