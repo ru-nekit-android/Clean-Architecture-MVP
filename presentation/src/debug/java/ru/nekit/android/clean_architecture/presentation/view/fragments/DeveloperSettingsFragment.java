@@ -34,7 +34,7 @@ public class DeveloperSettingsFragment extends MVPBaseFragment<DeveloperSettings
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GithubApp.get(getContext()).applicationComponent().plusDeveloperSettingsComponent().inject(this);
+        GithubApp.get(getContext()).applicationComponent().developerSettingsComponent().inject(this);
     }
 
     @NonNull

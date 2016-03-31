@@ -45,6 +45,6 @@ public interface ApplicationComponent {
     ILeakCanaryProxy leakCanaryProxy();
 
     @NonNull
-    DeveloperSettingsComponent plusDeveloperSettingsComponent();
+    DeveloperSettingsComponent developerSettingsComponent();
 
 }
