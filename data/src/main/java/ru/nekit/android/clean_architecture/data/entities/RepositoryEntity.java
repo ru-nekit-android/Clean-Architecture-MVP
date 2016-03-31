@@ -19,7 +19,7 @@ public class RepositoryEntity {
     private OwnerEntity owner;
     @SerializedName("private")
     @Expose
-    private Boolean _private;
+    private Boolean mPrivate;
     @SerializedName("html_url")
     @Expose
     private String htmlUrl;
@@ -267,17 +267,17 @@ public class RepositoryEntity {
     }
 
     /**
-     * @return The _private
+     * @return The mPrivate
      */
     public Boolean getPrivate() {
-        return _private;
+        return mPrivate;
     }
 
     /**
-     * @param _private The private
+     * @param value The private
      */
-    public void setPrivate(Boolean _private) {
-        this._private = _private;
+    public void setPrivate(Boolean value) {
+        this.mPrivate = value;
     }
 
     /**

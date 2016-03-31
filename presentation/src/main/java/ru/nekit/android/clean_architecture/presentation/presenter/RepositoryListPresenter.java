@@ -57,7 +57,9 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     public void onSearchClick() {
         String userName = getView().getUserName();
-        if (TextUtils.isEmpty(userName)) return;
+        if (TextUtils.isEmpty(userName)) {
+            return;
+        }
         setState(LCEViewState.LOADING);
         getModel().setUserName(userName);
         performLoad();
@@ -65,7 +67,9 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     private void performLoad() {
         String userName = getModel().getUserName();
-        if (TextUtils.isEmpty(userName)) return;
+        if (TextUtils.isEmpty(userName)) {
+            return;
+        }
         addSubscriber(mInteractor.execute(userName)
                 .map(mMapper)
                 .compose(
@@ -90,10 +94,8 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
             IRepositoryListView view = getView();
             IGithubModel model = getModel();
             LCEViewState state = model.getViewState();
-            if (state == LCEViewState.CONTENT) {
-                if (model.getRepositoriesList().isEmpty()) {
-                    state = LCEViewState.EMPTY;
-                }
+            if (state == LCEViewState.CONTENT && model.getRepositoriesList().isEmpty()) {
+                state = LCEViewState.EMPTY;
             }
             switch (state) {
                 case CONTENT:

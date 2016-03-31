@@ -54,12 +54,12 @@ public class RepositoryListAdapter extends BaseAdapter<RepositoryVO, RepositoryL
 
     public class ViewHolder extends BaseAdapter.ViewHolder {
 
-        private TextView titleView;
-        private TextView descriptionView;
-        private TextView starsView;
-        private TextView watchersView;
-        private TextView forksView;
-        private View rootView;
+        private final TextView titleView;
+        private final TextView descriptionView;
+        private final TextView starsView;
+        private final TextView watchersView;
+        private final TextView forksView;
+        private final View rootView;
 
         public ViewHolder(View itemView) {
             super(itemView);

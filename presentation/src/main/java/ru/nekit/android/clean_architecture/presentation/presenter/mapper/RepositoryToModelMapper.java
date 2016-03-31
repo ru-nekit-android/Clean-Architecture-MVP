@@ -15,10 +15,14 @@ public class RepositoryToModelMapper extends BaseMapper<Repository, RepositoryVO
 
     @Inject
     public RepositoryToModelMapper() {
+        //empty constructor for injection
     }
 
     public RepositoryVO convert(Repository value) {
-        return new RepositoryVO(value.name, value.ownerName, value.description, Integer.toString(value.startCount), Integer.toString(value.forks), Integer.toString(value.watchers));
+        return new RepositoryVO(value.name, value.ownerName, value.description,
+                Integer.toString(value.startCount),
+                Integer.toString(value.forks),
+                Integer.toString(value.watchers));
     }
 
 }

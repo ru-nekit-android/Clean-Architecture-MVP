@@ -37,6 +37,7 @@ public class GithubModel implements IGithubModel {
     private String mUserName;
 
     public GithubModel() {
+        //empty constructor
     }
 
     @Override

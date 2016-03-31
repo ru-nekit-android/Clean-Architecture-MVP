@@ -47,7 +47,9 @@ public class RepositoryListActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment, boolean addBackStack) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragment, TAG);
-        if (addBackStack) transaction.addToBackStack(null);
+        if (addBackStack) {
+            transaction.addToBackStack(null);
+        }
         transaction.commit();
     }
 }

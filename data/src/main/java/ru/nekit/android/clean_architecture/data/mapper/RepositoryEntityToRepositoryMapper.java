@@ -17,6 +17,7 @@ public class RepositoryEntityToRepositoryMapper extends BaseMapper<RepositoryEnt
 
     @Inject
     public RepositoryEntityToRepositoryMapper() {
+        //empty constructor for injection
     }
 
     public Repository convert(@NonNull RepositoryEntity entity) {

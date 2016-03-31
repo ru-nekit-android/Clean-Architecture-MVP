@@ -56,10 +56,8 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
 
     @Override
     public V getView() {
-        if (mViewRef != null) {
-            if (mViewRef.get() != null) {
-                return mViewRef.get();
-            }
+        if (mViewRef != null && mViewRef.get() != null) {
+            return mViewRef.get();
         }
         return null;
     }

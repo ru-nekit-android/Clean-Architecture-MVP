@@ -24,7 +24,9 @@ public class PresentationModule {
     @Singleton
     @Provides
     @NonNull
-    public RepositoryListPresenter provideRepositoryListPresenter(@NonNull IGithubModel model, @NonNull ObtainRepositoriesInteractor interactor, @NonNull RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter provideRepositoryListPresenter(@NonNull IGithubModel model,
+                                                                  @NonNull ObtainRepositoriesInteractor interactor,
+                                                                  @NonNull RepositoryToModelMapper mapper) {
         return new RepositoryListPresenter(model, interactor, mapper);
     }
 

@@ -28,7 +28,7 @@ public class DeveloperSettingsFragment extends MVPBaseFragment<DeveloperSettings
     protected NavigationToLogcatCommand logcatNavigation;
 
     public DeveloperSettingsFragment() {
-
+        //empty constructor
     }
 
     @Override
