@@ -2,6 +2,7 @@ package ru.nekit.android.clean_architecture.presentation.view.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +17,6 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
@@ -49,6 +49,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @NavigateToRepositoryInfo
     protected NavigationCommand navigateToRepositoryInfo;
 
+    private LinearLayoutManager llm;
     private RepositoryListAdapter mAdapter;
 
     public static RepositoryListFragment newInstance() {
@@ -67,17 +68,17 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(ru.nekit.android.clean_architecture.R.layout.fragment_repository_list, container, false);
-        ButterKnife.bind(this, view);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getActivity().getApplicationContext());
-        recyclerView.setLayoutManager(llm);
-
+        llm = new LinearLayoutManager(getActivity().getApplicationContext());
         mAdapter = new RepositoryListAdapter(getPresenter());
-        recyclerView.setAdapter(mAdapter);
-
-        messageView.setText(getString(ru.nekit.android.clean_architecture.R.string.result_is_empty));
-
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(mAdapter);
+        messageView.setText(getString(R.string.result_is_empty));
     }
 
     @OnClick(ru.nekit.android.clean_architecture.R.id.obtain_repositories_button)
@@ -148,7 +149,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     public void onDestroyView() {
         super.onDestroyView();
         mAdapter.destroy();
-        ButterKnife.unbind(this);
     }
 
     private void hideSoftKeyboard() {

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
@@ -48,9 +47,7 @@ public class DeveloperSettingsFragment extends MVPBaseFragment<DeveloperSettings
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_developer_settings, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(R.layout.fragment_developer_settings, container, false);
     }
 
     @Override
