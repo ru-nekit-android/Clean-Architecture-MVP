@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
-
+apply plugin: 'hu.supercluster.paperwork'
 apply from: '../code_quality/quality.gradle'
 
 android {
@@ -61,6 +61,13 @@ android {
     }*/
 }
 
+paperwork {
+    set = [
+            gitSha:    gitSha(),
+            buildDate: buildTime("dd-MM-yyyy HH:MM:SS z", "UTC")
+    ]
+}
+
 dependencies {
     compile project(':domain')
     compile project(':data')
@@ -74,8 +81,11 @@ dependencies {
     compile libraries.butterknife
     apt libraries.daggerCompiler
     compile libraries.dagger
+
     debugCompile debugLibryries.leakCanaryDebug
     debugCompile debugLibryries.lynx
+    debugCompile libraries.paperwork
+
     testCompile testLibraries.junit
 }
 

@@ -9,4 +9,7 @@ public interface IDeveloperSettingsView extends IMVPView {
 
     void showLogcat();
 
+    void updateGitSha(String value);
+
+    void updateBuildDate(String value);
 }

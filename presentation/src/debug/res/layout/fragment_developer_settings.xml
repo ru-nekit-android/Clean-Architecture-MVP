@@ -13,6 +13,51 @@
         android:paddingRight="@dimen/vertical_margin"
         android:paddingTop="@dimen/vertical_margin">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/developer_settings_title"
+            android:textColor="#eeeeee"
+            android:textSize="18sp" />
+
+        <TextView
+            style="@style/DeveloperSettingsCategoryTitle"
+            android:text="@string/build_info" />
+
+        <View style="@style/DeveloperSettingsCategoryDivider" />
+
+        <LinearLayout style="@style/DeveloperSettingsItemContainer">
+
+            <TextView
+                style="@style/DeveloperSettingsItemTitle"
+                android:text="@string/git_sha" />
+
+            <TextView
+                android:id="@+id/developer_settings_git_sha_text_view"
+                style="@style/DeveloperSettingsItemControl"
+                android:textIsSelectable="true" />
+
+        </LinearLayout>
+
+        <LinearLayout style="@style/DeveloperSettingsItemContainer">
+
+            <TextView
+                style="@style/DeveloperSettingsItemTitle"
+                android:text="@string/build_date" />
+
+            <TextView
+                android:id="@+id/developer_settings_build_date_text_view"
+                style="@style/DeveloperSettingsItemControl"
+                android:textIsSelectable="true" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/DeveloperSettingsCategoryTitle"
+            android:text="@string/logging" />
+
+        <View style="@style/DeveloperSettingsCategoryDivider" />
+
         <LinearLayout style="@style/DeveloperSettingsItemContainer">
 
             <TextView

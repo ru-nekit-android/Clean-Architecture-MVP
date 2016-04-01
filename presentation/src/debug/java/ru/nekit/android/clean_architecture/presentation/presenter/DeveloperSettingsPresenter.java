@@ -23,7 +23,9 @@ public class DeveloperSettingsPresenter extends MVPBasePresenter<IDeveloperSetti
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //no-op
+        IDeveloperSettingsView view = getView();
+        view.updateGitSha(model.gitSha());
+        view.updateBuildDate(model.buildDate());
     }
 
     @Override

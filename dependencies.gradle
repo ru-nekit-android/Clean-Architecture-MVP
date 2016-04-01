@@ -11,7 +11,7 @@ ext {
             androidVersionCode          : 1,
             androidVersionName          : '1.0',
 
-            supportAnnotations           : '22.2.0',
+            supportAnnotations          : '22.2.0',
 
             javaxInject                 : '1',
             javaxAnnotationApi          : '1.2',
@@ -22,6 +22,8 @@ ext {
             dagger                      : '2.1',
             retrofit                    : '2.0.0',
             okHttp                      : '3.2.0',
+
+            paperwork                   : '1.2.4',
 
             // develope detector
             leakCanary                  : '1.3.1',
@@ -52,6 +54,8 @@ ext {
             //paperwork                 : "hu.supercluster:paperwork-plugin:$versions.paperworkGradlePlugin",
             jacoco                      : "org.jacoco:org.jacoco.core:$versions.jacocoGradlePlugin",
             //androidDevMetrics         : "com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:$versions.androidDevMetricsGradlePlugin",
+            paperwork                   : "hu.supercluster:paperwork-plugin:$versions.paperwork"
+
     ]
 
     libraries = [
@@ -70,6 +74,8 @@ ext {
             retrofit                    : "com.squareup.retrofit2:retrofit:$versions.retrofit",
             retrofitConverterGson       : "com.squareup.retrofit2:converter-gson:$versions.retrofit",
             retrofitRxJavaAdapter       : "com.squareup.retrofit2:adapter-rxjava:$versions.retrofit",
+
+            paperwork                   : "hu.supercluster:paperwork:$versions.paperwork",
 
             //rxBinding                   : "com.jakewharton.rxbinding:rxbinding:0.4.0",
 

@@ -2,4 +2,9 @@
     <string name="app_name">Clean Architecture</string>
     <string name="default_user_name">ru-nekit-android</string>
     <string name="result_is_empty">Result is empty</string>
+    <string name="developer_settings_title">Developer Settings</string>
+    <string name="build_info">Build info</string>
+    <string name="logging">Logging</string>
+    <string name="git_sha">Git sha</string>
+    <string name="build_date">Build date</string>
 </resources>
