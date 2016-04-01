@@ -13,3 +13,5 @@
 gradle.properties
 
 gradle.properties
+
+presentation/src/main/assets/paperwork.json
