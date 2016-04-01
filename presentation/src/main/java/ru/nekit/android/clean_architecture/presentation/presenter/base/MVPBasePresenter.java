@@ -51,7 +51,7 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
 
     @Override
     public boolean isViewAttached() {
-        return mViewRef != null && mViewRef.get() != null;
+        return getView() != null;
     }
 
     @Override
