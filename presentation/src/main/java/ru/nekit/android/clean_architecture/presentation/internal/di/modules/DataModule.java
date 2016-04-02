@@ -6,11 +6,11 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.nekit.android.clean_architecture.BuildConfig;
+import hu.supercluster.paperwork.Paperwork;
 import ru.nekit.android.clean_architecture.data.api.qualifier.Endpoint;
+import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
 import ru.nekit.android.clean_architecture.data.repository.LongOperationThread;
 import ru.nekit.android.clean_architecture.data.repository.MainThread;
-import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -50,8 +50,8 @@ public class DataModule {
     @Singleton
     @Endpoint
     @NonNull
-    String provideEndpoint() {
-        return BuildConfig.API_URL;
+    String provideEndpoint(Paperwork paperwork) {
+        return paperwork.get("API_URL");
     }
 
 }

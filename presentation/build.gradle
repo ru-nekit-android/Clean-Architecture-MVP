@@ -63,8 +63,9 @@ android {
 
 paperwork {
     set = [
-            gitSha:    gitSha(),
-            buildDate: buildTime("dd-MM-yyyy HH:MM:SS z", "UTC")
+            gitSha   : gitSha(),
+            buildDate: buildTime("dd-MM-yyyy HH:MM:SS z", "UTC"),
+            API_URL  : "https://api.github.com/"
     ]
 }
 
