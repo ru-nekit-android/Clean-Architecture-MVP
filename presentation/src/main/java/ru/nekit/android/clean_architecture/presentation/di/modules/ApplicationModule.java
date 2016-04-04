@@ -9,11 +9,12 @@ import dagger.Module;
 import dagger.Provides;
 import hu.supercluster.paperwork.Paperwork;
 import ru.nekit.android.clean_architecture.data.api.di.qualifier.Endpoint;
+import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsModule;
 
 /**
  * Created by ru.nekit.android on 29.03.16.
  */
-@Module
+@Module(includes = {DeveloperSettingsModule.class})
 @Singleton
 public class ApplicationModule {
 
