@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data.network.di;
+package ru.nekit.android.clean_architecture.data.di.network;
 
 import android.support.annotation.NonNull;
 
@@ -13,9 +13,9 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import ru.nekit.android.clean_architecture.data.api.di.qualifier.Endpoint;
-import ru.nekit.android.clean_architecture.data.network.di.qualifier.OkHttpInterceptors;
-import ru.nekit.android.clean_architecture.data.network.di.qualifier.OkHttpNetworkInterceptors;
+import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
+import ru.nekit.android.clean_architecture.data.di.network.qualifier.OkHttpInterceptors;
+import ru.nekit.android.clean_architecture.data.di.network.qualifier.OkHttpNetworkInterceptors;
 import ru.nekit.android.data.BuildConfig;
 
 /**

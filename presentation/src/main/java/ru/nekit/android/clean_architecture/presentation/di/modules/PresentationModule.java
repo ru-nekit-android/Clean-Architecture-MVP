@@ -10,7 +10,7 @@ import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryL
 import ru.nekit.android.clean_architecture.presentation.core.navigation.NavigationCommand;
 import ru.nekit.android.clean_architecture.presentation.model.GithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
-import ru.nekit.android.clean_architecture.presentation.navigation.qualifier.NavigateToRepositoryInfo;
+import ru.nekit.android.clean_architecture.presentation.di.qualifier.NavigateToRepositoryInfo;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryToModelMapper;
 

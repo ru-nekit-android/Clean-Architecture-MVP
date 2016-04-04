@@ -6,10 +6,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.nekit.android.clean_architecture.data.api.di.GithubModule;
+import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
-import ru.nekit.android.clean_architecture.data.repository.di.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.data.repository.di.qualifier.MainThread;
+import ru.nekit.android.clean_architecture.data.di.repository.qualifier.LongOperationThread;
+import ru.nekit.android.clean_architecture.data.di.repository.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;

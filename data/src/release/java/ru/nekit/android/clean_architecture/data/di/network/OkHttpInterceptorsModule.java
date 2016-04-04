@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data.network.di;
+package ru.nekit.android.clean_architecture.data.di.network;
 
 import android.support.annotation.NonNull;
 
@@ -9,8 +9,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Interceptor;
-import ru.nekit.android.clean_architecture.data.network.di.qualifier.OkHttpInterceptors;
-import ru.nekit.android.clean_architecture.data.network.di.qualifier.OkHttpNetworkInterceptors;
+import ru.nekit.android.clean_architecture.data.di.network.qualifier.OkHttpInterceptors;
+import ru.nekit.android.clean_architecture.data.di.network.qualifier.OkHttpNetworkInterceptors;
 
 import static java.util.Collections.emptyList;
 

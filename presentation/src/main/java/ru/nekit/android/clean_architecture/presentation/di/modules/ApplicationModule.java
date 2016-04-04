@@ -8,13 +8,12 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import hu.supercluster.paperwork.Paperwork;
-import ru.nekit.android.clean_architecture.data.api.di.qualifier.Endpoint;
-import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsModule;
+import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
 
 /**
  * Created by ru.nekit.android on 29.03.16.
  */
-@Module(includes = {DeveloperSettingsModule.class})
+@Module
 @Singleton
 public class ApplicationModule {
 

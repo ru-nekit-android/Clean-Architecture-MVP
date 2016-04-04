@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ru.nekit.android.clean_architecture.data.api.di.GithubModule;
+import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.mapper.RepositoryEntityToRepositoryMapper;
-import ru.nekit.android.clean_architecture.data.repository.di.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.data.repository.di.qualifier.MainThread;
+import ru.nekit.android.clean_architecture.data.di.repository.qualifier.LongOperationThread;
+import ru.nekit.android.clean_architecture.data.di.repository.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.Repository;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;

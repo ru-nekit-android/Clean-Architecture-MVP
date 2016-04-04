@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data.api.di;
+package ru.nekit.android.clean_architecture.data.di.api;
 
 import android.support.annotation.NonNull;
 
@@ -11,8 +11,8 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryEntity;
-import ru.nekit.android.clean_architecture.data.network.di.NetworkModule;
 import rx.Observable;
 
 /**
