@@ -5,9 +5,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import ru.nekit.android.clean_architecture.BuildConfig;
-import ru.nekit.android.clean_architecture.presentation.internal.di.ApplicationComponent;
-import ru.nekit.android.clean_architecture.presentation.internal.di.DaggerApplicationComponent;
-import ru.nekit.android.clean_architecture.presentation.internal.di.modules.ApplicationModule;
+import ru.nekit.android.clean_architecture.presentation.di.ApplicationComponent;
+import ru.nekit.android.clean_architecture.presentation.di.DaggerApplicationComponent;
+import ru.nekit.android.clean_architecture.presentation.di.modules.ApplicationModule;
 import timber.log.Timber;
 
 /**
@@ -24,7 +24,7 @@ public class GithubApp extends Application {
     }
 
     @NonNull
-    public  ApplicationComponent applicationComponent() {
+    public ApplicationComponent applicationComponent() {
         return applicationComponent;
     }
 
@@ -42,6 +42,4 @@ public class GithubApp extends Application {
     private DaggerApplicationComponent.Builder prepareApplicationComponent() {
         return DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this));
     }
-
-
 }

@@ -1,16 +1,14 @@
-package ru.nekit.android.clean_architecture.data.network;
+package ru.nekit.android.clean_architecture.data.network.di;
 
 import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import javax.inject.Singleton;
-
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Interceptor;
-import ru.nekit.android.clean_architecture.data.network.qualifier.OkHttpInterceptors;
-import ru.nekit.android.clean_architecture.data.network.qualifier.OkHttpNetworkInterceptors;
+import ru.nekit.android.clean_architecture.data.network.di.qualifier.OkHttpInterceptors;
+import ru.nekit.android.clean_architecture.data.network.di.qualifier.OkHttpNetworkInterceptors;
 
 import static java.util.Collections.emptyList;
 
@@ -20,7 +18,6 @@ import static java.util.Collections.emptyList;
 @Module
 public class OkHttpInterceptorsModule {
 
-    @Singleton
     @Provides
     @NonNull
     @OkHttpInterceptors
@@ -28,7 +25,6 @@ public class OkHttpInterceptorsModule {
         return emptyList();
     }
 
-    @Singleton
     @Provides
     @NonNull
     @OkHttpNetworkInterceptors

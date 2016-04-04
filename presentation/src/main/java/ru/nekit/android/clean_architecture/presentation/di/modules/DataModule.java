@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation.internal.di.modules;
+package ru.nekit.android.clean_architecture.presentation.di.modules;
 
 import android.support.annotation.NonNull;
 
@@ -6,11 +6,10 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import hu.supercluster.paperwork.Paperwork;
-import ru.nekit.android.clean_architecture.data.api.qualifier.Endpoint;
+import ru.nekit.android.clean_architecture.data.api.di.GithubModule;
 import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
-import ru.nekit.android.clean_architecture.data.repository.LongOperationThread;
-import ru.nekit.android.clean_architecture.data.repository.MainThread;
+import ru.nekit.android.clean_architecture.data.repository.di.qualifier.LongOperationThread;
+import ru.nekit.android.clean_architecture.data.repository.di.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
@@ -20,11 +19,11 @@ import rx.schedulers.Schedulers;
  * Created by ru.nekit.android on 08.03.16.
  */
 
-@Module
+@Module(includes = {GithubModule.class})
+@Singleton
 public class DataModule {
 
     @Provides
-    @Singleton
     @LongOperationThread
     @NonNull
     Scheduler provideLongOperationScheduler() {
@@ -32,7 +31,6 @@ public class DataModule {
     }
 
     @Provides
-    @Singleton
     @MainThread
     @NonNull
     Scheduler provideUIThreadScheduler() {
@@ -40,18 +38,9 @@ public class DataModule {
     }
 
     @Provides
-    @Singleton
     @NonNull
     IGithubRepository provideGithubRepository(GithubRepository repository) {
         return repository;
-    }
-
-    @Provides
-    @Singleton
-    @Endpoint
-    @NonNull
-    String provideEndpoint(Paperwork paperwork) {
-        return paperwork.get("API_URL");
     }
 
 }

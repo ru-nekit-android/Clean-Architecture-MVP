@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import java.util.List;
 
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
-import ru.nekit.android.clean_architecture.domain.interactors.ObtainRepositoriesInteractor;
+import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.base.MVPBasePresenter;
@@ -23,10 +23,10 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     private static final String BUNDLE_REPOSITORY_VIEW_MODEL_KEY = "bundle_repository_view_model_key";
 
-    private final ObtainRepositoriesInteractor mInteractor;
+    private final RequestRepositoryListUseCase mInteractor;
     private final RepositoryToModelMapper mMapper;
 
-    public RepositoryListPresenter(IGithubModel model, ObtainRepositoriesInteractor interactor, RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter(IGithubModel model, RequestRepositoryListUseCase interactor, RepositoryToModelMapper mapper) {
         super(model);
         mInteractor = interactor;
         mMapper = mapper;

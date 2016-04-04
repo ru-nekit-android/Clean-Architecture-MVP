@@ -32,43 +32,46 @@ public class DeveloperSettingsModule {
         return new LeakCanaryProxy(application);
     }
 
-    @NonNull
     @Provides
     @Singleton
+    @NonNull
     public LynxConfig provideLynxConfig() {
         return new LynxConfig();
     }
 
-    @NonNull
     @Provides
+    @Singleton
+    @NonNull
     public IViewModifier provideIViewModifier() {
         return new MainActivityViewModifier();
     }
 
-    @NonNull
+
     @Provides
     @Singleton
+    @NonNull
     public IDeveloperSettingsModel provideIDeveloperSettingsModel(@NonNull Paperwork paperwork) {
         return new DeveloperSettingsModel(paperwork);
     }
 
-    @NonNull
     @Provides
     @Singleton
+    @NonNull
     public DeveloperSettingsPresenter provideDeveloperSettingsPresenter(@NonNull IDeveloperSettingsModel model) {
         return new DeveloperSettingsPresenter(model);
     }
 
-    @NonNull
     @Provides
     @Singleton
+    @NonNull
     public Paperwork providePaperwork(@NonNull Application application) {
         return new Paperwork(application);
     }
 
-    @NonNull
     @Provides
+    @Singleton
     @NavigateToLogcat
+    @NonNull
     public NavigationToLogcatCommand provideNavigationToLogcatCommand(@NonNull LynxConfig config) {
         return new NavigationToLogcatCommand() {
             @Override

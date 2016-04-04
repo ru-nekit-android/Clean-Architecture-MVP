@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ru.nekit.android.clean_architecture.data.api.GitHubApi;
+import ru.nekit.android.clean_architecture.data.api.di.GithubModule;
 import ru.nekit.android.clean_architecture.data.mapper.RepositoryEntityToRepositoryMapper;
+import ru.nekit.android.clean_architecture.data.repository.di.qualifier.LongOperationThread;
+import ru.nekit.android.clean_architecture.data.repository.di.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.Repository;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
@@ -17,13 +19,13 @@ import rx.Scheduler;
  */
 public class GithubRepository implements IGithubRepository {
 
-    private final GitHubApi mGitHubApi;
+    private final GithubModule.Api mGitHubApi;
     private final Scheduler mSubscribeOnThread;
     private final Scheduler mObserveOnThread;
     private final RepositoryEntityToRepositoryMapper mMapper;
 
     @Inject
-    public GithubRepository(GitHubApi gitHubApiService,
+    public GithubRepository(GithubModule.Api gitHubApiService,
                             RepositoryEntityToRepositoryMapper mapper,
                             @LongOperationThread Scheduler subscribeOnThread,
                             @MainThread Scheduler observeOnThread) {
