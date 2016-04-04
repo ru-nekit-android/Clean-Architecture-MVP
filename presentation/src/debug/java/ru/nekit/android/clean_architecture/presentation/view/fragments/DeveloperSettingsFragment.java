@@ -23,16 +23,13 @@ public class DeveloperSettingsFragment extends MVPBaseFragment<DeveloperSettings
 
     @Inject
     protected DeveloperSettingsPresenter mPresenter;
-
-    @Bind(R.id.developer_settings_git_sha_text_view)
-    TextView gitShaTextView;
-
-    @Bind(R.id.developer_settings_build_date_text_view)
-    TextView buildDateTextView;
-
     @Inject
     @NavigateToLogcat
     protected NavigationToLogcatCommand logcatNavigation;
+    @Bind(R.id.developer_settings_git_sha_text_view)
+    TextView gitShaTextView;
+    @Bind(R.id.developer_settings_build_date_text_view)
+    TextView buildDateTextView;
 
     public DeveloperSettingsFragment() {
         //empty constructor

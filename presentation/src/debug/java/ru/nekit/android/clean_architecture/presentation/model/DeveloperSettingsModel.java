@@ -12,7 +12,7 @@ public class DeveloperSettingsModel implements IDeveloperSettingsModel {
     @NonNull
     private final Paperwork paperwork;
 
-    public DeveloperSettingsModel(@NonNull  Paperwork paperwork) {
+    public DeveloperSettingsModel(@NonNull Paperwork paperwork) {
         this.paperwork = paperwork;
     }
 

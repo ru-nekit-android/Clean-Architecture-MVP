@@ -12,12 +12,12 @@ public abstract class NavigationToLogcatCommand implements NavigationCommand {
 
     private Context context;
 
-    public void setParentActivity(@NonNull Context context) {
-        this.context = context;
-    }
-
     @NonNull
     public Context getParentActivity() {
         return context;
+    }
+
+    public void setParentActivity(@NonNull Context context) {
+        this.context = context;
     }
 }

@@ -10,14 +10,14 @@ import rx.Scheduler;
  */
 public final class RxTransformers {
 
+    private RxTransformers() {
+        //not called
+    }
+
     @NonNull
     public static <T> Observable.Transformer<T, T> applySchedulers(@NonNull Scheduler preScheduler, @NonNull Scheduler postScheduler) {
         return tObservable -> tObservable.subscribeOn(preScheduler)
                 .observeOn(postScheduler);
-    }
-
-    private RxTransformers() {
-        //not called
     }
 
     @NonNull

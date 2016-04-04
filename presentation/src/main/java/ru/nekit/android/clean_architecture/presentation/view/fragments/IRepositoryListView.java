@@ -1,8 +1,8 @@
 package ru.nekit.android.clean_architecture.presentation.view.fragments;
 
+import ru.nekit.android.clean_architecture.presentation.core.view.ILCEView;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.clean_architecture.presentation.core.view.ILCEView;
 
 /**
  * Created by ru.nekit.android on 05.03.16.

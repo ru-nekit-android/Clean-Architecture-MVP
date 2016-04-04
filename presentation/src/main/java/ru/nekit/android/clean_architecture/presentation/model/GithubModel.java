@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LCEViewState;
+import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
