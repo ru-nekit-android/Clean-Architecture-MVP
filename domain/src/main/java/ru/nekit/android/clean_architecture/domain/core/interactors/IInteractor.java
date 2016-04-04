@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.domain.interactors.base;
+package ru.nekit.android.clean_architecture.domain.core.interactors;
 
 import rx.Observable;
 

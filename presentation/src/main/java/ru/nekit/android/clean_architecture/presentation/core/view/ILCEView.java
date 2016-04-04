@@ -1,6 +1,6 @@
-package ru.nekit.android.clean_architecture.presentation.view.base;
+package ru.nekit.android.clean_architecture.presentation.core.view;
 
-import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
 
 /**
  * Created by ru.nekit.android on 06.03.16.

@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation.view.fragments.base;
+package ru.nekit.android.clean_architecture.presentation.core.view.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -7,8 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import butterknife.ButterKnife;
-import ru.nekit.android.clean_architecture.presentation.presenter.base.IMVPPresenter;
-import ru.nekit.android.clean_architecture.presentation.view.base.IMVPView;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.IMVPPresenter;
+import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
 
 /**
  * Created by ru.nekit.android on 05.03.16.

@@ -1,10 +1,10 @@
-package ru.nekit.android.clean_architecture.presentation.presenter.base;
+package ru.nekit.android.clean_architecture.presentation.core.presenter;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
-import ru.nekit.android.clean_architecture.presentation.view.base.IMVPView;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
 
 /**
  * Created by ru.nekit.android on 06.03.16.

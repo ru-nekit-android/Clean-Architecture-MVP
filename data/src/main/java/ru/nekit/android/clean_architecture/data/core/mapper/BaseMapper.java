@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data.mapper.base;
+package ru.nekit.android.clean_architecture.data.core.mapper;
 
 import java.util.List;
 

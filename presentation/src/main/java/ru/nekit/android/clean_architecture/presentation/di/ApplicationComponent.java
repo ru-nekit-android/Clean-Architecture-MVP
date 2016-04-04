@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import ru.nekit.android.clean_architecture.data.api.di.GithubModule;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsComponent;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsModule;

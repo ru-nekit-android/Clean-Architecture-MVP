@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation.view.adapters.base;
+package ru.nekit.android.clean_architecture.presentation.core.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

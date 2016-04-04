@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.Interceptor;
@@ -16,6 +18,7 @@ import static java.util.Collections.emptyList;
  * Created by ru.nekit.android on 29.03.16.
  */
 @Module
+@Singleton
 public class OkHttpInterceptorsModule {
 
     @Provides

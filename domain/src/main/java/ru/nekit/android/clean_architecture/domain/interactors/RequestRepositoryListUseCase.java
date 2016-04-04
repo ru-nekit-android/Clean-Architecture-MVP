@@ -4,7 +4,7 @@ package ru.nekit.android.clean_architecture.domain.interactors;
 import java.util.List;
 
 import ru.nekit.android.clean_architecture.domain.Repository;
-import ru.nekit.android.clean_architecture.domain.interactors.base.IInteractor;
+import ru.nekit.android.clean_architecture.domain.core.interactors.IInteractor;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
 import rx.Observable;
 import rx.Subscription;

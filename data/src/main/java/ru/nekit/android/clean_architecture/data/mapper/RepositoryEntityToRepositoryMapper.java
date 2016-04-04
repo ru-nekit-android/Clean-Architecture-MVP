@@ -6,7 +6,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ru.nekit.android.clean_architecture.data.entities.RepositoryEntity;
-import ru.nekit.android.clean_architecture.data.mapper.base.BaseMapper;
+import ru.nekit.android.clean_architecture.data.core.mapper.BaseMapper;
 import ru.nekit.android.clean_architecture.domain.Repository;
 
 /**

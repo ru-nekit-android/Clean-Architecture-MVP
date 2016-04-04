@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation.model.base;
+package ru.nekit.android.clean_architecture.presentation.core.model;
 
 /**
  * Created by ru.nekit.android on 02.03.16.

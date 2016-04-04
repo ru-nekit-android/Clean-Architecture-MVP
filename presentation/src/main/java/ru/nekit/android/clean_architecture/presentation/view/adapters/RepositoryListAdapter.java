@@ -11,7 +11,7 @@ import java.util.List;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
-import ru.nekit.android.clean_architecture.presentation.view.adapters.base.BaseAdapter;
+import ru.nekit.android.clean_architecture.presentation.core.view.adapter.BaseAdapter;
 
 public class RepositoryListAdapter extends BaseAdapter<RepositoryVO, RepositoryListAdapter.ViewHolder> {
 

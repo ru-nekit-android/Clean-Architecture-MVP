@@ -63,13 +63,6 @@ public class DeveloperSettingsModule {
 
     @Provides
     @Singleton
-    @NonNull
-    public Paperwork providePaperwork(@NonNull Application application) {
-        return new Paperwork(application);
-    }
-
-    @Provides
-    @Singleton
     @NavigateToLogcat
     @NonNull
     public NavigationToLogcatCommand provideNavigationToLogcatCommand(@NonNull LynxConfig config) {

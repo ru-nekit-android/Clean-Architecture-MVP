@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation.navigation;
+package ru.nekit.android.clean_architecture.presentation.core.navigation;
 
 /**
  * Created by ru.nekit.android on 30.03.16.

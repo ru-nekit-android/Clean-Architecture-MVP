@@ -1,11 +1,11 @@
-package ru.nekit.android.clean_architecture.presentation.presenter.base;
+package ru.nekit.android.clean_architecture.presentation.core.presenter;
 
 import android.support.annotation.NonNull;
 
 import java.lang.ref.WeakReference;
 
-import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
-import ru.nekit.android.clean_architecture.presentation.view.base.IMVPView;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 

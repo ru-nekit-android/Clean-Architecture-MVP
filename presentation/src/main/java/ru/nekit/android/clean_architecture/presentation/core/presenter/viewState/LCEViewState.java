@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation.presenter.viewState;
+package ru.nekit.android.clean_architecture.presentation.core.presenter.viewState;
 
 /**
  * Created by ru.nekit.android on 06.03.16.

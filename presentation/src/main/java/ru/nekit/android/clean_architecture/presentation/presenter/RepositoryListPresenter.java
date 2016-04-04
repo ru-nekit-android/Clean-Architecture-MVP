@@ -10,10 +10,10 @@ import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.clean_architecture.presentation.presenter.base.MVPBasePresenter;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.MVPBasePresenter;
 import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryToModelMapper;
-import ru.nekit.android.clean_architecture.presentation.presenter.viewState.IStateable;
-import ru.nekit.android.clean_architecture.presentation.presenter.viewState.LCEViewState;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.IStateable;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LCEViewState;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.IRepositoryListView;
 
 /**

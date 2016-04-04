@@ -22,11 +22,11 @@ import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.clean_architecture.presentation.navigation.NavigationCommand;
+import ru.nekit.android.clean_architecture.presentation.core.navigation.NavigationCommand;
 import ru.nekit.android.clean_architecture.presentation.navigation.qualifier.NavigateToRepositoryInfo;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
-import ru.nekit.android.clean_architecture.presentation.view.fragments.base.MVPBaseFragment;
+import ru.nekit.android.clean_architecture.presentation.core.view.fragment.MVPBaseFragment;
 
 public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter> implements IRepositoryListView {
 

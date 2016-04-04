@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.clean_architecture.presentation.presenter.viewState.LCEViewState;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LCEViewState;
 
 /**
  * Created by ru.nekit.android on 08.03.16.

@@ -31,6 +31,12 @@ public class ApplicationModule {
     }
 
     @Provides
+    @NonNull
+    public Paperwork providePaperwork(@NonNull Application application) {
+        return new Paperwork(application);
+    }
+
+    @Provides
     @Endpoint
     @NonNull
     public String provideEndpoint(Paperwork paperwork) {
