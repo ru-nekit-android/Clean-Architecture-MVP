@@ -1,5 +1,4 @@
 apply from: 'dependencies.gradle'
-//apply from: 'code_quality/quality.gradle'
 
 buildscript {
 
@@ -30,19 +29,11 @@ buildscript {
 
         // Performance metrics library for Android development.
         // classpath gradlePlugins.androidDevMetrics
-        // classpath "com.fernandocejas.frodo:frodo-plugin:0.8.1"
+
     }
 
     configurations.classpath.exclude group: 'com.android.tools.external.lombok'
 }
-
-/*
-configurations.all {
-    resolutionStrategy {
-        force 'com.android.support:support-annotations:23.1.1'
-    }
-}
-*/
 
 allprojects {
 
