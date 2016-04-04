@@ -32,6 +32,7 @@ dependencies {
     debugCompile debugLibryries.okHttpLoggingInterceptor
     debugCompile debugLibryries.stetho
     debugCompile debugLibryries.stethoOkHttp
+    debugCompile libraries.paperwork
 
     apt libraries.daggerCompiler
     compile libraries.dagger
