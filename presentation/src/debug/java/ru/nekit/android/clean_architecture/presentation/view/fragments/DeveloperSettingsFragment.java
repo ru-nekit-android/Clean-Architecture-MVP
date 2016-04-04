@@ -14,10 +14,10 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApp;
+import ru.nekit.android.clean_architecture.presentation.core.view.fragment.MVPBaseFragment;
 import ru.nekit.android.clean_architecture.presentation.navigation.NavigationToLogcatCommand;
 import ru.nekit.android.clean_architecture.presentation.navigation.qualifier.NavigateToLogcat;
 import ru.nekit.android.clean_architecture.presentation.presenter.DeveloperSettingsPresenter;
-import ru.nekit.android.clean_architecture.presentation.view.fragments.base.MVPBaseFragment;
 
 public class DeveloperSettingsFragment extends MVPBaseFragment<DeveloperSettingsPresenter> implements IDeveloperSettingsView {
 

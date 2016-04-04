@@ -3,8 +3,8 @@ package ru.nekit.android.clean_architecture.presentation.presenter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import ru.nekit.android.clean_architecture.presentation.core.presenter.MVPBasePresenter;
 import ru.nekit.android.clean_architecture.presentation.model.IDeveloperSettingsModel;
-import ru.nekit.android.clean_architecture.presentation.presenter.base.MVPBasePresenter;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.IDeveloperSettingsView;
 
 /**

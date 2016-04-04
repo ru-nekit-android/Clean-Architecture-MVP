@@ -1,6 +1,6 @@
 package ru.nekit.android.clean_architecture.presentation.model;
 
-import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
 
 /**
  * Created by ru.nekit.android on 30.03.16.
@@ -8,5 +8,6 @@ import ru.nekit.android.clean_architecture.presentation.model.base.IMVPModel;
 public interface IDeveloperSettingsModel extends IMVPModel {
 
     String gitSha();
+
     String buildDate();
 }
