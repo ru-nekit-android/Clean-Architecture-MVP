@@ -23,24 +23,22 @@ import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier
  * Created by ru.nekit.android on 29.03.16.
  */
 @Module
+@Singleton
 public class DeveloperSettingsModule {
 
     @Provides
-    @Singleton
     @NonNull
     public ILeakCanaryProxy provideILeakCanaryProxy(@NonNull Application application) {
         return new LeakCanaryProxy(application);
     }
 
     @Provides
-    @Singleton
     @NonNull
     public LynxConfig provideLynxConfig() {
         return new LynxConfig();
     }
 
     @Provides
-    @Singleton
     @NonNull
     public IViewModifier provideIViewModifier() {
         return new MainActivityViewModifier();
@@ -48,21 +46,18 @@ public class DeveloperSettingsModule {
 
 
     @Provides
-    @Singleton
     @NonNull
     public IDeveloperSettingsModel provideIDeveloperSettingsModel(@NonNull Paperwork paperwork) {
         return new DeveloperSettingsModel(paperwork);
     }
 
     @Provides
-    @Singleton
     @NonNull
     public DeveloperSettingsPresenter provideDeveloperSettingsPresenter(@NonNull IDeveloperSettingsModel model) {
         return new DeveloperSettingsPresenter(model);
     }
 
     @Provides
-    @Singleton
     @NavigateToLogcat
     @NonNull
     public NavigationToLogcatCommand provideNavigationToLogcatCommand(@NonNull LynxConfig config) {
