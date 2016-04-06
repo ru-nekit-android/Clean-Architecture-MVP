@@ -13,12 +13,14 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import ru.nekit.android.clean_architecture.R;
-import ru.nekit.android.clean_architecture.presentation.GithubApp;
+import ru.nekit.android.clean_architecture.presentation.GithubApplication;
 import ru.nekit.android.clean_architecture.presentation.core.view.fragment.MVPBaseFragment;
+import ru.nekit.android.clean_architecture.presentation.di.scope.PerActivity;
 import ru.nekit.android.clean_architecture.presentation.navigation.NavigationToLogcatCommand;
 import ru.nekit.android.clean_architecture.presentation.navigation.qualifier.NavigateToLogcat;
 import ru.nekit.android.clean_architecture.presentation.presenter.DeveloperSettingsPresenter;
 
+@PerActivity
 public class DeveloperSettingsFragment extends MVPBaseFragment<DeveloperSettingsPresenter> implements IDeveloperSettingsView {
 
     @Inject
@@ -38,7 +40,7 @@ public class DeveloperSettingsFragment extends MVPBaseFragment<DeveloperSettings
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GithubApp.get(getContext()).applicationComponent().developerSettingsComponent().inject(this);
+        GithubApplication.get(getContext()).applicationComponent().developerSettingsComponent().inject(this);
     }
 
     @NonNull

@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import javax.inject.Inject;
@@ -13,11 +12,13 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.clean_architecture.R;
-import ru.nekit.android.clean_architecture.presentation.GithubApp;
+import ru.nekit.android.clean_architecture.presentation.core.view.activity.MVPBaseActivity;
+import ru.nekit.android.clean_architecture.presentation.di.ActivityComponent;
+import ru.nekit.android.clean_architecture.presentation.di.DaggerActivityComponent;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment;
 import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier;
 
-public class RepositoryListActivity extends AppCompatActivity {
+public class RepositoryListActivity extends MVPBaseActivity {
 
     private static final String TAG = "fragmentTag";
 
@@ -29,11 +30,13 @@ public class RepositoryListActivity extends AppCompatActivity {
     IViewModifier viewModifier;
 
     private FragmentManager fragmentManager;
+    private ActivityComponent activityComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GithubApp.get(this).applicationComponent().inject(this);
+        initializeInjector();
+        applicationComponent().inject(this);
         setContentView(viewModifier.modify(getLayoutInflater().inflate(R.layout.activity_main, null)));
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
@@ -42,6 +45,13 @@ public class RepositoryListActivity extends AppCompatActivity {
         if (fragment == null) {
             replaceFragment(RepositoryListFragment.newInstance(), false);
         }
+    }
+
+    private ActivityComponent initializeInjector() {
+        return activityComponent = DaggerActivityComponent.builder()
+                .applicationComponent(applicationComponent())
+                .activityModule(activityModule())
+                .build();
     }
 
     private void replaceFragment(Fragment fragment, boolean addBackStack) {

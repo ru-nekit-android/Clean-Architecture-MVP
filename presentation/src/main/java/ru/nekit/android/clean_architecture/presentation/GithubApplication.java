@@ -13,14 +13,14 @@ import timber.log.Timber;
 /**
  * Created by ru.nekit.android on 08.03.16.
  */
-public class GithubApp extends Application {
+public class GithubApplication extends Application {
 
     @NonNull
     private ApplicationComponent applicationComponent;
 
     @NonNull
-    public static GithubApp get(@NonNull Context context) {
-        return (GithubApp) context.getApplicationContext();
+    public static GithubApplication get(@NonNull Context context) {
+        return (GithubApplication) context.getApplicationContext();
     }
 
     @NonNull

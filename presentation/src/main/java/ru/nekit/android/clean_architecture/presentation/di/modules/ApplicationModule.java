@@ -18,7 +18,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ru.nekit.android on 29.03.16.
  */
-@Module
+@Module(includes = {DataModule.class})
 @Singleton
 public class ApplicationModule {
 
@@ -61,5 +61,4 @@ public class ApplicationModule {
     public Scheduler provideUIThread() {
         return AndroidSchedulers.mainThread();
     }
-
 }

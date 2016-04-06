@@ -19,12 +19,16 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.OnClick;
 import ru.nekit.android.clean_architecture.R;
-import ru.nekit.android.clean_architecture.presentation.GithubApp;
+import ru.nekit.android.clean_architecture.presentation.GithubApplication;
 import ru.nekit.android.clean_architecture.presentation.core.navigation.NavigationCommand;
 import ru.nekit.android.clean_architecture.presentation.core.view.fragment.MVPBaseFragment;
+import ru.nekit.android.clean_architecture.presentation.di.DaggerRepositoryListComponent;
+import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
+import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
+import ru.nekit.android.clean_architecture.presentation.di.qualifier.NavigateToRepositoryInfo;
+import ru.nekit.android.clean_architecture.presentation.di.scope.PerActivity;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.NavigateToRepositoryInfo;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
 
@@ -52,6 +56,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     private LinearLayoutManager llm;
     private RepositoryListAdapter mAdapter;
 
+    private RepositoryListComponent repositoryListComponent;
+
     public static RepositoryListFragment newInstance() {
         return new RepositoryListFragment();
     }
@@ -59,7 +65,15 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GithubApp.get(getContext()).applicationComponent().inject(this);
+        initializeInjector().inject(this);
+    }
+
+    private RepositoryListComponent initializeInjector() {
+        return repositoryListComponent = DaggerRepositoryListComponent.builder()
+                .applicationComponent(applicationComponent())
+                .activityModule(activityModule())
+                .repositoryListModule(new RepositoryListModule())
+                .build();
     }
 
     @Override
@@ -67,7 +81,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
                              Bundle savedInstanceState) {
 
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(ru.nekit.android.clean_architecture.R.layout.fragment_repository_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_repository_list, container, false);
         llm = new LinearLayoutManager(getActivity().getApplicationContext());
         mAdapter = new RepositoryListAdapter(getPresenter());
         return view;
@@ -142,7 +156,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Override
     public void onDestroy() {
         super.onDestroy();
-        GithubApp.get(getContext()).applicationComponent().leakCanaryProxy().watch(this);
+        GithubApplication.get(getContext()).applicationComponent().leakCanaryProxy().watch(this);
     }
 
     @Override

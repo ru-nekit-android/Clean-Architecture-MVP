@@ -24,11 +24,11 @@ public class DataModule {
 
     @Provides
     @NonNull
-    IGithubRepository provideGithubRepository(GithubModule.Api gitHubApiService,
+    public IGithubRepository provideGithubRepository(GithubModule.Api githubApi,
                                               RepositoryEntityToRepositoryMapper mapper,
                                               @LongOperationThread Scheduler longOperationThread,
                                               @MainThread Scheduler mainThread) {
-        return new GithubRepository(gitHubApiService, mapper, longOperationThread, mainThread);
+        return new GithubRepository(githubApi, mapper, longOperationThread, mainThread);
     }
 
 }

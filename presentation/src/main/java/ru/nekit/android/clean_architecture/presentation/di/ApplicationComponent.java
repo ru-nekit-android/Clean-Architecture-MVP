@@ -5,16 +5,13 @@ import android.support.annotation.NonNull;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import ru.nekit.android.clean_architecture.presentation.GithubApp;
+import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
+import ru.nekit.android.clean_architecture.presentation.GithubApplication;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsComponent;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsModule;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.ILeakCanaryProxy;
 import ru.nekit.android.clean_architecture.presentation.di.modules.ApplicationModule;
-import ru.nekit.android.clean_architecture.presentation.di.modules.DataModule;
-import ru.nekit.android.clean_architecture.presentation.di.modules.DomainModule;
-import ru.nekit.android.clean_architecture.presentation.di.modules.PresentationModule;
 import ru.nekit.android.clean_architecture.presentation.view.activities.RepositoryListActivity;
-import ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
@@ -23,19 +20,12 @@ import ru.nekit.android.clean_architecture.presentation.view.fragments.Repositor
 @Component(
         modules = {
                 ApplicationModule.class,
-                PresentationModule.class,
-                DomainModule.class,
-                DataModule.class,
                 DeveloperSettingsModule.class
         }
 )
 public interface ApplicationComponent {
 
-    void inject(@NonNull GithubApp value);
-
-    void inject(@NonNull RepositoryListActivity value);
-
-    void inject(@NonNull RepositoryListFragment value);
+    void inject(@NonNull GithubApplication value);
 
     @NonNull
     ILeakCanaryProxy leakCanaryProxy();
@@ -43,4 +33,8 @@ public interface ApplicationComponent {
     @NonNull
     DeveloperSettingsComponent developerSettingsComponent();
 
+    @NonNull
+    IGithubRepository githubRepository();
+
+    void inject(RepositoryListActivity value);
 }
