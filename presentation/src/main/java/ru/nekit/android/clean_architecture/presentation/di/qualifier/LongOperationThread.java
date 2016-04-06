@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data.di.repository.qualifier;
+package ru.nekit.android.clean_architecture.presentation.di.qualifier;
 
 import java.lang.annotation.Retention;
 

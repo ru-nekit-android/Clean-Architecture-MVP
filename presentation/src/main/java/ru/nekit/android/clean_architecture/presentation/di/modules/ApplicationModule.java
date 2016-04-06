@@ -9,6 +9,11 @@ import dagger.Module;
 import dagger.Provides;
 import hu.supercluster.paperwork.Paperwork;
 import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
+import ru.nekit.android.clean_architecture.presentation.di.qualifier.LongOperationThread;
+import ru.nekit.android.clean_architecture.presentation.di.qualifier.MainThread;
+import rx.Scheduler;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by ru.nekit.android on 29.03.16.
@@ -41,6 +46,20 @@ public class ApplicationModule {
     @NonNull
     public String provideEndpoint(Paperwork paperwork) {
         return paperwork.get("API_URL");
+    }
+
+    @Provides
+    @LongOperationThread
+    @NonNull
+    public Scheduler provideLongOperationThread() {
+        return Schedulers.io();
+    }
+
+    @Provides
+    @MainThread
+    @NonNull
+    public Scheduler provideUIThread() {
+        return AndroidSchedulers.mainThread();
     }
 
 }

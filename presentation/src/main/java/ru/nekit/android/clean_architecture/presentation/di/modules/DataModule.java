@@ -7,13 +7,12 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
+import ru.nekit.android.clean_architecture.data.mapper.RepositoryEntityToRepositoryMapper;
 import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
-import ru.nekit.android.clean_architecture.data.di.repository.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.data.di.repository.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
+import ru.nekit.android.clean_architecture.presentation.di.qualifier.LongOperationThread;
+import ru.nekit.android.clean_architecture.presentation.di.qualifier.MainThread;
 import rx.Scheduler;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
@@ -24,23 +23,12 @@ import rx.schedulers.Schedulers;
 public class DataModule {
 
     @Provides
-    @LongOperationThread
     @NonNull
-    Scheduler provideLongOperationScheduler() {
-        return Schedulers.io();
-    }
-
-    @Provides
-    @MainThread
-    @NonNull
-    Scheduler provideUIThreadScheduler() {
-        return AndroidSchedulers.mainThread();
-    }
-
-    @Provides
-    @NonNull
-    IGithubRepository provideGithubRepository(GithubRepository repository) {
-        return repository;
+    IGithubRepository provideGithubRepository(GithubModule.Api gitHubApiService,
+                                              RepositoryEntityToRepositoryMapper mapper,
+                                              @LongOperationThread Scheduler longOperationThread,
+                                              @MainThread Scheduler mainThread) {
+        return new GithubRepository(gitHubApiService, mapper, longOperationThread, mainThread);
     }
 
 }

@@ -1,13 +1,11 @@
 package ru.nekit.android.clean_architecture.data.repository;
 
-import java.util.List;
+import android.support.annotation.NonNull;
 
-import javax.inject.Inject;
+import java.util.List;
 
 import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.mapper.RepositoryEntityToRepositoryMapper;
-import ru.nekit.android.clean_architecture.data.di.repository.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.data.di.repository.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.Repository;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
@@ -19,25 +17,24 @@ import rx.Scheduler;
  */
 public class GithubRepository implements IGithubRepository {
 
-    private final GithubModule.Api mGitHubApi;
-    private final Scheduler mSubscribeOnThread;
-    private final Scheduler mObserveOnThread;
+    private final GithubModule.Api mGithubApi;
+    private final Scheduler mLongOperationThread;
+    private final Scheduler mMainThread;
     private final RepositoryEntityToRepositoryMapper mMapper;
 
-    @Inject
-    public GithubRepository(GithubModule.Api gitHubApiService,
-                            RepositoryEntityToRepositoryMapper mapper,
-                            @LongOperationThread Scheduler subscribeOnThread,
-                            @MainThread Scheduler observeOnThread) {
-        mGitHubApi = gitHubApiService;
-        mSubscribeOnThread = subscribeOnThread;
-        mObserveOnThread = observeOnThread;
+    public GithubRepository(GithubModule.Api githubApi, RepositoryEntityToRepositoryMapper mapper,
+                            Scheduler longOperationThread,
+                            Scheduler mainThread) {
+        mGithubApi = githubApi;
+        mLongOperationThread = longOperationThread;
+        mMainThread = mainThread;
         mMapper = mapper;
     }
 
     @Override
+    @NonNull
     public Observable<List<Repository>> getRepositories(final String userName) {
-        return mGitHubApi.getRepositories(userName).map(mMapper)
-                .compose(RxTransformers.applySchedulers(mSubscribeOnThread, mObserveOnThread));
+        return mGithubApi.getRepositories(userName).map(mMapper)
+                .compose(RxTransformers.applySchedulers(mLongOperationThread, mMainThread));
     }
 }

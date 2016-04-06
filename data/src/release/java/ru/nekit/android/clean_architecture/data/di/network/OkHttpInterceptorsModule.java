@@ -22,15 +22,15 @@ import static java.util.Collections.emptyList;
 public class OkHttpInterceptorsModule {
 
     @Provides
-    @NonNull
     @OkHttpInterceptors
+    @NonNull
     public List<Interceptor> provideOkHttpInterceptors() {
         return emptyList();
     }
 
     @Provides
-    @NonNull
     @OkHttpNetworkInterceptors
+    @NonNull
     public List<Interceptor> provideOkHttpNetworkInterceptors() {
         return emptyList();
     }
