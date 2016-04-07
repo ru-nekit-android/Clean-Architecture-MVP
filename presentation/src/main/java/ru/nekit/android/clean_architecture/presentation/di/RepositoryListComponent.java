@@ -9,8 +9,6 @@ import ru.nekit.android.clean_architecture.presentation.view.fragments.Repositor
 /**
  * Created by ru.nekit.android on 06.04.16.
  */
-@Component(dependencies = {ApplicationComponent.class}, modules = {RepositoryListModule.class, ActivityModule.class})
 @PerActivity
-public interface RepositoryListComponent extends ActivityComponent {
     void inject(RepositoryListFragment value);
 }
