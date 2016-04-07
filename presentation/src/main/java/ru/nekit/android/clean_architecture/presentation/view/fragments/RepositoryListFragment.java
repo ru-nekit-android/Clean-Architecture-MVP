@@ -95,8 +95,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
         messageView.setText(getString(R.string.result_is_empty));
     }
 
-    @OnClick(R.id.obtain_repositories_button)
-    protected void onObtainClick() {
+    @OnClick(R.id.search_repositories_button)
+    protected void onSearchClick() {
         mPresenter.onSearchClick();
     }
 

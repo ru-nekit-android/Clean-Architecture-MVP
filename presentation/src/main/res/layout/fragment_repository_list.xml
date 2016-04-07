@@ -56,7 +56,7 @@
         android:paddingTop="10dp">
 
         <ImageButton
-            android:id="@+id/obtain_repositories_button"
+            android:id="@+id/search_repositories_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -71,8 +71,8 @@
             android:id="@+id/user_name_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/obtain_repositories_button"
-            android:layout_toStartOf="@id/obtain_repositories_button"
+            android:layout_toLeftOf="@id/search_repositories_button"
+            android:layout_toStartOf="@id/search_repositories_button"
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:text="@string/default_user_name"
