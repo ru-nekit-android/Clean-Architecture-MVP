@@ -22,17 +22,15 @@ import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApplication;
 import ru.nekit.android.clean_architecture.presentation.core.navigation.NavigationCommand;
 import ru.nekit.android.clean_architecture.presentation.core.view.fragment.MVPBaseFragment;
-import ru.nekit.android.clean_architecture.presentation.di.DaggerRepositoryListComponent;
+import ru.nekit.android.clean_architecture.presentation.di.HasComponent;
 import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
-import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.NavigateToRepositoryInfo;
-import ru.nekit.android.clean_architecture.presentation.di.scope.PerActivity;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
 
-public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter> implements IRepositoryListView {
+public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter> implements IRepositoryListView, HasComponent<RepositoryListComponent> {
 
     @Bind(R.id.recyclerView)
     protected RecyclerView recyclerView;
@@ -56,8 +54,6 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     private LinearLayoutManager llm;
     private RepositoryListAdapter mAdapter;
 
-    private RepositoryListComponent repositoryListComponent;
-
     public static RepositoryListFragment newInstance() {
         return new RepositoryListFragment();
     }
@@ -65,15 +61,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeInjector().inject(this);
-    }
-
-    private RepositoryListComponent initializeInjector() {
-        return repositoryListComponent = DaggerRepositoryListComponent.builder()
-                .applicationComponent(applicationComponent())
-                .activityModule(activityModule())
-                .repositoryListModule(new RepositoryListModule())
-                .build();
+        getComponent().inject(this);
     }
 
     @Override
@@ -149,8 +137,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    public void showError(Throwable e) {
-        makeToast(e.getMessage());
+    public void showError(Throwable error) {
+        makeToast(error.getMessage());
     }
 
     @Override
@@ -168,5 +156,10 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     private void hideSoftKeyboard() {
         InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(userNameInput.getWindowToken(), 0);
+    }
+
+    @Override
+    public RepositoryListComponent getComponent() {
+        return ((HasComponent<RepositoryListComponent>) getActivity()).getComponent();
     }
 }

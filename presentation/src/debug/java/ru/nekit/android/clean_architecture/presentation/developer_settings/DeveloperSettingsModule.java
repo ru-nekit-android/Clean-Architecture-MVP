@@ -44,7 +44,6 @@ public class DeveloperSettingsModule {
         return new MainActivityViewModifier();
     }
 
-
     @Provides
     @NonNull
     public IDeveloperSettingsModel provideIDeveloperSettingsModel(@NonNull Paperwork paperwork) {

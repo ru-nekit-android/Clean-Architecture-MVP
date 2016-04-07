@@ -13,32 +13,37 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.core.view.activity.MVPBaseActivity;
-import ru.nekit.android.clean_architecture.presentation.di.ActivityComponent;
-import ru.nekit.android.clean_architecture.presentation.di.DaggerActivityComponent;
+import ru.nekit.android.clean_architecture.presentation.di.HasComponent;
+import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
+import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment;
 import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier;
 
-public class RepositoryListActivity extends MVPBaseActivity {
+public class RepositoryListActivity extends MVPBaseActivity implements HasComponent<RepositoryListComponent> {
 
     private static final String TAG = "fragmentTag";
 
     @Nullable
     @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    protected Toolbar toolbar;
 
     @Inject
-    IViewModifier viewModifier;
+    protected IViewModifier viewModifier;
 
     private FragmentManager fragmentManager;
-    private ActivityComponent activityComponent;
+    private RepositoryListComponent repositoryListComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeInjector();
-        applicationComponent().inject(this);
+
+        //for inject IViewModifier viewModifier
+        initializeInjector().inject(this);
+
         setContentView(viewModifier.modify(getLayoutInflater().inflate(R.layout.activity_main, null)));
+
         ButterKnife.bind(this);
+
         setSupportActionBar(toolbar);
         fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentByTag(TAG);
@@ -47,11 +52,8 @@ public class RepositoryListActivity extends MVPBaseActivity {
         }
     }
 
-    private ActivityComponent initializeInjector() {
-        return activityComponent = DaggerActivityComponent.builder()
-                .applicationComponent(applicationComponent())
-                .activityModule(activityModule())
-                .build();
+    private RepositoryListComponent initializeInjector() {
+        return repositoryListComponent = getApplicationComponent().plus(new RepositoryListModule());
     }
 
     private void replaceFragment(Fragment fragment, boolean addBackStack) {
@@ -61,5 +63,10 @@ public class RepositoryListActivity extends MVPBaseActivity {
             transaction.addToBackStack(null);
         }
         transaction.commit();
+    }
+
+    @Override
+    public RepositoryListComponent getComponent() {
+        return repositoryListComponent;
     }
 }

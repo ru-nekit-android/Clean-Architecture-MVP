@@ -11,7 +11,8 @@ import ru.nekit.android.clean_architecture.presentation.developer_settings.Devel
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsModule;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.ILeakCanaryProxy;
 import ru.nekit.android.clean_architecture.presentation.di.modules.ApplicationModule;
-import ru.nekit.android.clean_architecture.presentation.view.activities.RepositoryListActivity;
+import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
+import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
@@ -31,10 +32,14 @@ public interface ApplicationComponent {
     ILeakCanaryProxy leakCanaryProxy();
 
     @NonNull
+    IViewModifier viewModifier();
+
+    @NonNull
     DeveloperSettingsComponent developerSettingsComponent();
 
     @NonNull
     IGithubRepository githubRepository();
 
-    void inject(RepositoryListActivity value);
+    @NonNull
+    RepositoryListComponent plus(@NonNull RepositoryListModule module);
 }
