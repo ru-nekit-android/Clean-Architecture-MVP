@@ -159,6 +159,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public RepositoryListComponent getComponent() {
         return ((HasComponent<RepositoryListComponent>) getActivity()).getComponent();
     }

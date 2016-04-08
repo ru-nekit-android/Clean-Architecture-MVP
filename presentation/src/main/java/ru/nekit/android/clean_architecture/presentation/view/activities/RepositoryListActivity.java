@@ -1,6 +1,8 @@
 package ru.nekit.android.clean_architecture.presentation.view.activities;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -33,13 +35,14 @@ public class RepositoryListActivity extends MVPBaseActivity implements HasCompon
     private FragmentManager fragmentManager;
     private RepositoryListComponent repositoryListComponent;
 
+    @SuppressLint("InflateParams")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //for inject IViewModifier viewModifier
         initializeInjector().inject(this);
-
+        
         setContentView(viewModifier.modify(getLayoutInflater().inflate(R.layout.activity_main, null)));
 
         ButterKnife.bind(this);
@@ -52,11 +55,13 @@ public class RepositoryListActivity extends MVPBaseActivity implements HasCompon
         }
     }
 
+    @NonNull
     private RepositoryListComponent initializeInjector() {
-        return repositoryListComponent = getApplicationComponent().plus(new RepositoryListModule());
+        repositoryListComponent = getApplicationComponent().plus(new RepositoryListModule());
+        return repositoryListComponent;
     }
 
-    private void replaceFragment(Fragment fragment, boolean addBackStack) {
+    private void replaceFragment(@NonNull Fragment fragment, boolean addBackStack) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.container, fragment, TAG);
         if (addBackStack) {
@@ -66,6 +71,7 @@ public class RepositoryListActivity extends MVPBaseActivity implements HasCompon
     }
 
     @Override
+    @NonNull
     public RepositoryListComponent getComponent() {
         return repositoryListComponent;
     }
