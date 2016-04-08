@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
 import ru.nekit.android.clean_architecture.data.di.network.qualifier.OkHttpInterceptors;
 import ru.nekit.android.clean_architecture.data.di.network.qualifier.OkHttpNetworkInterceptors;
-import ru.nekit.android.data.BuildConfig;
+import ru.nekit.clean_architecture.android.data.BuildConfig;
 
 /**
  * Created by ru.nekit.android on 29.03.16.
