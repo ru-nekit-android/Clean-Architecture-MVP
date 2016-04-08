@@ -1,8 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'me.tatarka.retrolambda'
 
-//apply from: '../code_quality/quality.gradle'
-
 dependencies {
 
     //noinspection GroovyAssignabilityCheck

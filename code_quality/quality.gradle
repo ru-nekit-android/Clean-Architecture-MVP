@@ -1,3 +1,4 @@
+apply from: '../code_quality/lint.gradle'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 apply plugin: 'pmd'
@@ -6,7 +7,7 @@ apply plugin: 'pmd'
 check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 
 task checkstyle(type: Checkstyle) {
-    configFile file("${project.rootDir}/code_quality/checkstyle/config.xml")
+    configFile file("$project.rootDir/code_quality/checkstyle/config.xml")
     configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/code_quality/checkstyle/seppressions.xml").absolutePath
     source 'src'
     include '**/*.java'
@@ -18,8 +19,8 @@ task findbugs(type: FindBugs, dependsOn: assembleDebug) {
     ignoreFailures = false
     effort = "max"
     reportLevel = "high"
-    excludeFilter = new File("${project.rootDir}/code_quality/findbugs/filter.xml")
-    classes = files("${project.rootDir}/presentation/build/intermediates/classes")
+    excludeFilter = new File("$project.rootDir/code_quality/findbugs/filter.xml")
+    classes = files("$project.rootDir/presentation/build/intermediates/classes")
 
     source 'src'
     include '**/*.java'
@@ -42,7 +43,7 @@ task findbugs(type: FindBugs, dependsOn: assembleDebug) {
 
 task pmd(type: Pmd) {
     ignoreFailures = false
-    ruleSetFiles = files("${project.rootDir}/code_quality/pmd/config.xml")
+    ruleSetFiles = files("$project.rootDir/code_quality/pmd/config.xml")
     ruleSets = []
 
     source 'src'
@@ -61,16 +62,5 @@ task pmd(type: Pmd) {
         html {
             destination "$project.buildDir/reports/pmd/pmd.html"
         }
-    }
-}
-
-android {
-    lintOptions {
-        abortOnError true
-        xmlReport false
-        htmlReport true
-        lintConfig file("${project.rootDir}/code_quality/lint/config.xml")
-        htmlOutput file("$project.buildDir/reports/lint/lint-result.html")
-        xmlOutput file("$project.buildDir/reports/lint/lint-result.xml")
     }
 }
