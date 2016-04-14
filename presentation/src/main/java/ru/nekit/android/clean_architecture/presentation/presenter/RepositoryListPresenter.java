@@ -1,6 +1,7 @@
 package ru.nekit.android.clean_architecture.presentation.presenter;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -27,13 +28,13 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
     private static final String BUNDLE_REPOSITORY_VIEW_MODEL_KEY = "bundle_repository_view_model_key";
 
-    private final RequestRepositoryListUseCase mInteractor;
+    private final RequestRepositoryListUseCase mRequestRepositoryUseCase;
     private final RepositoryToModelMapper mMapper;
 
     @Inject
     public RepositoryListPresenter(IGithubModel model, RequestRepositoryListUseCase interactor, RepositoryToModelMapper mapper) {
         super(model);
-        mInteractor = interactor;
+        mRequestRepositoryUseCase = interactor;
         mMapper = mapper;
     }
 
@@ -61,13 +62,16 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     public void onSearchClick() {
-        String userName = getView().getUserName();
-        if (TextUtils.isEmpty(userName)) {
-            return;
+        IRepositoryListView view = getView();
+        if (view != null) {
+            String userName = view.getUserName();
+            if (TextUtils.isEmpty(userName)) {
+                return;
+            }
+            setState(LCEViewState.LOADING);
+            getModel().setUserName(userName);
+            performLoad();
         }
-        setState(LCEViewState.LOADING);
-        getModel().setUserName(userName);
-        performLoad();
     }
 
     private void performLoad() {
@@ -75,7 +79,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (TextUtils.isEmpty(userName)) {
             return;
         }
-        addSubscriber(mInteractor.execute(userName)
+        addSubscriber(mRequestRepositoryUseCase.execute(userName)
                 .map(mMapper)
                 .compose(
                         RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad)
@@ -87,16 +91,12 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
         if (savedState != null) {
             model = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
         }
-        applyState();
-        if (getModel().getViewState() == LCEViewState.LOADING) {
-            performLoad();
-        }
     }
 
     @Override
     public void applyState() {
-        if (isViewAttached()) {
-            IRepositoryListView view = getView();
+        IRepositoryListView view = getView();
+        if (view != null) {
             IGithubModel model = getModel();
             LCEViewState state = model.getViewState();
             if (state == LCEViewState.CONTENT && model.getRepositoriesList().isEmpty()) {
@@ -137,6 +137,7 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
             }
         }
+
     }
 
     public void onSaveInstanceState(Bundle outState) {
@@ -144,13 +145,23 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
     }
 
     @Override
+    public void onAttachView() {
+        applyState();
+        if (getModel().getViewState() == LCEViewState.LOADING) {
+            performLoad();
+        }
+    }
+
+    @Override
+    @NonNull
     public IGithubModel getModel() {
         return model;
     }
 
     public void selectRepository(RepositoryVO repository) {
-        if (isViewAttached()) {
-            getView().showRepository(repository);
+        IRepositoryListView view = getView();
+        if (view != null) {
+            view.showRepository(repository);
         }
     }
 }

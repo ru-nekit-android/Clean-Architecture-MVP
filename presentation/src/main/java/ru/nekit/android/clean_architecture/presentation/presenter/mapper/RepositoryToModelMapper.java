@@ -1,5 +1,8 @@
 package ru.nekit.android.clean_architecture.presentation.presenter.mapper;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import ru.nekit.android.clean_architecture.data.core.mapper.BaseMapper;
 import ru.nekit.android.clean_architecture.domain.Repository;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
@@ -7,8 +10,10 @@ import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public class RepositoryToModelMapper extends BaseMapper<Repository, RepositoryVO> {
+@Singleton
+public final class RepositoryToModelMapper extends BaseMapper<Repository, RepositoryVO> {
 
+    @Inject
     public RepositoryToModelMapper() {
         //empty constructor for injection
     }

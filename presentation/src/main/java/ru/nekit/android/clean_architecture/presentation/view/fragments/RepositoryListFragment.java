@@ -14,23 +14,18 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import butterknife.OnClick;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApplication;
-import ru.nekit.android.clean_architecture.presentation.core.navigation.NavigationCommand;
-import ru.nekit.android.clean_architecture.presentation.core.view.fragment.MVPBaseFragment;
-import ru.nekit.android.clean_architecture.presentation.di.HasComponent;
 import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.NavigateToRepositoryInfo;
+import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
 
-public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresenter> implements IRepositoryListView, HasComponent<RepositoryListComponent> {
+public final class RepositoryListFragment extends BaseFragment<RepositoryListComponent, RepositoryListPresenter> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
     protected RecyclerView recyclerView;
@@ -44,24 +39,11 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     @Bind(R.id.progress)
     protected ProgressBar progressView;
 
-    @Inject
-    protected RepositoryListPresenter mPresenter;
-
-    @Inject
-    @NavigateToRepositoryInfo
-    protected NavigationCommand navigateToRepositoryInfo;
-
     private LinearLayoutManager llm;
     private RepositoryListAdapter mAdapter;
 
     public static RepositoryListFragment newInstance() {
         return new RepositoryListFragment();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getComponent().inject(this);
     }
 
     @Override
@@ -85,12 +67,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @OnClick(R.id.search_repositories_button)
     protected void onSearchClick() {
-        mPresenter.onSearchClick();
-    }
-
-    @Override
-    protected RepositoryListPresenter getPresenter() {
-        return mPresenter;
+        getPresenter().onSearchClick();
     }
 
     private void makeToast(String text) {
@@ -109,7 +86,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Override
     public void showRepository(RepositoryVO repository) {
-        navigateToRepositoryInfo.navigate();
+        getComponent().getNavigateToRepositoryInfo().navigate();
     }
 
     @Override
@@ -149,8 +126,8 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         mAdapter.destroy();
+        super.onDestroyView();
     }
 
     private void hideSoftKeyboard() {
@@ -159,8 +136,7 @@ public class RepositoryListFragment extends MVPBaseFragment<RepositoryListPresen
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public RepositoryListComponent getComponent() {
-        return ((HasComponent<RepositoryListComponent>) getActivity()).getComponent();
+    protected RepositoryListComponent onCreateNonConfigurationComponent() {
+        return getApplicationComponent().plus(new RepositoryListModule());
     }
 }

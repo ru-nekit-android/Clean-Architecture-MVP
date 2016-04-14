@@ -1,4 +1,4 @@
-package ru.nekit.android.data;
+package ru.nekit.android.clean_architecture.data;
 
 import org.junit.Test;
 

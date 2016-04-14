@@ -1,6 +1,7 @@
 package ru.nekit.android.clean_architecture.presentation.core.presenter;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
@@ -22,7 +23,7 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
         this.model = model;
     }
 
-    protected void addSubscriber(Subscription subscription) {
+    protected void addSubscriber(@NonNull Subscription subscription) {
         if (subscriptionList == null) {
             subscriptionList = new CompositeSubscription();
         }
@@ -35,6 +36,9 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
         }
         subscriptionList = null;
     }
+
+    @Override
+    abstract public void onAttachView();
 
     @Override
     public void attachView(@NonNull V view) {
@@ -55,6 +59,7 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
     }
 
     @Override
+    @Nullable
     public V getView() {
         if (mViewRef != null && mViewRef.get() != null) {
             return mViewRef.get();

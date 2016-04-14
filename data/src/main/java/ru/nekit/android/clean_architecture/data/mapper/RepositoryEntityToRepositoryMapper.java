@@ -13,7 +13,7 @@ import ru.nekit.android.clean_architecture.domain.Repository;
  * Created by ru.nekit.android on 04.03.16.
  */
 @Singleton
-public class RepositoryEntityToRepositoryMapper extends BaseMapper<RepositoryEntity, Repository> {
+public final class RepositoryEntityToRepositoryMapper extends BaseMapper<RepositoryEntity, Repository> {
 
     @Inject
     public RepositoryEntityToRepositoryMapper() {

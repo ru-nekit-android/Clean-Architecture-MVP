@@ -8,27 +8,22 @@ import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryL
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
 import ru.nekit.android.clean_architecture.presentation.core.navigation.NavigationCommand;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.NavigateToRepositoryInfo;
+import ru.nekit.android.clean_architecture.presentation.di.scope.PerActivity;
 import ru.nekit.android.clean_architecture.presentation.model.GithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
-import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryToModelMapper;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
  */
 
 @Module
+@PerActivity
 public class RepositoryListModule {
 
     @Provides
     @NonNull
     public RequestRepositoryListUseCase provideRequestRepositoryListUseCase(IGithubRepository repository) {
         return new RequestRepositoryListUseCase(repository);
-    }
-
-    @Provides
-    @NonNull
-    public RepositoryToModelMapper provideRepositoryToModelMapper() {
-        return new RepositoryToModelMapper();
     }
 
     @Provides

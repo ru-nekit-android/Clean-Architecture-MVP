@@ -2,6 +2,7 @@ package ru.nekit.android.clean_architecture.presentation.core.presenter;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
 import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
@@ -15,8 +16,10 @@ public interface IMVPPresenter<V extends IMVPView, M extends IMVPModel> {
 
     void detachView();
 
+    @Nullable
     V getView();
 
+    @Nullable
     M getModel();
 
     boolean isViewAttached();
@@ -27,4 +30,5 @@ public interface IMVPPresenter<V extends IMVPView, M extends IMVPModel> {
 
     void onDestroy();
 
+    void onAttachView();
 }
