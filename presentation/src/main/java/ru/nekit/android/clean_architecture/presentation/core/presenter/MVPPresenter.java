@@ -15,11 +15,12 @@ import rx.subscriptions.CompositeSubscription;
  */
 public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> implements IMVPPresenter<V, M> {
 
-    protected M model;
+    @Nullable
+    private final M model;
     private CompositeSubscription subscriptionList;
     private WeakReference<V> mViewRef;
 
-    protected MVPPresenter(@NonNull M model) {
+    protected MVPPresenter(@Nullable M model) {
         this.model = model;
     }
 
@@ -35,6 +36,12 @@ public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> impl
             subscriptionList.clear();
         }
         subscriptionList = null;
+    }
+
+    @Override
+    @NonNull
+    public M getModel() {
+        return model;
     }
 
     @Override

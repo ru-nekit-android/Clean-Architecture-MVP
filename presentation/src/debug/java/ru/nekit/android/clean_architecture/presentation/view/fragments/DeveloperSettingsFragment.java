@@ -41,6 +41,7 @@ public class DeveloperSettingsFragment extends BaseFragment<DeveloperSettingsCom
 
     @Override
     public void showLogcat() {
+        //pmd
     }
 
     @Override

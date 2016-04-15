@@ -62,8 +62,8 @@ public class MVPActivity<C> extends AppCompatActivity implements IComponentCache
     }
 
     private static class NonConfigurationInstance {
-        private Map<Long, Object> components;
-        private AtomicLong nextId;
+        private final Map<Long, Object> components;
+        private final AtomicLong nextId;
 
         public NonConfigurationInstance(long seed) {
             components = new HashMap<>();

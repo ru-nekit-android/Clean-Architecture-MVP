@@ -13,9 +13,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
+import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment;
 import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier;
 
+@RepositoryListScope
 public class RepositoryListActivity extends BaseActivity<RepositoryListComponent> {
 
     private static final String TAG = "fragmentTag";

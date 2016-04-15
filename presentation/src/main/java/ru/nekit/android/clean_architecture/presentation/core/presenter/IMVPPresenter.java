@@ -22,9 +22,9 @@ public interface IMVPPresenter<V extends IMVPView, M extends IMVPModel> {
     @Nullable
     M getModel();
 
-    void onCreate(Bundle savedInstanceState);
+    void onCreate(@Nullable Bundle savedInstanceState);
 
-    void onSaveInstanceState(Bundle bundle);
+    void onSaveInstanceState(@Nullable Bundle bundle);
 
     void onDestroy();
 

@@ -23,11 +23,10 @@ import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
  */
 public abstract class MVPFragment<C extends IHasPresenter<P>, P extends IMVPPresenter> extends Fragment implements IMVPView {
 
-    private IComponentFactory<C> componentFactory = this::onCreateNonConfigurationComponent;
+    private final IComponentFactory<C> componentFactory = this::onCreateNonConfigurationComponent;
+    private final PresenterLifeCircleDelegate<P> presenterDelegate = new PresenterLifeCircleDelegate<>();
+    private final ComponentControllerDelegate<C> componentDelegate = new ComponentControllerDelegate<>();
     private IComponentCache<C> componentCache;
-
-    private PresenterLifeCircleDelegate<P> presenterDelegate = new PresenterLifeCircleDelegate<>();
-    private ComponentControllerDelegate<C> componentDelegate = new ComponentControllerDelegate<>();
 
     @NonNull
     public final P getPresenter() {

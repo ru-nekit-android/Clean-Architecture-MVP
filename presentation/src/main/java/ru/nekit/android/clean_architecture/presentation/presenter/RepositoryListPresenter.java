@@ -1,7 +1,6 @@
 package ru.nekit.android.clean_architecture.presentation.presenter;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -26,15 +25,13 @@ import ru.nekit.android.clean_architecture.presentation.view.fragments.IReposito
 @RepositoryListScope
 public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, IGithubModel> implements IStateable<LCEViewState> {
 
-    private static final String BUNDLE_REPOSITORY_VIEW_MODEL_KEY = "bundle_repository_view_model_key";
-
     private final RequestRepositoryListUseCase mRequestRepositoryUseCase;
     private final RepositoryToModelMapper mMapper;
 
     @Inject
-    public RepositoryListPresenter(IGithubModel model, RequestRepositoryListUseCase interactor, RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter(IGithubModel model, RequestRepositoryListUseCase useCase, RepositoryToModelMapper mapper) {
         super(model);
-        mRequestRepositoryUseCase = interactor;
+        mRequestRepositoryUseCase = useCase;
         mMapper = mapper;
     }
 
@@ -88,9 +85,11 @@ public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, I
     }
 
     public void onCreate(@Nullable Bundle savedState) {
-        if (savedState != null) {
-            model = savedState.getParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY);
-        }
+        //no-op
+    }
+
+    public void onSaveInstanceState(Bundle outState) {
+        //no-op
     }
 
     @Override
@@ -139,22 +138,12 @@ public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, I
         }
     }
 
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelable(BUNDLE_REPOSITORY_VIEW_MODEL_KEY, getModel());
-    }
-
     @Override
     public void onAttachView() {
         applyState();
         if (getModel().getViewState() == LCEViewState.LOADING) {
             performLoad();
         }
-    }
-
-    @Override
-    @NonNull
-    public IGithubModel getModel() {
-        return model;
     }
 
     public void selectRepository(RepositoryVO repository) {

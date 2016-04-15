@@ -20,24 +20,26 @@ import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.GithubApplication;
 import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
 import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
+import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
 
+@RepositoryListScope
 public final class RepositoryListFragment extends BaseFragment<RepositoryListComponent, RepositoryListPresenter> implements IRepositoryListView {
 
     @Bind(R.id.recyclerView)
-    protected RecyclerView recyclerView;
+    RecyclerView recyclerView;
 
     @Bind(R.id.user_name_input)
-    protected EditText userNameInput;
+    EditText userNameInput;
 
     @Bind(R.id.message_view)
-    protected TextView messageView;
+    TextView messageView;
 
     @Bind(R.id.progress)
-    protected ProgressBar progressView;
+    ProgressBar progressView;
 
     private LinearLayoutManager mLinearLayout;
     private RepositoryListAdapter mAdapter;
@@ -85,7 +87,7 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
 
     @Override
     public void showRepository(RepositoryVO repository) {
-
+        //pmd
     }
 
     @Override

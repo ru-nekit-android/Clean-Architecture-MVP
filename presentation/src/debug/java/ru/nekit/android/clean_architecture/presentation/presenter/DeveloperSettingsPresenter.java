@@ -23,11 +23,6 @@ public class DeveloperSettingsPresenter extends MVPPresenter<IDeveloperSettingsV
     }
 
     @Override
-    public IDeveloperSettingsModel getModel() {
-        return model;
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         //no-op
     }
@@ -41,8 +36,8 @@ public class DeveloperSettingsPresenter extends MVPPresenter<IDeveloperSettingsV
     public void onAttachView() {
         IDeveloperSettingsView view = getView();
         if (view != null) {
-            view.updateGitSha(model.gitSha());
-            view.updateBuildDate(model.buildDate());
+            view.updateGitSha(getModel().gitSha());
+            view.updateBuildDate(getModel().buildDate());
         }
     }
 
