@@ -12,11 +12,11 @@ import android.support.v7.widget.Toolbar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import ru.nekit.android.clean_architecture.R;
-import ru.nekit.android.clean_architecture.presentation.core.view.activity.MVPBaseActivity;
+import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.RepositoryListFragment;
 import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier;
 
-public class RepositoryListActivity extends MVPBaseActivity {
+public class RepositoryListActivity extends BaseActivity<RepositoryListComponent> {
 
     private static final String TAG = "fragmentTag";
 

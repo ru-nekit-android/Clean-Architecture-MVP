@@ -25,9 +25,9 @@ public class DataModule {
     @Provides
     @NonNull
     public IGithubRepository provideGithubRepository(GithubModule.Api githubApi,
-                                              RepositoryEntityToRepositoryMapper mapper,
-                                              @LongOperationThread Scheduler longOperationThread,
-                                              @MainThread Scheduler mainThread) {
+                                                     RepositoryEntityToRepositoryMapper mapper,
+                                                     @LongOperationThread Scheduler longOperationThread,
+                                                     @MainThread Scheduler mainThread) {
         return new GithubRepository(githubApi, mapper, longOperationThread, mainThread);
     }
 

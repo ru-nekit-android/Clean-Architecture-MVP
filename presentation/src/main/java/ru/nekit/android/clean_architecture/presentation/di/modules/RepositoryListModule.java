@@ -6,9 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
-import ru.nekit.android.clean_architecture.presentation.core.navigation.NavigationCommand;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.NavigateToRepositoryInfo;
-import ru.nekit.android.clean_architecture.presentation.di.scope.PerActivity;
+import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
 import ru.nekit.android.clean_architecture.presentation.model.GithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 
@@ -17,7 +15,7 @@ import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
  */
 
 @Module
-@PerActivity
+@RepositoryListScope
 public class RepositoryListModule {
 
     @Provides
@@ -32,12 +30,4 @@ public class RepositoryListModule {
         return new GithubModel();
     }
 
-    @Provides
-    @NavigateToRepositoryInfo
-    @NonNull
-    public NavigationCommand provideNavigationCommand() {
-        return () -> {
-            //no-op
-        };
-    }
 }

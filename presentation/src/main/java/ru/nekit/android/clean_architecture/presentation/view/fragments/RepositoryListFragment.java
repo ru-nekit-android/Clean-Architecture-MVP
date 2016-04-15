@@ -39,7 +39,7 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
     @Bind(R.id.progress)
     protected ProgressBar progressView;
 
-    private LinearLayoutManager llm;
+    private LinearLayoutManager mLinearLayout;
     private RepositoryListAdapter mAdapter;
 
     public static RepositoryListFragment newInstance() {
@@ -49,10 +49,9 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_repository_list, container, false);
-        llm = new LinearLayoutManager(getActivity().getApplicationContext());
+        mLinearLayout = new LinearLayoutManager(getActivity().getApplicationContext());
         mAdapter = new RepositoryListAdapter(getPresenter());
         return view;
     }
@@ -60,7 +59,7 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView.setLayoutManager(llm);
+        recyclerView.setLayoutManager(mLinearLayout);
         recyclerView.setAdapter(mAdapter);
         messageView.setText(getString(R.string.result_is_empty));
     }
@@ -86,7 +85,7 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
 
     @Override
     public void showRepository(RepositoryVO repository) {
-        getComponent().getNavigateToRepositoryInfo().navigate();
+
     }
 
     @Override

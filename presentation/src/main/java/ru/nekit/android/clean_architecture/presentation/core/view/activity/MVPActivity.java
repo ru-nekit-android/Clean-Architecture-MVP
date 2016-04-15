@@ -9,22 +9,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
-import ru.nekit.android.clean_architecture.presentation.GithubApplication;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.IComponentCache;
-import ru.nekit.android.clean_architecture.presentation.di.ApplicationComponent;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.persistance.IComponentCache;
 
 /**
  * Created by ru.nekit.android on 06.04.16.
  */
-public class MVPBaseActivity<C> extends AppCompatActivity implements IComponentCache<C> {
+public class MVPActivity<C> extends AppCompatActivity implements IComponentCache<C> {
 
     private static final String NEXT_ID_KEY = "next-presenter-id";
     private NonConfigurationInstance nonConfigurationInstance;
-
-    @NonNull
-    public ApplicationComponent getApplicationComponent() {
-        return GithubApplication.get(this).applicationComponent();
-    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

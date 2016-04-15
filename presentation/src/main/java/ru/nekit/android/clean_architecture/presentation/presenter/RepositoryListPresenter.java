@@ -11,10 +11,10 @@ import javax.inject.Inject;
 
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.MVPBasePresenter;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.MVPPresenter;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.IStateable;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LCEViewState;
-import ru.nekit.android.clean_architecture.presentation.di.scope.PerActivity;
+import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
 import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryToModelMapper;
@@ -23,8 +23,8 @@ import ru.nekit.android.clean_architecture.presentation.view.fragments.IReposito
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
-@PerActivity
-public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListView, IGithubModel> implements IStateable<LCEViewState> {
+@RepositoryListScope
+public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, IGithubModel> implements IStateable<LCEViewState> {
 
     private static final String BUNDLE_REPOSITORY_VIEW_MODEL_KEY = "bundle_repository_view_model_key";
 
@@ -137,7 +137,6 @@ public class RepositoryListPresenter extends MVPBasePresenter<IRepositoryListVie
 
             }
         }
-
     }
 
     public void onSaveInstanceState(Bundle outState) {

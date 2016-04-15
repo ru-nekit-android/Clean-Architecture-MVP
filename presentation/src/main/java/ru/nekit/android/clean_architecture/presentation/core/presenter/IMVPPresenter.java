@@ -22,8 +22,6 @@ public interface IMVPPresenter<V extends IMVPView, M extends IMVPModel> {
     @Nullable
     M getModel();
 
-    boolean isViewAttached();
-
     void onCreate(Bundle savedInstanceState);
 
     void onSaveInstanceState(Bundle bundle);

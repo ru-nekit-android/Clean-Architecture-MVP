@@ -13,13 +13,13 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> implements IMVPPresenter<V, M> {
+public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> implements IMVPPresenter<V, M> {
 
     protected M model;
     private CompositeSubscription subscriptionList;
     private WeakReference<V> mViewRef;
 
-    protected MVPBasePresenter(M model) {
+    protected MVPPresenter(@NonNull M model) {
         this.model = model;
     }
 
@@ -51,11 +51,6 @@ public abstract class MVPBasePresenter<V extends IMVPView, M extends IMVPModel> 
             mViewRef.clear();
         }
         mViewRef = null;
-    }
-
-    @Override
-    public boolean isViewAttached() {
-        return getView() != null;
     }
 
     @Override

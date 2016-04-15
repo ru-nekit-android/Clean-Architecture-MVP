@@ -11,7 +11,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsComponent;
-import ru.nekit.android.clean_architecture.presentation.navigation.NavigationToLogcatCommand;
 import ru.nekit.android.clean_architecture.presentation.presenter.DeveloperSettingsPresenter;
 
 public class DeveloperSettingsFragment extends BaseFragment<DeveloperSettingsComponent, DeveloperSettingsPresenter> implements IDeveloperSettingsView {
@@ -42,9 +41,6 @@ public class DeveloperSettingsFragment extends BaseFragment<DeveloperSettingsCom
 
     @Override
     public void showLogcat() {
-        NavigationToLogcatCommand logcatNavigation = getComponent().getLogcatNavigation();
-        logcatNavigation.setParentActivity(getActivity());
-        logcatNavigation.navigate();
     }
 
     @Override

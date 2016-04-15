@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation.core.presenter;
+package ru.nekit.android.clean_architecture.presentation.core.presenter.persistance;
 
 import android.os.Bundle;
 

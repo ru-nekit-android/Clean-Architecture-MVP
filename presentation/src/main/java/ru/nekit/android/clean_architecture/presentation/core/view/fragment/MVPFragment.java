@@ -10,18 +10,18 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import butterknife.ButterKnife;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.ComponentControllerDelegate;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.IComponentCache;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.IComponentFactory;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.IHasPresenter;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.IMVPPresenter;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.PresenterLifeCircleDelegate;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.persistance.ComponentControllerDelegate;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.persistance.IComponentCache;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.persistance.IComponentFactory;
 import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
 
 /**
  * Created by ru.nekit.android on 05.03.16.
  */
-public abstract class MVPBaseFragment<C extends IHasPresenter<P>, P extends IMVPPresenter> extends Fragment implements IMVPView {
+public abstract class MVPFragment<C extends IHasPresenter<P>, P extends IMVPPresenter> extends Fragment implements IMVPView {
 
     private IComponentFactory<C> componentFactory = this::onCreateNonConfigurationComponent;
     private IComponentCache<C> componentCache;
@@ -29,6 +29,7 @@ public abstract class MVPBaseFragment<C extends IHasPresenter<P>, P extends IMVP
     private PresenterLifeCircleDelegate<P> presenterDelegate = new PresenterLifeCircleDelegate<>();
     private ComponentControllerDelegate<C> componentDelegate = new ComponentControllerDelegate<>();
 
+    @NonNull
     public final P getPresenter() {
         return getComponent().getPresenter();
     }

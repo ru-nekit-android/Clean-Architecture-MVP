@@ -49,34 +49,3 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-/*
-ext.preDexLibs = !project.hasProperty('disablePreDex')
-subprojects {
-    project.plugins.whenPluginAdded { plugin ->
-        if ('com.android.build.gradle.AppPlugin'.equals(plugin.class.name) || 'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
-            // enable or disable pre-dexing
-            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
-        }
-    }
-    afterEvaluate {
-        tasks.findByName('pmd').dependsOn('assemble')
-        tasks.findByName('findbugs').dependsOn('assemble')
-
-        def checkTask = tasks.findByName('check')
-
-        checkTask.dependsOn('pmd')
-        checkTask.dependsOn('findbugs')
-        checkTask.dependsOn('checkstyle')
-
-        // Log instrumentation tests results.
-        tasks.withType(AndroidTestTask) { task ->
-            task.doFirst {
-                logging.level = LogLevel.INFO
-            }
-            task.doLast {
-                logging.level = LogLevel.LIFECYCLE
-            }
-        }
-    }
-}
-*/
