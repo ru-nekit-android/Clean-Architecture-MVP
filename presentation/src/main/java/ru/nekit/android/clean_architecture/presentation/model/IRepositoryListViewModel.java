@@ -2,18 +2,16 @@ package ru.nekit.android.clean_architecture.presentation.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LCEViewState;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPViewModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
  */
-public interface IGithubModel extends IMVPModel, Parcelable {
+public interface IRepositoryListViewModel extends IMVPViewModel, Parcelable {
 
     List<RepositoryVO> getRepositoriesList();
 
@@ -22,11 +20,6 @@ public interface IGithubModel extends IMVPModel, Parcelable {
     Throwable getError();
 
     void setError(Throwable error);
-
-    @NonNull
-    LCEViewState getViewState();
-
-    void setViewState(LCEViewState state);
 
     @Override
     int describeContents();

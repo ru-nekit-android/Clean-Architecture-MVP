@@ -7,8 +7,8 @@ import dagger.Provides;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
 import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
-import ru.nekit.android.clean_architecture.presentation.model.GithubModel;
-import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
+import ru.nekit.android.clean_architecture.presentation.model.RepositoryListViewModel;
+import ru.nekit.android.clean_architecture.presentation.model.IRepositoryListViewModel;
 
 /**
  * Created by ru.nekit.android on 08.03.16.
@@ -26,8 +26,8 @@ public class RepositoryListModule {
 
     @Provides
     @NonNull
-    public IGithubModel provideIGithubModel() {
-        return new GithubModel();
+    public IRepositoryListViewModel provideIGithubModel() {
+        return new RepositoryListViewModel();
     }
 
 }

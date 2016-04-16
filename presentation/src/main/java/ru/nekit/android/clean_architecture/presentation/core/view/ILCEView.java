@@ -1,11 +1,11 @@
 package ru.nekit.android.clean_architecture.presentation.core.view;
 
-import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPViewModel;
 
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface ILCEView<M extends IMVPModel, E> extends IMVPView {
+public interface ILCEView<M extends IMVPViewModel, E> extends IMVPView {
 
     void showLoading();
 

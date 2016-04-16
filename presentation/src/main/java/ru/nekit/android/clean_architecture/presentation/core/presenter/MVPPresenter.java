@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import java.lang.ref.WeakReference;
 
-import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPViewModel;
 import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
@@ -13,15 +13,15 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> implements IMVPPresenter<V, M> {
+public abstract class MVPPresenter<V extends IMVPView, VM extends IMVPViewModel> implements IMVPPresenter<V, VM> {
 
     @Nullable
-    private final M model;
+    private final VM viewModel;
     private CompositeSubscription subscriptionList;
     private WeakReference<V> mViewRef;
 
-    protected MVPPresenter(@Nullable M model) {
-        this.model = model;
+    protected MVPPresenter(@Nullable VM viewModel) {
+        this.viewModel = viewModel;
     }
 
     protected void addSubscriber(@NonNull Subscription subscription) {
@@ -38,10 +38,9 @@ public abstract class MVPPresenter<V extends IMVPView, M extends IMVPModel> impl
         subscriptionList = null;
     }
 
-    @Override
-    @NonNull
-    public M getModel() {
-        return model;
+    @Nullable
+    public VM getViewModel() {
+        return viewModel;
     }
 
     @Override

@@ -10,8 +10,8 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import hu.supercluster.paperwork.Paperwork;
-import ru.nekit.android.clean_architecture.presentation.model.DeveloperSettingsModel;
-import ru.nekit.android.clean_architecture.presentation.model.IDeveloperSettingsModel;
+import ru.nekit.android.clean_architecture.presentation.model.DeveloperSettingsViewModel;
+import ru.nekit.android.clean_architecture.presentation.model.IDeveloperSettingsViewModel;
 import ru.nekit.android.clean_architecture.presentation.view.other.IViewModifier;
 
 /**
@@ -41,7 +41,7 @@ public class DeveloperSettingsModule {
 
     @Provides
     @NonNull
-    public IDeveloperSettingsModel provideIDeveloperSettingsModel(@NonNull Paperwork paperwork) {
-        return new DeveloperSettingsModel(paperwork);
+    public IDeveloperSettingsViewModel provideIDeveloperSettingsModel(@NonNull Paperwork paperwork) {
+        return new DeveloperSettingsViewModel(paperwork);
     }
 }

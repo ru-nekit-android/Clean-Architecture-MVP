@@ -21,7 +21,7 @@ import ru.nekit.android.clean_architecture.presentation.GithubApplication;
 import ru.nekit.android.clean_architecture.presentation.di.RepositoryListComponent;
 import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
 import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
-import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
+import ru.nekit.android.clean_architecture.presentation.model.IRepositoryListViewModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
@@ -102,7 +102,7 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
     }
 
     @Override
-    public void showContent(IGithubModel content) {
+    public void showContent(IRepositoryListViewModel content) {
         messageView.setVisibility(View.INVISIBLE);
         mAdapter.setRepositoryList(content.getRepositoriesList());
         hideSoftKeyboard();

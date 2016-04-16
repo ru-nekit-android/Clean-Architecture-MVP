@@ -11,10 +11,10 @@ import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
  * Created by ru.nekit.android on 04.03.16.
  */
 @Singleton
-public final class RepositoryToModelMapper extends BaseMapper<Repository, RepositoryVO> {
+public final class RepositoryToViewModelMapper extends BaseMapper<Repository, RepositoryVO> {
 
     @Inject
-    public RepositoryToModelMapper() {
+    public RepositoryToViewModelMapper() {
         //empty constructor for injection
     }
 

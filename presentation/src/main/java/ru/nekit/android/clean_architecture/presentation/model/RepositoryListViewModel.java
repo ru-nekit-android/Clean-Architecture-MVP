@@ -2,41 +2,40 @@ package ru.nekit.android.clean_architecture.presentation.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LCEViewState;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LceViewState;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
-public class GithubModel implements IGithubModel {
+public class RepositoryListViewModel implements IRepositoryListViewModel {
 
-    public static final Parcelable.Creator<GithubModel> CREATOR = new Parcelable.Creator<GithubModel>() {
+    public static final Parcelable.Creator<RepositoryListViewModel> CREATOR = new Parcelable.Creator<RepositoryListViewModel>() {
 
-        public GithubModel createFromParcel(Parcel source) {
-            GithubModel model = new GithubModel();
+        public RepositoryListViewModel createFromParcel(Parcel source) {
+            RepositoryListViewModel model = new RepositoryListViewModel();
             model.mUserName = source.readString();
-            model.mState = (LCEViewState) source.readSerializable();
+            model.mState = (LceViewState) source.readSerializable();
             model.mError = (Throwable) source.readSerializable();
             source.readTypedList(model.mRepositoryList, RepositoryVO.CREATOR);
             return model;
         }
 
-        public GithubModel[] newArray(int size) {
-            return new GithubModel[size];
+        public RepositoryListViewModel[] newArray(int size) {
+            return new RepositoryListViewModel[size];
         }
 
     };
 
     private List<RepositoryVO> mRepositoryList;
     private Throwable mError;
-    private LCEViewState mState = LCEViewState.EMPTY;
+    private LceViewState mState = LceViewState.EMPTY;
     private String mUserName;
 
-    public GithubModel() {
+    public RepositoryListViewModel() {
         //empty constructor
     }
 
@@ -58,17 +57,6 @@ public class GithubModel implements IGithubModel {
     @Override
     public void setError(Throwable error) {
         mError = error;
-    }
-
-    @Override
-    @NonNull
-    public LCEViewState getViewState() {
-        return mState;
-    }
-
-    @Override
-    public void setViewState(LCEViewState state) {
-        mState = state;
     }
 
     @Override

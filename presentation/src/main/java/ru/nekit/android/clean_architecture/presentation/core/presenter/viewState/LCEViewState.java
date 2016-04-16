@@ -4,7 +4,7 @@ package ru.nekit.android.clean_architecture.presentation.core.presenter.viewStat
  * Created by ru.nekit.android on 06.03.16.
  */
 
-public enum LCEViewState implements ViewState {
+public enum LceViewState implements ViewState {
     EMPTY,
     CONTENT,
     LOADING,

@@ -4,13 +4,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import ru.nekit.android.clean_architecture.presentation.core.model.IMVPModel;
+import ru.nekit.android.clean_architecture.presentation.core.model.IMVPViewModel;
 import ru.nekit.android.clean_architecture.presentation.core.view.IMVPView;
 
 /**
  * Created by ru.nekit.android on 06.03.16.
  */
-public interface IMVPPresenter<V extends IMVPView, M extends IMVPModel> {
+public interface IMVPPresenter<V extends IMVPView, VM extends IMVPViewModel> {
 
     void attachView(@NonNull V view);
 
@@ -20,7 +20,7 @@ public interface IMVPPresenter<V extends IMVPView, M extends IMVPModel> {
     V getView();
 
     @Nullable
-    M getModel();
+    VM getViewModel();
 
     void onCreate(@Nullable Bundle savedInstanceState);
 

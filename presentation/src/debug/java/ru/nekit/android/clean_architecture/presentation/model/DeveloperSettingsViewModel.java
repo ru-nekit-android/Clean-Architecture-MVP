@@ -7,12 +7,12 @@ import hu.supercluster.paperwork.Paperwork;
 /**
  * Created by ru.nekit.android on 30.03.16.
  */
-public class DeveloperSettingsModel implements IDeveloperSettingsModel {
+public class DeveloperSettingsViewModel implements IDeveloperSettingsViewModel {
 
     @NonNull
     private final Paperwork paperwork;
 
-    public DeveloperSettingsModel(@NonNull Paperwork paperwork) {
+    public DeveloperSettingsViewModel(@NonNull Paperwork paperwork) {
         this.paperwork = paperwork;
     }
 

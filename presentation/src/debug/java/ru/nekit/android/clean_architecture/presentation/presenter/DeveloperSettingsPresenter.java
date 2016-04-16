@@ -8,17 +8,17 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import ru.nekit.android.clean_architecture.presentation.core.presenter.MVPPresenter;
-import ru.nekit.android.clean_architecture.presentation.model.IDeveloperSettingsModel;
+import ru.nekit.android.clean_architecture.presentation.model.IDeveloperSettingsViewModel;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.IDeveloperSettingsView;
 
 /**
  * Created by ru.nekit.android on 30.03.16.
  */
 @Singleton
-public class DeveloperSettingsPresenter extends MVPPresenter<IDeveloperSettingsView, IDeveloperSettingsModel> {
+public class DeveloperSettingsPresenter extends MVPPresenter<IDeveloperSettingsView, IDeveloperSettingsViewModel> {
 
     @Inject
-    public DeveloperSettingsPresenter(@NonNull IDeveloperSettingsModel model) {
+    public DeveloperSettingsPresenter(@NonNull IDeveloperSettingsViewModel model) {
         super(model);
     }
 
@@ -36,8 +36,8 @@ public class DeveloperSettingsPresenter extends MVPPresenter<IDeveloperSettingsV
     public void onAttachView() {
         IDeveloperSettingsView view = getView();
         if (view != null) {
-            view.updateGitSha(getModel().gitSha());
-            view.updateBuildDate(getModel().buildDate());
+            view.updateGitSha(getViewModel().gitSha());
+            view.updateBuildDate(getViewModel().buildDate());
         }
     }
 

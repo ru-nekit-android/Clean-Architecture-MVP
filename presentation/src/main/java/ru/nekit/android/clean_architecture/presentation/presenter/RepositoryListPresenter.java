@@ -10,33 +10,32 @@ import javax.inject.Inject;
 
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.MVPPresenter;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.IStateable;
-import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LCEViewState;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.LcePresenter;
+import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LceViewState;
 import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
-import ru.nekit.android.clean_architecture.presentation.model.IGithubModel;
+import ru.nekit.android.clean_architecture.presentation.model.IRepositoryListViewModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryToModelMapper;
+import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryToViewModelMapper;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.IRepositoryListView;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
 @RepositoryListScope
-public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, IGithubModel> implements IStateable<LCEViewState> {
+public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, IRepositoryListViewModel> {
 
     private final RequestRepositoryListUseCase mRequestRepositoryUseCase;
-    private final RepositoryToModelMapper mMapper;
+    private final RepositoryToViewModelMapper mMapper;
 
     @Inject
-    public RepositoryListPresenter(IGithubModel model, RequestRepositoryListUseCase useCase, RepositoryToModelMapper mapper) {
+    public RepositoryListPresenter(IRepositoryListViewModel model, RequestRepositoryListUseCase useCase, RepositoryToViewModelMapper mapper) {
         super(model);
         mRequestRepositoryUseCase = useCase;
         mMapper = mapper;
     }
 
     private void onBeforeLoad() {
-        setState(LCEViewState.LOADING);
+        setAndApplyViewState(LceViewState.LOADING);
     }
 
     private void onAfterLoad() {
@@ -44,18 +43,18 @@ public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, I
     }
 
     private void onResult(List<RepositoryVO> result) {
-        getModel().setRepositoriesList(result);
-        setState(LCEViewState.CONTENT);
+        getViewModel().setRepositoriesList(result);
+        setAndApplyViewState(LceViewState.CONTENT);
     }
 
     private void onError(Throwable error) {
-        getModel().setError(error);
-        setState(LCEViewState.ERROR);
+        getViewModel().setError(error);
+        setAndApplyViewState(LceViewState.ERROR);
     }
 
-    private void setState(LCEViewState state) {
-        getModel().setViewState(state);
-        applyState();
+    private void setAndApplyViewState(LceViewState state) {
+        setViewState(state);
+        applyViewState();
     }
 
     public void onSearchClick() {
@@ -65,14 +64,14 @@ public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, I
             if (TextUtils.isEmpty(userName)) {
                 return;
             }
-            setState(LCEViewState.LOADING);
-            getModel().setUserName(userName);
+            getViewModel().setUserName(userName);
+            setAndApplyViewState(LceViewState.LOADING);
             performLoad();
         }
     }
 
     private void performLoad() {
-        String userName = getModel().getUserName();
+        String userName = getViewModel().getUserName();
         if (TextUtils.isEmpty(userName)) {
             return;
         }
@@ -93,13 +92,13 @@ public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, I
     }
 
     @Override
-    public void applyState() {
+    public void applyViewState() {
         IRepositoryListView view = getView();
         if (view != null) {
-            IGithubModel model = getModel();
-            LCEViewState state = model.getViewState();
-            if (state == LCEViewState.CONTENT && model.getRepositoriesList().isEmpty()) {
-                state = LCEViewState.EMPTY;
+            IRepositoryListViewModel model = getViewModel();
+            LceViewState state = getViewState();
+            if (state == LceViewState.CONTENT && model.getRepositoriesList().isEmpty()) {
+                state = LceViewState.EMPTY;
             }
             switch (state) {
                 case CONTENT:
@@ -140,8 +139,8 @@ public class RepositoryListPresenter extends MVPPresenter<IRepositoryListView, I
 
     @Override
     public void onAttachView() {
-        applyState();
-        if (getModel().getViewState() == LCEViewState.LOADING) {
+        applyViewState();
+        if (getViewState() == LceViewState.LOADING) {
             performLoad();
         }
     }
