@@ -7,7 +7,7 @@ public class ComponentControllerDelegate<C> {
 
     private C component;
     private IComponentCache<C> cache;
-    private long componentId;
+    private int componentId;
     private boolean isDestroyedBySystem;
 
     public void onCreate(IComponentCache<C> cache, Bundle savedInstanceState,
@@ -16,7 +16,7 @@ public class ComponentControllerDelegate<C> {
         if (savedInstanceState == null) {
             componentId = cache.generateId();
         } else {
-            componentId = savedInstanceState.getLong(PRESENTER_INDEX_KEY);
+            componentId = savedInstanceState.getInt(PRESENTER_INDEX_KEY);
         }
         component = cache.getComponent(componentId);
         if (component == null) {
@@ -31,7 +31,7 @@ public class ComponentControllerDelegate<C> {
 
     public void onSaveInstanceState(Bundle outState) {
         isDestroyedBySystem = true;
-        outState.putLong(PRESENTER_INDEX_KEY, componentId);
+        outState.putInt(PRESENTER_INDEX_KEY, componentId);
     }
 
     public void onDestroy() {

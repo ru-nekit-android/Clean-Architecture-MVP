@@ -1,9 +1,9 @@
 package ru.nekit.android.clean_architecture.presentation.core.presenter.persistance;
 
 public interface IComponentCache<C> {
-    long generateId();
+    int generateId();
 
-    C getComponent(long index);
+    C getComponent(int index);
 
-    void setComponent(long index, C component);
+    void setComponent(int index, C component);
 }

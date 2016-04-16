@@ -4,10 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseArray;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import ru.nekit.android.clean_architecture.presentation.core.presenter.persistance.IComponentCache;
 
@@ -23,11 +22,11 @@ public class MVPActivity<C> extends AppCompatActivity implements IComponentCache
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         nonConfigurationInstance = (NonConfigurationInstance) getLastCustomNonConfigurationInstance();
         if (nonConfigurationInstance == null) {
-            long seed;
+            int seed;
             if (savedInstanceState == null) {
                 seed = 0;
             } else {
-                seed = savedInstanceState.getLong(NEXT_ID_KEY);
+                seed = savedInstanceState.getInt(NEXT_ID_KEY);
             }
             nonConfigurationInstance = new NonConfigurationInstance(seed);
         }
@@ -37,7 +36,7 @@ public class MVPActivity<C> extends AppCompatActivity implements IComponentCache
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(NEXT_ID_KEY, nonConfigurationInstance.nextId.get());
+        outState.putInt(NEXT_ID_KEY, nonConfigurationInstance.nextId.get());
     }
 
     @Override
@@ -46,28 +45,28 @@ public class MVPActivity<C> extends AppCompatActivity implements IComponentCache
     }
 
     @Override
-    public long generateId() {
+    public int generateId() {
         return nonConfigurationInstance.nextId.getAndIncrement();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public final C getComponent(long index) {
+    public final C getComponent(int index) {
         return (C) nonConfigurationInstance.components.get(index);
     }
 
     @Override
-    public void setComponent(long index, Object component) {
+    public void setComponent(int index, Object component) {
         nonConfigurationInstance.components.put(index, component);
     }
 
     private static class NonConfigurationInstance {
-        private final Map<Long, Object> components;
-        private final AtomicLong nextId;
+        private final SparseArray<Object> components;
+        private final AtomicInteger nextId;
 
-        public NonConfigurationInstance(long seed) {
-            components = new HashMap<>();
-            nextId = new AtomicLong(seed);
+        public NonConfigurationInstance(int seed) {
+            components = new SparseArray<>();
+            nextId = new AtomicInteger(seed);
         }
     }
 }
