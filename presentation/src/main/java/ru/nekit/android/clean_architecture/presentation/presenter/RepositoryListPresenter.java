@@ -1,6 +1,7 @@
 package ru.nekit.android.clean_architecture.presentation.presenter;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
@@ -43,12 +44,12 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
     }
 
     private void onResult(List<RepositoryVO> result) {
-        getViewModel().setRepositoriesList(result);
+        withViewModel(model -> model.setRepositoriesList(result));
         setAndApplyViewState(LceViewState.CONTENT);
     }
 
     private void onError(Throwable error) {
-        getViewModel().setError(error);
+        withViewModel(model -> model.setError(error));
         setAndApplyViewState(LceViewState.ERROR);
     }
 
@@ -58,23 +59,18 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
     }
 
     public void onSearchClick() {
-        IRepositoryListView view = getView();
-        if (view != null) {
+        withViewAndModel((view, model) -> {
             String userName = view.getUserName();
             if (TextUtils.isEmpty(userName)) {
                 return;
             }
-            getViewModel().setUserName(userName);
+            model.setUserName(userName);
             setAndApplyViewState(LceViewState.LOADING);
-            performLoad();
-        }
+            performLoad(userName);
+        });
     }
 
-    private void performLoad() {
-        String userName = getViewModel().getUserName();
-        if (TextUtils.isEmpty(userName)) {
-            return;
-        }
+    private void performLoad(String userName) {
         addSubscriber(mRequestRepositoryUseCase.execute(userName)
                 .map(mMapper)
                 .compose(
@@ -92,10 +88,26 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
     }
 
     @Override
-    public void applyViewState() {
+    public void onAttachView(@NonNull IRepositoryListView view) {
+        applyViewState();
+        withViewModel(model -> {
+            if (getViewState() == LceViewState.LOADING) {
+                performLoad(model.getUserName());
+            }
+        });
+    }
+
+    public void selectRepository(RepositoryVO repository) {
         IRepositoryListView view = getView();
         if (view != null) {
-            IRepositoryListViewModel model = getViewModel();
+            view.showRepository(repository);
+        }
+    }
+
+    @Override
+
+    public void applyViewState() {
+        withViewAndModel((view, model) -> {
             LceViewState state = getViewState();
             if (state == LceViewState.CONTENT && model.getRepositoriesList().isEmpty()) {
                 state = LceViewState.EMPTY;
@@ -134,21 +146,6 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
                     break;
 
             }
-        }
-    }
-
-    @Override
-    public void onAttachView() {
-        applyViewState();
-        if (getViewState() == LceViewState.LOADING) {
-            performLoad();
-        }
-    }
-
-    public void selectRepository(RepositoryVO repository) {
-        IRepositoryListView view = getView();
-        if (view != null) {
-            view.showRepository(repository);
-        }
+        });
     }
 }

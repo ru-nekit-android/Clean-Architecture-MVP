@@ -22,7 +22,7 @@ public class PresenterLifeCircleDelegate<P extends IMVPPresenter> {
     @SuppressWarnings("unchecked")
     public void onCreateView(@NonNull IMVPView view, Bundle savedInstanceState) {
         presenter.attachView(view);
-        presenter.onAttachView();
+        presenter.onAttachView(view);
     }
 
     public void onResume() {

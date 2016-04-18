@@ -33,18 +33,14 @@ public class DeveloperSettingsPresenter extends MVPPresenter<IDeveloperSettingsV
     }
 
     @Override
-    public void onAttachView() {
-        IDeveloperSettingsView view = getView();
-        if (view != null) {
-            view.updateGitSha(getViewModel().gitSha());
-            view.updateBuildDate(getViewModel().buildDate());
-        }
+    public void onAttachView(@NonNull IDeveloperSettingsView view) {
+        withViewModel(model -> {
+            view.updateGitSha(model.gitSha());
+            view.updateBuildDate(model.buildDate());
+        });
     }
 
     public void showLogcat() {
-        IDeveloperSettingsView view = getView();
-        if (view != null) {
-            view.showLogcat();
-        }
+        withView(IDeveloperSettingsView::showLogcat);
     }
 }
