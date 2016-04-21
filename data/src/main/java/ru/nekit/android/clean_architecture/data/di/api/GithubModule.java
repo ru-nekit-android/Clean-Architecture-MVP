@@ -12,7 +12,7 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
-import ru.nekit.android.clean_architecture.data.entities.RepositoryEntity;
+import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import rx.Observable;
 
 /**

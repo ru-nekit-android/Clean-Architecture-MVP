@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data.entities;
+package ru.nekit.android.clean_architecture.domain.entities;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
