@@ -58,4 +58,8 @@ public class RepositoryListActivity extends BaseActivity<RepositoryListComponent
         }
         transaction.commit();
     }
+
+    public IViewModifier getviewModifier() {
+        return viewModifier;
+    }
 }
