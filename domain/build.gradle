@@ -5,8 +5,12 @@ dependencies {
 
     //noinspection GroovyAssignabilityCheck
     compile libraries.rxJava
+    
+    compile libraries.gson
 
     //noinspection GroovyAssignabilityCheck
     testCompile testLibraries.junit
+
+    testCompile testLibraries.robolectric
 
 }

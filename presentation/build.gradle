@@ -79,5 +79,10 @@ dependencies {
     debugCompile debugLibryries.leakCanaryDebug
     debugCompile debugLibryries.lynx
 
+    testApt libraries.daggerCompiler
     testCompile testLibraries.junit
+    testCompile testLibraries.robolectric
+    testCompile testLibraries.assertJ
+    testCompile testLibraries.okHttpMockWebServer
+    testCompile testLibraries.mockitoCore
 }
