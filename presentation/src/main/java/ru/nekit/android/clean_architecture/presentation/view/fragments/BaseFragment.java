@@ -12,7 +12,7 @@ import ru.nekit.android.clean_architecture.presentation.di.ApplicationComponent;
 public abstract class BaseFragment<C extends IHasPresenter<P>, P extends IMVPPresenter> extends MVPFragment<C, P> {
 
     public ApplicationComponent getApplicationComponent() {
-        return GithubApplication.get(getContext()).applicationComponent();
+        return GithubApplication.get(getContext()).getApplicationComponent();
     }
 
 }

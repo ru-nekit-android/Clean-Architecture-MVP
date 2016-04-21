@@ -122,7 +122,7 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
     @Override
     public void onDestroy() {
         super.onDestroy();
-        GithubApplication.get(getContext()).applicationComponent().leakCanaryProxy().watch(this);
+        GithubApplication.get(getContext()).getApplicationComponent().leakCanaryProxy().watch(this);
     }
 
     @Override

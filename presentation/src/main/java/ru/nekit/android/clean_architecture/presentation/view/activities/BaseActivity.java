@@ -10,7 +10,7 @@ import ru.nekit.android.clean_architecture.presentation.di.ApplicationComponent;
 public class BaseActivity<C> extends MVPActivity<C> {
 
     public ApplicationComponent getApplicationComponent() {
-        return GithubApplication.get(getApplicationContext()).applicationComponent();
+        return GithubApplication.get(getApplicationContext()).getApplicationComponent();
     }
 
 }

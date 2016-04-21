@@ -24,14 +24,14 @@ public class GithubApplication extends Application {
     }
 
     @NonNull
-    public ApplicationComponent applicationComponent() {
+    public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 
     public void onCreate() {
         super.onCreate();
 
-        applicationComponent = prepareApplicationComponent().build();
+        applicationComponent = prepareApplicationComponent();
         applicationComponent.inject(this);
 
         if (BuildConfig.DEBUG) {
@@ -39,7 +39,7 @@ public class GithubApplication extends Application {
         }
     }
 
-    private DaggerApplicationComponent.Builder prepareApplicationComponent() {
-        return DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this));
+    protected ApplicationComponent prepareApplicationComponent() {
+        return DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
     }
 }
