@@ -2,7 +2,7 @@ package ru.nekit.android.clean_architecture.domain.repository;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.domain.Repository;
+import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import rx.Observable;
 
 /**
@@ -10,6 +10,6 @@ import rx.Observable;
  */
 public interface IGithubRepository {
 
-    Observable<List<Repository>> getRepositories(final String userName);
+    Observable<List<RepositoryEntity>> getRepositories(final String userName);
 
 }
