@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
+import ru.nekit.android.clean_architecture.data.api.GithubApi;
 import ru.nekit.android.clean_architecture.data.utils.rx.RxTransformers;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
@@ -16,11 +16,11 @@ import rx.Scheduler;
  */
 public class GithubRepository implements IGithubRepository {
 
-    private final GithubModule.Api mGithubApi;
+    private final GithubApi mGithubApi;
     private final Scheduler mLongOperationThread;
     private final Scheduler mMainThread;
 
-    public GithubRepository(GithubModule.Api githubApi,
+    public GithubRepository(GithubApi githubApi,
                             Scheduler longOperationThread,
                             Scheduler mainThread) {
         mGithubApi = githubApi;
