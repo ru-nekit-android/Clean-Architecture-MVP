@@ -1,15 +1,18 @@
 package ru.nekit.android.clean_architecture.di;
 
+import android.support.annotation.NonNull;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
 import ru.nekit.android.clean_architecture.data.GithubApiTest;
 import ru.nekit.android.clean_architecture.data.GithubRepositoryTest;
-import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
 import ru.nekit.android.clean_architecture.data.di.network.OkHttpInterceptorsModule;
 import ru.nekit.android.clean_architecture.di.modules.TestApplicationModule;
 import ru.nekit.android.clean_architecture.di.modules.TestDataModule;
+import ru.nekit.android.clean_architecture.di.modules.TestGithubModule;
+import ru.nekit.android.clean_architecture.di.modules.TestRepositoryListModule;
 import ru.nekit.android.clean_architecture.di.modules.TestSupportModule;
 import ru.nekit.android.clean_architecture.presentation.developer_settings.DeveloperSettingsModule;
 import ru.nekit.android.clean_architecture.presentation.di.ApplicationComponent;
@@ -22,7 +25,7 @@ import ru.nekit.android.clean_architecture.presentation.di.ApplicationComponent;
         modules = {
                 TestApplicationModule.class,
                 TestDataModule.class,
-                GithubModule.class,
+                TestGithubModule.class,
                 NetworkModule.class,
                 OkHttpInterceptorsModule.class,
                 TestSupportModule.class,
@@ -35,4 +38,6 @@ public interface TestApplicationComponent extends ApplicationComponent {
 
     void inject(GithubRepositoryTest value);
 
+    @NonNull
+    TestRepositoryListComponent plus(@NonNull TestRepositoryListModule module);
 }

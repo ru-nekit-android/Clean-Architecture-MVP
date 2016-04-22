@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.data;
+package ru.nekit.android.clean_architecture.domain;
 
 import junit.framework.Assert;
 
@@ -10,15 +10,13 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.nekit.android.clean_architecture.core.BaseTest;
-import ru.nekit.android.clean_architecture.data.api.GithubApi;
-import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
+import ru.nekit.android.clean_architecture.di.TestRepositoryListComponent;
+import ru.nekit.android.clean_architecture.di.modules.TestRepositoryListModule;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
+import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.Observable;
-import rx.Scheduler;
 import rx.observers.TestSubscriber;
 
 import static org.junit.Assert.assertEquals;
@@ -28,43 +26,32 @@ import static org.mockito.Mockito.when;
 /**
  * Created by ru.nekit.android on 22.04.16.
  */
-public class GithubRepositoryTest extends BaseTest {
+public class RequestRepositoryListUseCaseTest extends BaseTest {
 
     @Inject
-    protected GithubApi githubApi;
-
-    @Inject
-    @LongOperationThread
-    protected Scheduler longOperationScheduler;
-
-    @Inject
-    @MainThread
-    protected Scheduler mainThreadScheduler;
-
+    protected IGithubRepository githubRepository;
     @Inject
     @UserName
     protected String userName;
-
     @Inject
     protected List<RepositoryEntity> repositoryEntities;
-
     //real
-    private IGithubRepository githubRepository;
+    private RequestRepositoryListUseCase useCase;
 
     @Override
     public void setUp() throws IOException {
         super.setUp();
-        testApplicationComponent.inject(this);
-        githubRepository = new GithubRepository(githubApi, longOperationScheduler, mainThreadScheduler);
+        TestRepositoryListComponent component = testApplicationComponent.plus(new TestRepositoryListModule());
+        component.inject(this);
+        useCase = new RequestRepositoryListUseCase(githubRepository);
     }
 
     @Test
-    public void testGetRepositoryList() {
-
-        when(githubApi.getRepositories(userName)).thenReturn(Observable.just(repositoryEntities));
+    public void testRequestRepositoryListUseCase() {
+        when(githubRepository.getRepositories(userName)).thenReturn(Observable.just(repositoryEntities));
 
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
-        githubRepository.getRepositories(userName).subscribe(subscriber);
+        useCase.execute(userName).subscribe(subscriber);
 
         subscriber.assertNoErrors();
         subscriber.assertValueCount(1);
@@ -81,6 +68,7 @@ public class GithubRepositoryTest extends BaseTest {
         entity = actual.get(actual.size() - 1);
         assertEquals(entity.getName(), "GIS");
         assertTrue(entity.getId() == 5528510);
-
     }
+
+
 }

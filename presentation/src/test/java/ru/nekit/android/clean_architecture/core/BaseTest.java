@@ -1,5 +1,7 @@
 package ru.nekit.android.clean_architecture.core;
 
+import android.support.annotation.CallSuper;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -19,6 +21,7 @@ public class BaseTest {
     protected TestApplicationComponent testApplicationComponent;
 
     @Before
+    @CallSuper
     public void setUp() throws IOException {
         testApplicationComponent = GithubTestApplicationRobolectricUnitTestRunner.getTestApplicationComponent();
     }

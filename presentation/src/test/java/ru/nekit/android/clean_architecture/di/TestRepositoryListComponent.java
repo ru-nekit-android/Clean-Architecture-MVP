@@ -2,6 +2,8 @@ package ru.nekit.android.clean_architecture.di;
 
 import dagger.Subcomponent;
 import ru.nekit.android.clean_architecture.di.modules.TestRepositoryListModule;
+import ru.nekit.android.clean_architecture.domain.RequestRepositoryListUseCaseTest;
+import ru.nekit.android.clean_architecture.presentation.RepositoryEntityToRepositoryVOMapperTest;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.IHasPresenter;
 import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
@@ -12,4 +14,9 @@ import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryList
 @Subcomponent(modules = {TestRepositoryListModule.class})
 @RepositoryListScope
 public interface TestRepositoryListComponent extends IHasPresenter<RepositoryListPresenter> {
+
+    void inject(RequestRepositoryListUseCaseTest value);
+
+    void inject(RepositoryEntityToRepositoryVOMapperTest value);
+
 }

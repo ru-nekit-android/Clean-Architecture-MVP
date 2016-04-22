@@ -3,6 +3,8 @@ package ru.nekit.android.clean_architecture.di.modules;
 import android.support.annotation.NonNull;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -14,6 +16,7 @@ import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import ru.nekit.android.clean_architecture.core.TestUtils;
 import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
+import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 
 /**
@@ -54,6 +57,11 @@ public class TestSupportModule {
         server.setDispatcher(dispatcher);
         server.url(endpoint);
         return server;
+    }
+
+    @Provides
+    public List<RepositoryEntity> provideRepositoryEntityList(TestUtils testUtils) {
+        return Arrays.asList(testUtils.readJson("json/repos", RepositoryEntity[].class));
     }
 
 }

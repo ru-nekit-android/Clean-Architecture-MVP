@@ -13,10 +13,12 @@ import ru.nekit.android.clean_architecture.core.BaseTest;
 import ru.nekit.android.clean_architecture.data.api.GithubApi;
 import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
+import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.observers.TestSubscriber;
 
+import static java.util.Collections.emptyList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -37,13 +39,15 @@ public class GithubApiTest extends BaseTest {
     @Inject
     protected MockWebServer server;
 
-    @Inject
-    protected GithubApi githubApi;
+    //real
+    private GithubApi githubApi;
 
     @Before
     public void setUp() throws IOException {
         super.setUp();
         testApplicationComponent.inject(this);
+        NetworkModule networkModule = new NetworkModule();
+        githubApi = new GithubModule().provideApi(networkModule.provideRetrofit(networkModule.provideOkHttpClient(emptyList(), emptyList()), endpoint));
     }
 
     @Test
