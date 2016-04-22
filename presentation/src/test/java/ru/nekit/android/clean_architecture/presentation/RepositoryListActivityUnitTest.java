@@ -1,11 +1,12 @@
 package ru.nekit.android.clean_architecture.presentation;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.robolectric.Robolectric;
 import org.robolectric.util.ActivityController;
 
-import ru.nekit.android.clean_architecture.BaseTest;
+import java.io.IOException;
+
+import ru.nekit.android.clean_architecture.core.BaseTest;
 import ru.nekit.android.clean_architecture.R;
 import ru.nekit.android.clean_architecture.presentation.view.activities.RepositoryListActivity;
 
@@ -15,10 +16,12 @@ import static org.junit.Assert.assertNotNull;
 public class RepositoryListActivityUnitTest extends BaseTest {
 
     private RepositoryListActivity activity;
+    private ActivityController<RepositoryListActivity> controller;
 
-    @Before
-    public void setup() {
-        ActivityController<RepositoryListActivity> controller = Robolectric.buildActivity(RepositoryListActivity.class).create();
+    @Override
+    public void setUp() throws IOException {
+        super.setUp();
+        controller = Robolectric.buildActivity(RepositoryListActivity.class).create();
         controller.start();
         controller.resume();
         controller.visible();

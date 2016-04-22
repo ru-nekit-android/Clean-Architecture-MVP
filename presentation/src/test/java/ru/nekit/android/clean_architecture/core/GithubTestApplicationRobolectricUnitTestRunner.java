@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture;
+package ru.nekit.android.clean_architecture.core;
 
 import android.support.annotation.NonNull;
 
@@ -8,6 +8,8 @@ import org.robolectric.annotation.Config;
 
 import java.lang.reflect.Method;
 
+import ru.nekit.android.clean_architecture.BuildConfig;
+import ru.nekit.android.clean_architecture.TestGithubApplication;
 import ru.nekit.android.clean_architecture.di.TestApplicationComponent;
 
 // Custom runner allows us set config in one place instead of setting it in each test class.

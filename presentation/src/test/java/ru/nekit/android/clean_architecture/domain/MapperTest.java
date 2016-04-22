@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ru.nekit.android.clean_architecture.BaseTest;
+import ru.nekit.android.clean_architecture.core.BaseTest;
 import ru.nekit.android.clean_architecture.domain.entities.OwnerEntity;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;

@@ -1,5 +1,6 @@
-package ru.nekit.android.clean_architecture;
+package ru.nekit.android.clean_architecture.core;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
@@ -15,14 +16,16 @@ import ru.nekit.android.clean_architecture.di.TestApplicationComponent;
 @Ignore
 public class BaseTest {
 
-    protected TestUtils testUtils;
-
     protected TestApplicationComponent testApplicationComponent;
 
     @Before
     public void setUp() throws IOException {
-        testUtils = new TestUtils();
         testApplicationComponent = GithubTestApplicationRobolectricUnitTestRunner.getTestApplicationComponent();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+
     }
 
 }

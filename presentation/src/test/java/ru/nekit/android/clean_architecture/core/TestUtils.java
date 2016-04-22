@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture;
+package ru.nekit.android.clean_architecture.core;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
