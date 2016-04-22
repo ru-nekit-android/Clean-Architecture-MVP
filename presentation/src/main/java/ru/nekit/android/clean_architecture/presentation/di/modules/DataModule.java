@@ -17,7 +17,7 @@ import rx.Scheduler;
  * Created by ru.nekit.android on 08.03.16.
  */
 
-@Module(includes = {GithubModule.class})
+@Module
 @Singleton
 public class DataModule {
 

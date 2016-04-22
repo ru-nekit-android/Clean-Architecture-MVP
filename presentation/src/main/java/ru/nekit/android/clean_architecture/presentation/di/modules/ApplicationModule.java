@@ -19,7 +19,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ru.nekit.android on 29.03.16.
  */
-@Module(includes = {DataModule.class})
+@Module
 @Singleton
 public class ApplicationModule {
 

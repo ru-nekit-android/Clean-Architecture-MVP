@@ -21,7 +21,7 @@ import ru.nekit.clean_architecture.android.data.BuildConfig;
 /**
  * Created by ru.nekit.android on 29.03.16.
  */
-@Module(includes = {OkHttpInterceptorsModule.class})
+@Module
 @Singleton
 public class NetworkModule {
 

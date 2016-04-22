@@ -11,14 +11,13 @@ import dagger.Provides;
 import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import rx.Observable;
 
 /**
  * Created by ru.nekit.android on 02.03.16.
  */
-@Module(includes = {NetworkModule.class})
+@Module
 @Singleton
 public class GithubModule {
 
