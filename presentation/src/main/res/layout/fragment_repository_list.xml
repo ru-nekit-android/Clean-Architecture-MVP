@@ -75,7 +75,6 @@
             android:layout_toStartOf="@id/search_repositories_button"
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:text="@string/default_user_name"
             android:textColor="@color/white"
             android:theme="@style/LightEditText" />
 

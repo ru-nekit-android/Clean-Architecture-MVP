@@ -19,7 +19,10 @@ public final class RepositoryEntityToRepositoryVOMapper extends BaseMapper<Repos
     }
 
     public RepositoryVO convert(RepositoryEntity value) {
-        return new RepositoryVO(value.getName(), value.getOwner().getLogin(), value.getDescription(),
+        return new RepositoryVO(value.getId(),
+                value.getName(),
+                value.getOwner().getLogin(),
+                value.getDescription(),
                 Integer.toString(value.getStargazersCount()),
                 Integer.toString(value.getForksCount()),
                 Integer.toString(value.getWatchersCount()));

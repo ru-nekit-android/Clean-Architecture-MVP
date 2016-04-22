@@ -11,6 +11,7 @@ import hu.supercluster.paperwork.Paperwork;
 import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.LongOperationThread;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.MainThread;
+import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -39,6 +40,13 @@ public class ApplicationModule {
     @NonNull
     public Paperwork providePaperwork(@NonNull Application application) {
         return new Paperwork(application);
+    }
+
+    @Provides
+    @UserName
+    @NonNull
+    public String provideUserName(Paperwork paperwork) {
+        return paperwork.get("USER_NAME");
     }
 
     @Provides

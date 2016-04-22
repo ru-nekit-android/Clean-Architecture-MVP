@@ -30,4 +30,6 @@ public interface IRepositoryListViewModel extends IMVPViewModel, Parcelable {
     String getUserName();
 
     void setUserName(String userName);
+
+    String getActualUserName();
 }

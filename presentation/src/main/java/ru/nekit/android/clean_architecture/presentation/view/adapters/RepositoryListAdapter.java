@@ -29,11 +29,11 @@ public class RepositoryListAdapter extends BaseAdapter<RepositoryVO, RepositoryL
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         RepositoryVO repository = list.get(i);
-        viewHolder.titleView.setText(repository.repoName);
-        viewHolder.descriptionView.setText(repository.description);
-        viewHolder.starsView.setText(repository.starsCount);
-        viewHolder.forksView.setText(repository.forksCount);
-        viewHolder.watchersView.setText(repository.watchersCount);
+        viewHolder.titleView.setText(repository.getRepoName());
+        viewHolder.descriptionView.setText(repository.getDescription());
+        viewHolder.starsView.setText(repository.getStarsCount());
+        viewHolder.forksView.setText(repository.getForksCount());
+        viewHolder.watchersView.setText(repository.getWatchersCount());
         if (presenterRef != null && presenterRef.get() != null) {
             viewHolder.rootView.setOnClickListener(view -> presenterRef.get().selectRepository(repository));
         }

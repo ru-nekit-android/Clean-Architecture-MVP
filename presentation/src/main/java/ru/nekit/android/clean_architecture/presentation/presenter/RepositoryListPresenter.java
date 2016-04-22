@@ -25,13 +25,13 @@ import ru.nekit.android.clean_architecture.presentation.view.fragments.IReposito
 @RepositoryListScope
 public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, IRepositoryListViewModel> {
 
-    private final RequestRepositoryListUseCase mRequestRepositoryUseCase;
+    private final RequestRepositoryListUseCase mRequestRepositoryListUseCase;
     private final RepositoryEntityToRepositoryVOMapper mMapper;
 
     @Inject
     public RepositoryListPresenter(IRepositoryListViewModel model, RequestRepositoryListUseCase useCase, RepositoryEntityToRepositoryVOMapper mapper) {
         super(model);
-        mRequestRepositoryUseCase = useCase;
+        mRequestRepositoryListUseCase = useCase;
         mMapper = mapper;
     }
 
@@ -71,7 +71,7 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
     }
 
     private void performLoad(String userName) {
-        addSubscriber(mRequestRepositoryUseCase.execute(userName)
+        addSubscriber(mRequestRepositoryListUseCase.execute(userName)
                 .map(mMapper)
                 .compose(
                         RxTransformers.applyOperationBeforeAndAfter(this::onBeforeLoad, this::onAfterLoad)
@@ -91,6 +91,7 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
     public void onAttachView(@NonNull IRepositoryListView view) {
         applyViewState();
         withViewModel(model -> {
+            view.setUserName(model.getActualUserName());
             if (getViewState() == LceViewState.LOADING) {
                 performLoad(model.getUserName());
             }
@@ -100,7 +101,7 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
     public void selectRepository(RepositoryVO repository) {
         IRepositoryListView view = getView();
         if (view != null) {
-            view.showRepository(repository);
+            view.showRepository(repository.getId());
         }
     }
 

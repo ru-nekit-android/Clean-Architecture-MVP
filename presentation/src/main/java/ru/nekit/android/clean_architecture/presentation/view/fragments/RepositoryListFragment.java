@@ -22,7 +22,6 @@ import ru.nekit.android.clean_architecture.presentation.di.RepositoryListCompone
 import ru.nekit.android.clean_architecture.presentation.di.modules.RepositoryListModule;
 import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
 import ru.nekit.android.clean_architecture.presentation.model.IRepositoryListViewModel;
-import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.RepositoryListPresenter;
 import ru.nekit.android.clean_architecture.presentation.view.adapters.RepositoryListAdapter;
 
@@ -81,12 +80,17 @@ public final class RepositoryListFragment extends BaseFragment<RepositoryListCom
     }
 
     @Override
+    public void setUserName(String value) {
+        userNameInput.setText(value);
+    }
+
+    @Override
     public void showEmptyList() {
         messageView.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void showRepository(RepositoryVO repository) {
+    public void showRepository(int repositoryId) {
         //pmd
     }
 

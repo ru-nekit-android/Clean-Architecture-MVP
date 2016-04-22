@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LceViewState;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 
 /**
@@ -16,9 +15,8 @@ public class RepositoryListViewModel implements IRepositoryListViewModel {
     public static final Parcelable.Creator<RepositoryListViewModel> CREATOR = new Parcelable.Creator<RepositoryListViewModel>() {
 
         public RepositoryListViewModel createFromParcel(Parcel source) {
-            RepositoryListViewModel model = new RepositoryListViewModel();
+            RepositoryListViewModel model = new RepositoryListViewModel(source.readString());
             model.mUserName = source.readString();
-            model.mState = (LceViewState) source.readSerializable();
             model.mError = (Throwable) source.readSerializable();
             source.readTypedList(model.mRepositoryList, RepositoryVO.CREATOR);
             return model;
@@ -30,13 +28,13 @@ public class RepositoryListViewModel implements IRepositoryListViewModel {
 
     };
 
+    private final String mDefaultUserName;
     private List<RepositoryVO> mRepositoryList;
     private Throwable mError;
-    private LceViewState mState = LceViewState.EMPTY;
     private String mUserName;
 
-    public RepositoryListViewModel() {
-        //empty constructor
+    public RepositoryListViewModel(String defaultUserName) {
+        mDefaultUserName = defaultUserName;
     }
 
     @Override
@@ -66,8 +64,8 @@ public class RepositoryListViewModel implements IRepositoryListViewModel {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mDefaultUserName);
         dest.writeString(mUserName);
-        dest.writeSerializable(mState);
         dest.writeSerializable(mError);
         dest.writeList(mRepositoryList);
     }
@@ -80,5 +78,10 @@ public class RepositoryListViewModel implements IRepositoryListViewModel {
     @Override
     public void setUserName(String userName) {
         mUserName = userName;
+    }
+
+    @Override
+    public String getActualUserName() {
+        return mUserName == null || mUserName.isEmpty() ? mDefaultUserName : mUserName;
     }
 }
