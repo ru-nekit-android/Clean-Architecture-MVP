@@ -4,7 +4,7 @@ import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
+import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
 import rx.Observable;
 
 /**
@@ -13,6 +13,6 @@ import rx.Observable;
 public interface GithubApi {
 
     @GET("users/{user}/repos")
-    Observable<List<RepositoryEntity>> getRepositories(@Path("user") String user);
+    Observable<List<RepositoryDTO>> getRepositories(@Path("user") String user);
 
 }

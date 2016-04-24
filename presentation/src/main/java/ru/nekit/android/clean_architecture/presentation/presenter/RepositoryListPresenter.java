@@ -16,7 +16,7 @@ import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState
 import ru.nekit.android.clean_architecture.presentation.di.scope.RepositoryListScope;
 import ru.nekit.android.clean_architecture.presentation.model.IRepositoryListViewModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
-import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryEntityToRepositoryVOMapper;
+import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryEntityToVOMapper;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.IRepositoryListView;
 
 /**
@@ -26,10 +26,10 @@ import ru.nekit.android.clean_architecture.presentation.view.fragments.IReposito
 public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, IRepositoryListViewModel> {
 
     private final RequestRepositoryListUseCase mRequestRepositoryListUseCase;
-    private final RepositoryEntityToRepositoryVOMapper mMapper;
+    private final RepositoryEntityToVOMapper mMapper;
 
     @Inject
-    public RepositoryListPresenter(IRepositoryListViewModel model, RequestRepositoryListUseCase useCase, RepositoryEntityToRepositoryVOMapper mapper) {
+    public RepositoryListPresenter(IRepositoryListViewModel model, RequestRepositoryListUseCase useCase, RepositoryEntityToVOMapper mapper) {
         super(model);
         mRequestRepositoryListUseCase = useCase;
         mMapper = mapper;

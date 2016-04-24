@@ -1,10 +1,10 @@
-package ru.nekit.android.clean_architecture.domain.entities;
+package ru.nekit.android.clean_architecture.data.entities;
 
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class OwnerEntity {
+public class OwnerDTO {
 
     @SerializedName("login")
     @Expose
