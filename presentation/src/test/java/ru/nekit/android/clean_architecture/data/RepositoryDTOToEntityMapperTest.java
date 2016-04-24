@@ -10,64 +10,42 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.nekit.android.clean_architecture.core.BaseTest;
-import ru.nekit.android.clean_architecture.data.api.GithubApi;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
 import ru.nekit.android.clean_architecture.data.mapper.RepositoryDTOToEntityMapper;
-import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
+import ru.nekit.android.clean_architecture.di.modules.TestRepositoryListModule;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.MainThread;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.Observable;
-import rx.Scheduler;
 import rx.observers.TestSubscriber;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by ru.nekit.android on 22.04.16.
- */
-public class GithubRepositoryTest extends BaseTest {
-
-    @Inject
-    protected GithubApi githubApi;
-
-    @Inject
-    protected RepositoryDTOToEntityMapper mapper;
-
-    @Inject
-    @LongOperationThread
-    protected Scheduler longOperationScheduler;
-
-    @Inject
-    @MainThread
-    protected Scheduler mainThreadScheduler;
+public class RepositoryDTOToEntityMapperTest extends BaseTest {
 
     @Inject
     @UserName
     protected String userName;
-
     @Inject
-    protected Observable<List<RepositoryDTO>> repositoryEntities;
+    protected IGithubRepository githubRepository;
+    @Inject
+    protected Observable<List<RepositoryDTO>> listObservable;
 
     //real
-    private IGithubRepository githubRepository;
+    private RepositoryDTOToEntityMapper mapper;
 
     @Override
     public void setUp() throws IOException {
         super.setUp();
-        testApplicationComponent.inject(this);
-        githubRepository = new GithubRepository(githubApi, mapper, longOperationScheduler, mainThreadScheduler);
+        testApplicationComponent.plus(new TestRepositoryListModule()).inject(this);
+        mapper = new RepositoryDTOToEntityMapper();
     }
 
     @Test
-    public void testGetRepositoryList() {
-
-        when(githubApi.getRepositories(userName)).thenReturn(repositoryEntities);
-
+    public void testRepositoryEntityToRepositoryVOMapper() {
+        when(githubRepository.getRepositories(userName)).thenReturn(listObservable.map(mapper));
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
         githubRepository.getRepositories(userName).subscribe(subscriber);
 
@@ -86,6 +64,6 @@ public class GithubRepositoryTest extends BaseTest {
         entity = actual.get(actual.size() - 1);
         assertEquals(entity.getName(), "GIS");
         assertTrue(entity.getId() == 5528510);
-
     }
+
 }

@@ -10,6 +10,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import ru.nekit.android.clean_architecture.core.BaseTest;
+import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
+import ru.nekit.android.clean_architecture.data.mapper.RepositoryDTOToEntityMapper;
 import ru.nekit.android.clean_architecture.di.TestRepositoryListComponent;
 import ru.nekit.android.clean_architecture.di.modules.TestRepositoryListModule;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
@@ -34,7 +36,7 @@ public class RequestRepositoryListUseCaseTest extends BaseTest {
     @UserName
     protected String userName;
     @Inject
-    protected List<RepositoryEntity> repositoryEntities;
+    protected Observable<List<RepositoryDTO>> repositoryDTOObservable;
     //real
     private RequestRepositoryListUseCase useCase;
 
@@ -48,7 +50,7 @@ public class RequestRepositoryListUseCaseTest extends BaseTest {
 
     @Test
     public void testRequestRepositoryListUseCase() {
-        when(githubRepository.getRepositories(userName)).thenReturn(Observable.just(repositoryEntities));
+        when(githubRepository.getRepositories(userName)).thenReturn(repositoryDTOObservable.map(new RepositoryDTOToEntityMapper()));
 
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
         useCase.execute(userName).subscribe(subscriber);

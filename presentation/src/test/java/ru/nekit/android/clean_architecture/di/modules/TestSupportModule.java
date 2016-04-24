@@ -16,8 +16,9 @@ import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import ru.nekit.android.clean_architecture.core.TestUtils;
 import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
-import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
+import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
+import rx.Observable;
 
 /**
  * Created by ru.nekit.android on 20.04.16.
@@ -60,8 +61,8 @@ public class TestSupportModule {
     }
 
     @Provides
-    public List<RepositoryEntity> provideRepositoryEntityList(TestUtils testUtils) {
-        return Arrays.asList(testUtils.readJson("json/repos", RepositoryEntity[].class));
+    public Observable<List<RepositoryDTO>> provideRepositoryListObservable(TestUtils testUtils) {
+        List<RepositoryDTO> repositoryDTOs = Arrays.asList(testUtils.readJson("json/repos", RepositoryDTO[].class));
+        return Observable.just(repositoryDTOs);
     }
-
 }

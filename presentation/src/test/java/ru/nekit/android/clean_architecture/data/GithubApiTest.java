@@ -14,7 +14,7 @@ import ru.nekit.android.clean_architecture.data.api.GithubApi;
 import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
 import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
-import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
+import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
 import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.observers.TestSubscriber;
 
@@ -63,14 +63,14 @@ public class GithubApiTest extends BaseTest {
 
     @Test
     public void testGetRepositoryList() {
-        TestSubscriber<List<RepositoryEntity>> testSubscriber = new TestSubscriber<>();
+        TestSubscriber<List<RepositoryDTO>> testSubscriber = new TestSubscriber<>();
         githubApi.getRepositories(userName).subscribe(testSubscriber);
         testSubscriber.assertNoErrors();
         testSubscriber.assertValueCount(1);
-        List<RepositoryEntity> actual = testSubscriber.getOnNextEvents().get(0);
+        List<RepositoryDTO> actual = testSubscriber.getOnNextEvents().get(0);
         assertEquals(30, actual.size());
         //first
-        RepositoryEntity entity = actual.get(0);
+        RepositoryDTO entity = actual.get(0);
         assertEquals(entity.getName(), "abs-search-view");
         assertTrue(entity.getId() == 5301791);
         //last
