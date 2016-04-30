@@ -27,8 +27,6 @@ buildscript {
         // Code coverage.
         classpath gradlePlugins.jacoco
 
-        // Performance metrics library for Android development.
-        // classpath gradlePlugins.androidDevMetrics
 
     }
 
@@ -48,4 +46,9 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task wrapper( type: Wrapper ) {
+    description 'Creates the gradle wrapper.'
+    gradleVersion '2.12'
 }

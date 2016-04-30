@@ -8,6 +8,8 @@ ext {
             androidTargetSdkVersion     : 23,
             androidCompileSdkVersion    : 23,
             androidApplicationId        : 'ru.nekit.android.clean_architecture',
+            // unused
+            androidApplicationTestId    : 'ru.nekit.android.clean_architecture.test',
             androidVersionCode          : 1,
             androidVersionName          : '1.0',
             supportAnnotations          : '22.2.0',
@@ -23,22 +25,24 @@ ext {
             gson                        : '2.4',
             paperwork                   : '1.2.4',
 
-            // develope detector
+            // developer tools
             leakCanary                  : '1.3.1',
             lynx                        : '1.6',
             timber                      : '4.1.1',
             stetho                      : '1.3.0',
 
             // gradle
-            androidGradlePlugin         : '2.1.0-rc1',
-            aptGradlePlugin             : '1.8',
-            retrolambdaGradlePlugin     : '3.2.5',
-            jacocoGradlePlugin          : '0.7.6.201602180812',
-            lombokGradlePlugin          : '0.2.3.a2',
+            android                     : '2.1.0-rc1',
+            apt                         : '1.8',
+            retrolambda                 : '3.2.5',
+            jacoco                      : '0.7.6.201602180812',
+            lambok                      : '0.2.3.a2',
+            coveralls                   : '2.4.0x',
 
             // test
             junit                       : '4.12',
             robolectric                 : '3.0',
+            hamcrest                    : '2.0',
             equalsVerifier              : '1.7.5',
             mockito                     : '1.10.19',
             truth                       : '0.0.27',
@@ -46,14 +50,14 @@ ext {
     ]
 
     gradlePlugins = [
-            android                     : "com.android.tools.build:gradle:$versions.androidGradlePlugin",
-            apt                         : "com.neenbedankt.gradle.plugins:android-apt:$versions.aptGradlePlugin",
-            retrolambda                 : "me.tatarka:gradle-retrolambda:$versions.retrolambdaGradlePlugin",
-            lombok                      : "me.tatarka.retrolambda.projectlombok:lombok.ast:$versions.lombokGradlePlugin",
-            jacoco                      : "org.jacoco:org.jacoco.core:$versions.jacocoGradlePlugin",
-            //androidDevMetrics         : "com.frogermcs.androiddevmetrics:androiddevmetrics-plugin:$versions.androidDevMetricsGradlePlugin",
-            paperwork                   : "hu.supercluster:paperwork-plugin:$versions.paperwork"
-
+            android                     : "com.android.tools.build:gradle:$versions.android",
+            apt                         : "com.neenbedankt.gradle.plugins:android-apt:$versions.apt",
+            retrolambda                 : "me.tatarka:gradle-retrolambda:$versions.retrolambda",
+            lombok                      : "me.tatarka.retrolambda.projectlombok:lombok.ast:$versions.lambok",
+            jacoco                      : "org.jacoco:org.jacoco.core:$versions.jacoco",
+            jacocoAgent                 : "org.jacoco:org.jacoco.agent:$versions.jacoco",
+            paperwork                   : "hu.supercluster:paperwork-plugin:$versions.paperwork",
+            coveralls                   : "org.kt3k.gradle.plugin:coveralls-gradle-plugin:$versions.coveralls"
     ]
 
     libraries = [
@@ -84,7 +88,8 @@ ext {
             equalsVerifier              : "nl.jqno.equalsverifier:equalsverifier:$versions.equalsVerifier",
             okHttpMockWebServer         : "com.squareup.okhttp3:mockwebserver:$versions.okHttp",
             mockitoCore                 : "org.mockito:mockito-core:$versions.mockito",
-            truth                       : "com.google.truth:truth:$versions.truth"
+            truth                       : "com.google.truth:truth:$versions.truth",
+            hamcrest                    : "org.hamcrest:hamcrest-library:$versions.hamcrest"
             //supportTestRunner           : "com.android.support.test:runner:$versions.supportTestRunner",
             //supportTestRules            : "com.android.support.test:rules:$versions.supportTestRunner",
             //espressoCore                : "com.android.support.test.espresso:espresso-core:$versions.espresso",

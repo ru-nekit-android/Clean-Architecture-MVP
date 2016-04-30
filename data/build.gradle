@@ -5,16 +5,37 @@ apply from: '../code_quality/quality.gradle'
 
 android {
 
+    defaultPublishConfig "debug"
+
     compileSdkVersion versions.androidCompileSdkVersion
     buildToolsVersion versions.androidBuildToolsVersion
+
     defaultConfig {
         minSdkVersion versions.androidMinSdkVersion
+        targetSdkVersion versions.androidTargetSdkVersion
+
+        versionCode versions.androidVersionCode
+    }
+
+    buildTypes {
+
+        debug {
+
+            testCoverageEnabled true
+
+        }
+
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+retrolambda {
+    oldJdk JAVA7_HOME
+    jdk JAVA8_HOME
 }
 
 dependencies {
