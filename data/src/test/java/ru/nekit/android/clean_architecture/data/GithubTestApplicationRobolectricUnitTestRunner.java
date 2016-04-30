@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.core;
+package ru.nekit.android.clean_architecture.data;
 
 import android.support.annotation.NonNull;
 
@@ -8,9 +8,7 @@ import org.robolectric.annotation.Config;
 
 import java.lang.reflect.Method;
 
-import ru.nekit.android.clean_architecture.BuildConfig;
-import ru.nekit.android.clean_architecture.TestGithubApplication;
-import ru.nekit.android.clean_architecture.di.TestApplicationComponent;
+import ru.nekit.clean_architecture.android.data.BuildConfig;
 
 // Custom runner allows us set config in one place instead of setting it in each test class.
 public class GithubTestApplicationRobolectricUnitTestRunner extends RobolectricGradleTestRunner {
@@ -25,10 +23,6 @@ public class GithubTestApplicationRobolectricUnitTestRunner extends RobolectricG
     @NonNull
     public static TestGithubApplication getGithubApplication() {
         return (TestGithubApplication) RuntimeEnvironment.application;
-    }
-
-    public static TestApplicationComponent getTestApplicationComponent() {
-        return (TestApplicationComponent) getGithubApplication().getApplicationComponent();
     }
 
     @Override

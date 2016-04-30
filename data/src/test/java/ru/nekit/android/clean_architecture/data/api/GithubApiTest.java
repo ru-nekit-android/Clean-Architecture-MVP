@@ -1,24 +1,22 @@
-package ru.nekit.android.clean_architecture.data;
+package ru.nekit.android.clean_architecture.data.api;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
-import javax.inject.Inject;
-
+import okhttp3.Interceptor;
+import okhttp3.mockwebserver.Dispatcher;
+import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import ru.nekit.android.clean_architecture.core.BaseTest;
-import ru.nekit.android.clean_architecture.data.api.GithubApi;
+import okhttp3.mockwebserver.RecordedRequest;
+import ru.nekit.android.clean_architecture.data.BaseTest;
 import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
-import ru.nekit.android.clean_architecture.data.di.api.qualifier.Endpoint;
 import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.observers.TestSubscriber;
 
-import static java.util.Collections.emptyList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -28,26 +26,40 @@ import static org.junit.Assert.assertTrue;
  */
 public class GithubApiTest extends BaseTest {
 
-    @Inject
-    @UserName
-    protected String userName;
+    private final String userName = "ru-nekit-android";
 
-    @Inject
-    @Endpoint
-    protected String endpoint;
+    private final String endpoint = "https://api.github.com/";
 
-    @Inject
-    protected MockWebServer server;
+    private MockWebServer server;
 
-    //real
     private GithubApi githubApi;
 
-    @Before
-    public void setUp() throws IOException {
-        super.setUp();
-        testApplicationComponent.inject(this);
+    @Override
+    public void setUp() {
+        server = new MockWebServer();
+        try {
+            server.start();
+        } catch (IOException error) {
+            //empty
+        }
+        final Dispatcher dispatcher = new Dispatcher() {
+
+            @Override
+            public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+                MockResponse response = new MockResponse();
+
+                if (request.getPath().equals("/users/" + userName + "/repos")) {
+                    return response.setResponseCode(200)
+                            .setBody(testUtils.readString("json/repos"));
+                }
+                return response.setResponseCode(404);
+            }
+        };
+        server.setDispatcher(dispatcher);
+        server.url(endpoint);
+
         NetworkModule networkModule = new NetworkModule();
-        githubApi = new GithubModule().provideApi(networkModule.provideRetrofit(networkModule.provideOkHttpClient(emptyList(), emptyList()), endpoint));
+        githubApi = new GithubModule().provideApi(networkModule.provideRetrofit(networkModule.provideOkHttpClient(Collections.<Interceptor>emptyList(), Collections.<Interceptor>emptyList()), endpoint));
     }
 
     @Test
@@ -89,7 +101,11 @@ public class GithubApiTest extends BaseTest {
     }
 
     @Override
-    public void tearDown() throws Exception {
-        server.shutdown();
+    public void tearDown() {
+        try {
+            server.shutdown();
+        } catch (IOException error) {
+            //empty
+        }
     }
 }

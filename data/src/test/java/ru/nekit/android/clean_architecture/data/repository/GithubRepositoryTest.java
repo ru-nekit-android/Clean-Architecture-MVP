@@ -1,30 +1,27 @@
-package ru.nekit.android.clean_architecture.data;
+package ru.nekit.android.clean_architecture.data.repository;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import ru.nekit.android.clean_architecture.core.BaseTest;
+import ru.nekit.android.clean_architecture.data.BaseTest;
 import ru.nekit.android.clean_architecture.data.api.GithubApi;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
 import ru.nekit.android.clean_architecture.data.mapper.RepositoryDTOToEntityMapper;
-import ru.nekit.android.clean_architecture.data.repository.GithubRepository;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
-import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.LongOperationThread;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.MainThread;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.Observable;
-import rx.Scheduler;
 import rx.observers.TestSubscriber;
+import rx.schedulers.Schedulers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
@@ -32,44 +29,34 @@ import static org.mockito.Mockito.when;
  */
 public class GithubRepositoryTest extends BaseTest {
 
-    @Inject
+    @Mock
     protected GithubApi githubApi;
 
-    @Inject
-    protected RepositoryDTOToEntityMapper mapper;
-
-    @Inject
-    @LongOperationThread
-    protected Scheduler longOperationScheduler;
-
-    @Inject
-    @MainThread
-    protected Scheduler mainThreadScheduler;
-
-    @Inject
-    @UserName
-    protected String userName;
-
-    @Inject
-    protected Observable<List<RepositoryDTO>> repositoryEntities;
-
-    //real
-    private IGithubRepository githubRepository;
+    private GithubRepository githubRepository;
 
     @Override
-    public void setUp() throws IOException {
-        super.setUp();
-        testApplicationComponent.inject(this);
-        githubRepository = new GithubRepository(githubApi, mapper, longOperationScheduler, mainThreadScheduler);
+    public void setUp(){
+        MockitoAnnotations.initMocks(this);
+        githubRepository = new GithubRepository(githubApi, new RepositoryDTOToEntityMapper(), Schedulers.immediate(), Schedulers.immediate());
+    }
+
+    @Override
+    public void tearDown() {
+        //no-op
+    }
+
+    public Observable<List<RepositoryDTO>> provideRepositoryListObservable() {
+        List<RepositoryDTO> repositoryDTOs = Arrays.asList(testUtils.readJson("json/repos", RepositoryDTO[].class));
+        return Observable.just(repositoryDTOs);
     }
 
     @Test
     public void testGetRepositoryList() {
 
-        when(githubApi.getRepositories(userName)).thenReturn(repositoryEntities);
+        when(githubApi.getRepositories(anyString())).thenReturn(provideRepositoryListObservable());
 
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
-        githubRepository.getRepositories(userName).subscribe(subscriber);
+        githubRepository.getRepositories(anyString()).subscribe(subscriber);
 
         subscriber.assertNoErrors();
         subscriber.assertValueCount(1);

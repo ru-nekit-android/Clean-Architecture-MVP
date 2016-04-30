@@ -1,53 +1,57 @@
-package ru.nekit.android.clean_architecture.data;
+package ru.nekit.android.clean_architecture.data.mapper;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import ru.nekit.android.clean_architecture.core.BaseTest;
+import ru.nekit.android.clean_architecture.data.BaseTest;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
-import ru.nekit.android.clean_architecture.data.mapper.RepositoryDTOToEntityMapper;
-import ru.nekit.android.clean_architecture.di.modules.TestRepositoryListModule;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 public class RepositoryDTOToEntityMapperTest extends BaseTest {
 
-    @Inject
-    @UserName
-    protected String userName;
-    @Inject
+    @Mock
     protected IGithubRepository githubRepository;
-    @Inject
+    @Mock
     protected Observable<List<RepositoryDTO>> listObservable;
 
     //real
     private RepositoryDTOToEntityMapper mapper;
 
     @Override
-    public void setUp() throws IOException {
-        super.setUp();
-        testApplicationComponent.plus(new TestRepositoryListModule()).inject(this);
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
         mapper = new RepositoryDTOToEntityMapper();
+    }
+
+    @Override
+    public void tearDown() {
+        //no-op
+    }
+
+    public Observable<List<RepositoryDTO>> provideRepositoryListObservable() {
+        List<RepositoryDTO> repositoryDTOs = Arrays.asList(testUtils.readJson("json/repos", RepositoryDTO[].class));
+        return Observable.just(repositoryDTOs);
     }
 
     @Test
     public void testRepositoryEntityToRepositoryVOMapper() {
-        when(githubRepository.getRepositories(userName)).thenReturn(listObservable.map(mapper));
+        when(githubRepository.getRepositories(anyString())).thenReturn(provideRepositoryListObservable().map(mapper));
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
-        githubRepository.getRepositories(userName).subscribe(subscriber);
+        githubRepository.getRepositories(anyString()).subscribe(subscriber);
 
         subscriber.assertNoErrors();
         subscriber.assertValueCount(1);

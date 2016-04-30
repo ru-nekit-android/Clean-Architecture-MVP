@@ -1,56 +1,56 @@
 package ru.nekit.android.clean_architecture.domain;
 
-import junit.framework.Assert;
-
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import ru.nekit.android.clean_architecture.core.BaseTest;
-import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
-import ru.nekit.android.clean_architecture.data.mapper.RepositoryDTOToEntityMapper;
-import ru.nekit.android.clean_architecture.di.TestRepositoryListComponent;
-import ru.nekit.android.clean_architecture.di.modules.TestRepositoryListModule;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
 import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
-import ru.nekit.android.clean_architecture.presentation.di.qualifier.UserName;
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 /**
  * Created by ru.nekit.android on 22.04.16.
  */
-public class RequestRepositoryListUseCaseTest extends BaseTest {
+@RunWith(MockitoJUnitRunner.class)
+public class RequestRepositoryListUseCaseTest {
 
-    @Inject
+    @Mock
     protected IGithubRepository githubRepository;
-    @Inject
-    @UserName
-    protected String userName;
-    @Inject
-    protected Observable<List<RepositoryDTO>> repositoryDTOObservable;
+
+    private String userName;
+
+    private List<RepositoryEntity> repositoryEntityList;
+
     //real
     private RequestRepositoryListUseCase useCase;
 
-    @Override
-    public void setUp() throws IOException {
-        super.setUp();
-        TestRepositoryListComponent component = testApplicationComponent.plus(new TestRepositoryListModule());
-        component.inject(this);
+    @Before
+    public void setUp() {
+        userName = anyString();
         useCase = new RequestRepositoryListUseCase(githubRepository);
+        repositoryEntityList = new ArrayList<>();
+        RepositoryEntity entity = new RepositoryEntity(5301791, "abs-search-view", "ru-nekit-android", "", "1", "1", "1");
+        repositoryEntityList.add(entity);
+        RepositoryEntity entity2 = new RepositoryEntity(5528510, "GIS", "ru-nekit-android", "", "1", "1", "1");
+        repositoryEntityList.add(entity2);
     }
 
     @Test
     public void testRequestRepositoryListUseCase() {
-        when(githubRepository.getRepositories(userName)).thenReturn(repositoryDTOObservable.map(new RepositoryDTOToEntityMapper()));
+
+        when(githubRepository.getRepositories(userName)).thenReturn(Observable.just(repositoryEntityList));
 
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
         useCase.execute(userName).subscribe(subscriber);
@@ -61,16 +61,14 @@ public class RequestRepositoryListUseCaseTest extends BaseTest {
 
         List<RepositoryEntity> actual = subscriber.getOnNextEvents().get(0);
         Assert.assertNotNull(actual);
-        Assert.assertEquals(30, actual.size());
+        assertEquals(2, actual.size());
         //first
         RepositoryEntity entity = actual.get(0);
         assertEquals(entity.getName(), "abs-search-view");
-        assertTrue(entity.getId() == 5301791);
+        assertEquals(entity.getId(), 5301791);
         //last
         entity = actual.get(actual.size() - 1);
         assertEquals(entity.getName(), "GIS");
-        assertTrue(entity.getId() == 5528510);
+        assertEquals(entity.getId(), 5528510);
     }
-
-
 }

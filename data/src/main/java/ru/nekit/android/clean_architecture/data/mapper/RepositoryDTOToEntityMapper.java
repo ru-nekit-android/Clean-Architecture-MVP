@@ -11,7 +11,7 @@ import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
  * Created by ru.nekit.android on 04.03.16.
  */
 @Singleton
-public final class RepositoryDTOToEntityMapper extends BaseMapper<RepositoryDTO, RepositoryEntity> {
+public class RepositoryDTOToEntityMapper extends BaseMapper<RepositoryDTO, RepositoryEntity> {
 
     @Inject
     public RepositoryDTOToEntityMapper() {

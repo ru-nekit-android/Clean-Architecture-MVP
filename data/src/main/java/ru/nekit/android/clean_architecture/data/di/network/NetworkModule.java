@@ -27,7 +27,8 @@ public class NetworkModule {
 
     @Provides
     @NonNull
-    public OkHttpClient provideOkHttpClient(@OkHttpInterceptors List<Interceptor> interceptors, @OkHttpNetworkInterceptors List<Interceptor> networkInterceptors) {
+    public OkHttpClient provideOkHttpClient(@OkHttpInterceptors List<Interceptor> interceptors,
+                                            @OkHttpNetworkInterceptors List<Interceptor> networkInterceptors) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
         for (Interceptor interceptor : interceptors) {
