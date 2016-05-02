@@ -32,7 +32,7 @@ ext {
             stetho                      : '1.3.0',
 
             // gradle
-            android                     : '2.1.0-rc1',
+            android                     : '2.1.0',
             apt                         : '1.8',
             retrolambda                 : '3.2.5',
             jacoco                      : '0.7.6.201602180812',
