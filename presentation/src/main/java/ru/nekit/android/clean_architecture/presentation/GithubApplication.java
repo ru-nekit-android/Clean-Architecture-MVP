@@ -39,7 +39,7 @@ public class GithubApplication extends Application {
         }
     }
 
-    protected ApplicationComponent prepareApplicationComponent() {
+    private ApplicationComponent prepareApplicationComponent() {
         return DaggerApplicationComponent.builder().applicationModule(new ApplicationModule(this)).build();
     }
 }
