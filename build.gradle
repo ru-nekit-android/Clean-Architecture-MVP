@@ -52,3 +52,7 @@ task wrapper( type: Wrapper ) {
     description 'Creates the gradle wrapper.'
     gradleVersion '2.12'
 }
+
+task runDataUnitTests(dependsOn: [':data:cleanTestDebugUnitTest', ':data:testDebugUnitTest']) {
+    description 'Run unit tests for data layer.'
+}
