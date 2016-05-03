@@ -29,6 +29,6 @@ dependencies {
 
     //noinspection GroovyAssignabilityCheck
     testCompile testLibraries.junit
-    testCompile testLibraries.mockitoCore
+    testCompile testLibraries.mockito
 
 }

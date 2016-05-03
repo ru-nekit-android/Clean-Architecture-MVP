@@ -87,7 +87,7 @@ ext {
             assertJ                     : "org.assertj:assertj-core:$versions.assertJ",
             equalsVerifier              : "nl.jqno.equalsverifier:equalsverifier:$versions.equalsVerifier",
             okHttpMockWebServer         : "com.squareup.okhttp3:mockwebserver:$versions.okHttp",
-            mockitoCore                 : "org.mockito:mockito-core:$versions.mockito",
+            mockito                     : "org.mockito:mockito-core:$versions.mockito",
             truth                       : "com.google.truth:truth:$versions.truth",
             hamcrest                    : "org.hamcrest:hamcrest-library:$versions.hamcrest"
             //supportTestRunner           : "com.android.support.test:runner:$versions.supportTestRunner",
