@@ -56,3 +56,8 @@ task wrapper( type: Wrapper ) {
 task runDataUnitTests(dependsOn: [':data:cleanTestDebugUnitTest', ':data:testDebugUnitTest']) {
     description 'Run unit tests for data layer.'
 }
+
+
+task runDomainUnitTests(dependsOn: [':domain:test']) {
+    description 'Run unit tests for domain layer.'
+}

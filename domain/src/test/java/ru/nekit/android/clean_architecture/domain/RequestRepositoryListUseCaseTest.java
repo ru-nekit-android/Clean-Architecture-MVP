@@ -18,6 +18,8 @@ import rx.observers.TestSubscriber;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -29,17 +31,14 @@ public class RequestRepositoryListUseCaseTest {
     @Mock
     protected IGithubRepository githubRepository;
 
-    private String userName;
-
     private List<RepositoryEntity> repositoryEntityList;
 
     //real
-    private RequestRepositoryListUseCase useCase;
+    private RequestRepositoryListUseCase interactor;
 
     @Before
     public void setUp() {
-        userName = anyString();
-        useCase = new RequestRepositoryListUseCase(githubRepository);
+        interactor = new RequestRepositoryListUseCase(githubRepository);
         repositoryEntityList = new ArrayList<>();
         RepositoryEntity entity = new RepositoryEntity(5301791, "abs-search-view", "ru-nekit-android", "", "1", "1", "1");
         repositoryEntityList.add(entity);
@@ -50,10 +49,12 @@ public class RequestRepositoryListUseCaseTest {
     @Test
     public void testRequestRepositoryListUseCase() {
 
-        when(githubRepository.getRepositories(userName)).thenReturn(Observable.just(repositoryEntityList));
+        doAnswer(answer -> Observable.just(repositoryEntityList)).when(githubRepository).getRepositories(anyString());
 
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
-        useCase.execute(userName).subscribe(subscriber);
+        interactor.execute(anyString()).subscribe(subscriber);
+
+        verify(githubRepository).getRepositories(anyString());
 
         subscriber.assertNoErrors();
         subscriber.assertValueCount(1);
