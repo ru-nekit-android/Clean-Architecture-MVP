@@ -1,12 +1,8 @@
 package ru.nekit.android.clean_architecture.data.repository;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,10 +15,13 @@ import rx.Observable;
 import rx.observers.TestSubscriber;
 import rx.schedulers.Schedulers;
 
+import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.MockitoAnnotations.initMocks;
+import static rx.Observable.just;
 
 /**
  * Created by ru.nekit.android on 22.04.16.
@@ -35,8 +34,8 @@ public class GithubRepositoryTest extends BaseTest {
     private GithubRepository githubRepository;
 
     @Override
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
+    public void setUp() {
+        initMocks(this);
         githubRepository = new GithubRepository(githubApi, new RepositoryDTOToEntityMapper(), Schedulers.immediate(), Schedulers.immediate());
     }
 
@@ -46,14 +45,13 @@ public class GithubRepositoryTest extends BaseTest {
     }
 
     public Observable<List<RepositoryDTO>> provideRepositoryListObservable() {
-        List<RepositoryDTO> repositoryDTOs = Arrays.asList(testUtils.readJson("json/repos", RepositoryDTO[].class));
-        return Observable.just(repositoryDTOs);
+        return just(Arrays.asList(testUtils.readJson("json/repos", RepositoryDTO[].class)));
     }
 
     @Test
     public void testGetRepositoryList() {
 
-        when(githubApi.getRepositories(anyString())).thenReturn(provideRepositoryListObservable());
+        doAnswer(invocation -> provideRepositoryListObservable()).when(githubApi).getRepositories(anyString());
 
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
         githubRepository.getRepositories(anyString()).subscribe(subscriber);
@@ -63,8 +61,8 @@ public class GithubRepositoryTest extends BaseTest {
         subscriber.assertCompleted();
 
         List<RepositoryEntity> actual = subscriber.getOnNextEvents().get(0);
-        Assert.assertNotNull(actual);
-        Assert.assertEquals(30, actual.size());
+        assertNotNull(actual);
+        assertEquals(30, actual.size());
         //first
         RepositoryEntity entity = actual.get(0);
         assertEquals(entity.getName(), "abs-search-view");
