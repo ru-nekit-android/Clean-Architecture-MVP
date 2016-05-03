@@ -48,8 +48,6 @@ dependencies {
 
     testCompile testLibraries.junit
     testCompile testLibraries.robolectric
-    testCompile testLibraries.assertJ
-    testCompile testLibraries.equalsVerifier
     testCompile testLibraries.okHttpMockWebServer
-    testCompile testLibraries.mockitoCore
+    testCompile testLibraries.mockito
 }
