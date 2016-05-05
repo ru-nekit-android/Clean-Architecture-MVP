@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
@@ -24,7 +23,6 @@ import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -104,10 +102,10 @@ public class RepositoryListPresenterTest extends BaseTest {
 
         assertEquals(LceViewState.CONTENT, presenter.getViewState());
 
-        verify(view, times(1)).hideContent();
-        verify(view, times(1)).showLoading();
+        verify(view).hideContent();
+        verify(view).showLoading();
 
-        verify(view, times(1)).hideLoading();
+        verify(view).hideLoading();
         verify(view, atLeastOnce()).showContent(model);
 
         verify(model).setRepositoriesList(repositoryVOList);
@@ -119,22 +117,15 @@ public class RepositoryListPresenterTest extends BaseTest {
 
     @Test
     public void requestRepositoriesEmptyResultTest() {
-
+        repositoryEntityList = new ArrayList<RepositoryEntity>();
+        repositoryVOList = new ArrayList<RepositoryVO>();
         when(mapper.call(repositoryEntityList)).thenReturn(repositoryVOList);
-
-        doAnswer(invocation -> just(repositoryEntityList))
-                .when(interactor)
-                .execute(USER_NAME);
-
-        doAnswer(invocation -> repositoryVOList)
-                .when(model)
-                .getRepositoriesList();
+        when(interactor
+                .execute(USER_NAME)).thenReturn(just(repositoryEntityList));
+        when(model.getRepositoriesList()).thenReturn(repositoryVOList);
 
         presenter.onCreate(null);
         presenter.attachView(view);
-
-        repositoryEntityList = Collections.emptyList();
-        repositoryVOList = Collections.emptyList();
 
         presenter.onSearchClick();
 
