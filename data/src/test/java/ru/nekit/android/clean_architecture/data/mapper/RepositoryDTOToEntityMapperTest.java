@@ -2,14 +2,13 @@ package ru.nekit.android.clean_architecture.data.mapper;
 
 import org.junit.Test;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
 import java.util.List;
 
 import ru.nekit.android.clean_architecture.data.BaseTest;
+import ru.nekit.android.clean_architecture.data.api.GithubApi;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
-import ru.nekit.android.clean_architecture.domain.repository.IGithubRepository;
 import rx.Observable;
 import rx.observers.TestSubscriber;
 
@@ -19,25 +18,22 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 import static rx.Observable.just;
 
 public class RepositoryDTOToEntityMapperTest extends BaseTest {
 
     @Mock
-    protected IGithubRepository githubRepository;
-    @Mock
-    protected Observable<List<RepositoryDTO>> listObservable;
+    private GithubApi githubApi;
 
     //real
     private RepositoryDTOToEntityMapper mapper;
 
-    @Override
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
+        initMocks(this);
         mapper = new RepositoryDTOToEntityMapper();
     }
 
-    @Override
     public void tearDown() {
         //no-op
     }
@@ -48,9 +44,11 @@ public class RepositoryDTOToEntityMapperTest extends BaseTest {
 
     @Test
     public void testRepositoryEntityToRepositoryVOMapper() {
-        when(githubRepository.getRepositories(anyString())).thenReturn(provideRepositoryListObservable().map(mapper));
+
+        when(githubApi.getRepositories(anyString())).thenReturn(provideRepositoryListObservable());
+
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
-        githubRepository.getRepositories(anyString()).subscribe(subscriber);
+        githubApi.getRepositories(anyString()).map(mapper).subscribe(subscriber);
 
         subscriber.assertNoErrors();
         subscriber.assertValueCount(1);

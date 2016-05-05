@@ -98,6 +98,11 @@ dependencies {
     compile libraries.dagger
     compile libraries.paperwork
 
+    testCompile testLibraries.junit
+    testCompile testLibraries.robolectric
+    testCompile testLibraries.mockito
+    testCompile testLibraries.hamcrest
+
     debugCompile debugLibryries.leakCanaryDebug
     debugCompile debugLibryries.lynx
 

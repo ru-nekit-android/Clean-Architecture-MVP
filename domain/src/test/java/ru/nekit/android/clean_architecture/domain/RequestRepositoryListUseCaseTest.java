@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static rx.Observable.just;
 
 /**
  * Created by ru.nekit.android on 22.04.16.
@@ -28,10 +28,10 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class RequestRepositoryListUseCaseTest {
 
+    private static final String USER_NAME = "ru-nekit-android";
+
     @Mock
     protected IGithubRepository githubRepository;
-
-    private List<RepositoryEntity> repositoryEntityList;
 
     //real
     private RequestRepositoryListUseCase interactor;
@@ -39,17 +39,19 @@ public class RequestRepositoryListUseCaseTest {
     @Before
     public void setUp() {
         interactor = new RequestRepositoryListUseCase(githubRepository);
-        repositoryEntityList = new ArrayList<>();
-        RepositoryEntity entity = new RepositoryEntity(5301791, "abs-search-view", "ru-nekit-android", "", "1", "1", "1");
-        repositoryEntityList.add(entity);
-        RepositoryEntity entity2 = new RepositoryEntity(5528510, "GIS", "ru-nekit-android", "", "1", "1", "1");
-        repositoryEntityList.add(entity2);
+    }
+
+    public Observable<List<RepositoryEntity>> provideRepositoryListObservable() {
+        List<RepositoryEntity> repositoryEntityList = new ArrayList<>();
+        repositoryEntityList.add(new RepositoryEntity(5301791, "abs-search-view", USER_NAME, "", "1", "1", "1"));
+        repositoryEntityList.add(new RepositoryEntity(5528510, "GIS", USER_NAME, "", "1", "1", "1"));
+        return just(repositoryEntityList);
     }
 
     @Test
     public void testRequestRepositoryListUseCase() {
 
-        doAnswer(answer -> Observable.just(repositoryEntityList)).when(githubRepository).getRepositories(anyString());
+        doAnswer(answer -> provideRepositoryListObservable()).when(githubRepository).getRepositories(anyString());
 
         TestSubscriber<List<RepositoryEntity>> subscriber = new TestSubscriber<>();
         interactor.execute(anyString()).subscribe(subscriber);
@@ -66,10 +68,12 @@ public class RequestRepositoryListUseCaseTest {
         //first
         RepositoryEntity entity = actual.get(0);
         assertEquals(entity.getName(), "abs-search-view");
+        assertEquals(entity.getOwnerName(), USER_NAME);
         assertEquals(entity.getId(), 5301791);
         //last
         entity = actual.get(actual.size() - 1);
         assertEquals(entity.getName(), "GIS");
+        assertEquals(entity.getOwnerName(), USER_NAME);
         assertEquals(entity.getId(), 5528510);
     }
 }

@@ -11,7 +11,7 @@ import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
  * Created by ru.nekit.android on 04.03.16.
  */
 @Singleton
-public final class RepositoryEntityToVOMapper extends BaseMapper<RepositoryEntity, RepositoryVO> {
+public /*final*/ class RepositoryEntityToVOMapper extends BaseMapper<RepositoryEntity, RepositoryVO> {
 
     @Inject
     public RepositoryEntityToVOMapper() {

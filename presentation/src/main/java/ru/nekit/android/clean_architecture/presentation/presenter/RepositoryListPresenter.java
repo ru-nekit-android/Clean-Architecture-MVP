@@ -65,7 +65,6 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
                 return;
             }
             model.setUserName(userName);
-            setAndApplyViewState(LceViewState.LOADING);
             performLoad(userName);
         });
     }

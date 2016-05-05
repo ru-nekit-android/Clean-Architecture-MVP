@@ -35,7 +35,6 @@ public class GithubApiTest extends BaseTest {
 
     private GithubApi githubApi;
 
-    @Override
     public void setUp() {
         server = new MockWebServer();
         try {
@@ -101,7 +100,6 @@ public class GithubApiTest extends BaseTest {
         }
     }
 
-    @Override
     public void tearDown() {
         try {
             server.shutdown();

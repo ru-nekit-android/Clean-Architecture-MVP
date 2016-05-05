@@ -42,7 +42,7 @@ ext {
             // test
             junit                       : '4.12',
             robolectric                 : '3.0',
-            hamcrest                    : '2.0',
+            hamcrest                    : '1.3',
             equalsVerifier              : '1.7.5',
             mockito                     : '1.10.19',
             truth                       : '0.0.27',
