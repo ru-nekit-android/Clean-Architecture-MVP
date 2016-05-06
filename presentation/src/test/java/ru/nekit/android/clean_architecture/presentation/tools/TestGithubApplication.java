@@ -6,7 +6,7 @@ import android.app.Application;
 /**
  * Created by ru.nekit.android on 20.04.16.
  */
-@SuppressLint( "Registered" )
+@SuppressLint("Registered")
 public class TestGithubApplication extends Application {
 
 }

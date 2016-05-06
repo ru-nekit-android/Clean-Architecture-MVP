@@ -12,10 +12,10 @@ import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import ru.nekit.android.clean_architecture.data.tools.BaseTest;
 import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
+import ru.nekit.android.clean_architecture.data.tools.BaseTest;
 import rx.observers.TestSubscriber;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
  * Created by ru.nekit.android on 20.04.16.
  */
 public class GithubApiTest extends BaseTest {
-
+    
     private final static String userName = "ru-nekit-android";
 
     private MockWebServer server;
@@ -57,7 +57,13 @@ public class GithubApiTest extends BaseTest {
         HttpUrl baseUrl = server.url("/");
 
         NetworkModule networkModule = new NetworkModule();
-        githubApi = new GithubModule().provideApi(networkModule.provideRetrofit(networkModule.provideOkHttpClient(Collections.<Interceptor>emptyList(), Collections.<Interceptor>emptyList()), baseUrl.toString()));
+        githubApi = new GithubModule().provideApi(
+                networkModule.provideRetrofit(
+                        networkModule.provideOkHttpClient(
+                                Collections.<Interceptor>emptyList(),
+                                Collections.<Interceptor>emptyList()),
+                        baseUrl.toString()
+                ));
     }
 
     @Test
