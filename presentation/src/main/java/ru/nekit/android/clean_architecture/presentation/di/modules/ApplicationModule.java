@@ -46,14 +46,14 @@ public class ApplicationModule {
     @UserName
     @NonNull
     public String provideUserName(Paperwork paperwork) {
-        return paperwork.get("USER_NAME");
+        return paperwork.get("userName");
     }
 
     @Provides
     @Endpoint
     @NonNull
     public String provideEndpoint(Paperwork paperwork) {
-        return paperwork.get("API_URL");
+        return paperwork.get("apiUrl");
     }
 
     @Provides

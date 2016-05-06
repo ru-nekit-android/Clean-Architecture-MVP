@@ -75,10 +75,10 @@ android {
 
 paperwork {
     set = [
-            gitSha   : gitSha(),
-            buildDate: buildTime("dd-MM-yyyy HH:MM:SS z", "UTC"),
-            API_URL  : "https://api.github.com/",
-            USER_NAME: "ru-nekit-android"
+            gitSha      : gitSha(),
+            buildDate   : buildTime("dd-MM-yyyy HH:MM:SS z", "UTC"),
+            apiUrl      : "https://api.github.com/",
+            userName    : "ru-nekit-android"
     ]
 }
 
@@ -110,5 +110,10 @@ dependencies {
     androidTestCompile testLibraries.supportTestRunner
     androidTestCompile testLibraries.supportTestRules
     androidTestCompile testLibraries.espressoCore
+    androidTestCompile (testLibraries.espressoContrib) {
+        exclude module: 'support-annotations'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-v4'
+    }
 
 }
