@@ -87,16 +87,17 @@ ext {
     testLibraries = [
             junit                       : "junit:junit:$versions.junit",
             robolectric                 : "org.robolectric:robolectric:$versions.robolectric",
-            assertJ                     : "org.assertj:assertj-core:$versions.assertJ",
-            equalsVerifier              : "nl.jqno.equalsverifier:equalsverifier:$versions.equalsVerifier",
+            //assertJ                     : "org.assertj:assertj-core:$versions.assertJ",
+            //equalsVerifier              : "nl.jqno.equalsverifier:equalsverifier:$versions.equalsVerifier",
             okHttpMockWebServer         : "com.squareup.okhttp3:mockwebserver:$versions.okHttp",
             mockito                     : "org.mockito:mockito-core:$versions.mockito",
-            truth                       : "com.google.truth:truth:$versions.truth",
+            //truth                       : "com.google.truth:truth:$versions.truth",
             hamcrest                    : "org.hamcrest:hamcrest-library:$versions.hamcrest",
             supportTestRunner           : "com.android.support.test:runner:$versions.supportTestRunner",
             supportTestRules            : "com.android.support.test:rules:$versions.supportTestRunner",
             espressoCore                : "com.android.support.test.espresso:espresso-core:$versions.espresso",
             espressoContrib             : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
+            espressoIntents             : "com.android.support.test.espresso:espresso-intents:$versions.espresso",
             dexmaker                    : "com.google.dexmaker:dexmaker:$versions.dexmaker",
             dexmakermockito             : "com.google.dexmaker:dexmaker-mockito:$versions.dexmaker"
     ]
