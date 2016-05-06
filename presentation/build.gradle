@@ -30,6 +30,8 @@ android {
         // Enabling multidex support.
         multiDexEnabled true
 
+        testInstrumentationRunner "ru.nekit.android.clean_architecture.presentation.tools.InstrumentationTestRunner"
+
     }
 
     buildTypes {
@@ -38,8 +40,6 @@ android {
 
             applicationIdSuffix '.debug'
 
-            // Enables code coverage with Jacoco only for instrumentation tests.
-            // Coverage for JVM tests done by jacoco.gradle.
             testCoverageEnabled true
 
         }
@@ -105,5 +105,10 @@ dependencies {
 
     debugCompile debugLibryries.leakCanaryDebug
     debugCompile debugLibryries.lynx
+
+    androidTestCompile libraries.supportAnnotations
+    androidTestCompile testLibraries.supportTestRunner
+    androidTestCompile testLibraries.supportTestRules
+    androidTestCompile testLibraries.espressoCore
 
 }

@@ -12,7 +12,7 @@ ext {
             androidApplicationTestId    : 'ru.nekit.android.clean_architecture.test',
             androidVersionCode          : 1,
             androidVersionName          : '1.0',
-            supportAnnotations          : '22.2.0',
+            supportAnnotations          : '23.2.0',
             javaxInject                 : '1',
             javaxAnnotationApi          : '1.2',
             supportLibrary              : '23.2.0',
@@ -47,6 +47,9 @@ ext {
             mockito                     : '1.10.19',
             truth                       : '0.0.27',
             assertJ                     : '2.4.0',
+            espresso                    : '2.2',
+            supportTestRunner           : '0.3',
+            dexmaker                    : '1.2'
     ]
 
     gradlePlugins = [
@@ -89,11 +92,13 @@ ext {
             okHttpMockWebServer         : "com.squareup.okhttp3:mockwebserver:$versions.okHttp",
             mockito                     : "org.mockito:mockito-core:$versions.mockito",
             truth                       : "com.google.truth:truth:$versions.truth",
-            hamcrest                    : "org.hamcrest:hamcrest-library:$versions.hamcrest"
-            //supportTestRunner           : "com.android.support.test:runner:$versions.supportTestRunner",
-            //supportTestRules            : "com.android.support.test:rules:$versions.supportTestRunner",
-            //espressoCore                : "com.android.support.test.espresso:espresso-core:$versions.espresso",
-            //espressoContrib             : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
+            hamcrest                    : "org.hamcrest:hamcrest-library:$versions.hamcrest",
+            supportTestRunner           : "com.android.support.test:runner:$versions.supportTestRunner",
+            supportTestRules            : "com.android.support.test:rules:$versions.supportTestRunner",
+            espressoCore                : "com.android.support.test.espresso:espresso-core:$versions.espresso",
+            espressoContrib             : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
+            dexmaker                    : "com.google.dexmaker:dexmaker:$versions.dexmaker",
+            dexmakermockito             : "com.google.dexmaker:dexmaker-mockito:$versions.dexmaker"
     ]
 
     debugLibryries = [

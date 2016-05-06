@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation;
+package ru.nekit.android.clean_architecture.presentation.tools;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
