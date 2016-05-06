@@ -8,7 +8,7 @@ import java.util.List;
 
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
-import ru.nekit.android.clean_architecture.presentation.BaseTest;
+import ru.nekit.android.clean_architecture.presentation.tools.BaseTest;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import rx.Observable;
 import rx.observers.TestSubscriber;

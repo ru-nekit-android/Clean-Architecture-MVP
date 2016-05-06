@@ -12,7 +12,7 @@ import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import ru.nekit.android.clean_architecture.data.BaseTest;
+import ru.nekit.android.clean_architecture.data.tools.BaseTest;
 import ru.nekit.android.clean_architecture.data.di.api.GithubModule;
 import ru.nekit.android.clean_architecture.data.di.network.NetworkModule;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;

@@ -1,4 +1,4 @@
-package ru.nekit.android.clean_architecture.presentation;
+package ru.nekit.android.clean_architecture.presentation.tools;
 
 import org.junit.After;
 import org.junit.Before;

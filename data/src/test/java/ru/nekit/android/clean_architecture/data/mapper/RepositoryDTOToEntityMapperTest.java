@@ -5,7 +5,7 @@ import org.mockito.Mock;
 
 import java.util.List;
 
-import ru.nekit.android.clean_architecture.data.BaseTest;
+import ru.nekit.android.clean_architecture.data.tools.BaseTest;
 import ru.nekit.android.clean_architecture.data.api.GithubApi;
 import ru.nekit.android.clean_architecture.data.entities.RepositoryDTO;
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
