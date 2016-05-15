@@ -49,7 +49,8 @@ ext {
             assertJ                     : '2.4.0',
             espresso                    : '2.2',
             supportTestRunner           : '0.3',
-            dexmaker                    : '1.2'
+            dexmaker                    : '1.2',
+            spoon                       : '1.2.1'
     ]
 
     gradlePlugins = [
@@ -60,7 +61,9 @@ ext {
             jacoco                      : "org.jacoco:org.jacoco.core:$versions.jacoco",
             jacocoAgent                 : "org.jacoco:org.jacoco.agent:$versions.jacoco",
             paperwork                   : "hu.supercluster:paperwork-plugin:$versions.paperwork",
-            coveralls                   : "org.kt3k.gradle.plugin:coveralls-gradle-plugin:$versions.coveralls"
+            coveralls                   : "org.kt3k.gradle.plugin:coveralls-gradle-plugin:$versions.coveralls",
+            spoonRunner                 : "com.squareup.spoon:spoon-runner:$versions.spoon",
+            spoonGradle                 : "com.stanfy.spoon:spoon-gradle-plugin:1.0.2"
     ]
 
     libraries = [
@@ -87,11 +90,8 @@ ext {
     testLibraries = [
             junit                       : "junit:junit:$versions.junit",
             robolectric                 : "org.robolectric:robolectric:$versions.robolectric",
-            //assertJ                     : "org.assertj:assertj-core:$versions.assertJ",
-            //equalsVerifier              : "nl.jqno.equalsverifier:equalsverifier:$versions.equalsVerifier",
             okHttpMockWebServer         : "com.squareup.okhttp3:mockwebserver:$versions.okHttp",
             mockito                     : "org.mockito:mockito-core:$versions.mockito",
-            //truth                       : "com.google.truth:truth:$versions.truth",
             hamcrest                    : "org.hamcrest:hamcrest-library:$versions.hamcrest",
             supportTestRunner           : "com.android.support.test:runner:$versions.supportTestRunner",
             supportTestRules            : "com.android.support.test:rules:$versions.supportTestRunner",
@@ -99,7 +99,8 @@ ext {
             espressoContrib             : "com.android.support.test.espresso:espresso-contrib:$versions.espresso",
             espressoIntents             : "com.android.support.test.espresso:espresso-intents:$versions.espresso",
             dexmaker                    : "com.google.dexmaker:dexmaker:$versions.dexmaker",
-            dexmakermockito             : "com.google.dexmaker:dexmaker-mockito:$versions.dexmaker"
+            dexmakermockito             : "com.google.dexmaker:dexmaker-mockito:$versions.dexmaker",
+            spoon                       : "com.squareup.spoon:spoon-client:$versions.spoon"
     ]
 
     debugLibryries = [

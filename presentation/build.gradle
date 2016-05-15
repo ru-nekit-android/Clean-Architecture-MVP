@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'hu.supercluster.paperwork'
+apply plugin: 'spoon'
 apply from: '../code_quality/quality.gradle'
 
 android {
@@ -82,6 +83,11 @@ paperwork {
     ]
 }
 
+spoon {
+    debug = true
+    adbTimeout = 180
+}
+
 dependencies {
 
     compile project(':domain')
@@ -115,5 +121,6 @@ dependencies {
         exclude module: 'recyclerview-v7'
         exclude module: 'support-v4'
     }
+    androidTestCompile testLibraries.spoon
 
 }
