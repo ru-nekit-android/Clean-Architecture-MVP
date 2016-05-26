@@ -5,8 +5,8 @@ import rx.Observable;
 /**
  * Created by ru.nekit.android on 10.03.16.
  */
-public interface IInteractor<T, P> {
+public interface IInteractor<R, P> {
 
-    Observable<T> execute(P parameter);
+    Observable<R> execute(P parameter);
 
 }
