@@ -98,10 +98,9 @@ public class RepositoryListPresenter extends LcePresenter<IRepositoryListView, I
     }
 
     public void selectRepository(RepositoryVO repository) {
-        IRepositoryListView view = getView();
-        if (view != null) {
-            view.showRepository(repository.getId());
-        }
+        withView(view ->
+                view.showRepository(repository.getId())
+        );
     }
 
     @Override
