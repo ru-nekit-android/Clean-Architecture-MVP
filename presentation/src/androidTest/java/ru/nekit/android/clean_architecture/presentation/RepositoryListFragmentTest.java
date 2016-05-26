@@ -45,8 +45,8 @@ public class RepositoryListFragmentTest {
     @Test
     public void enterOwner() {
         //setupFragment();
-        screenshot(mActivityRule.getActivity(), "empty");
         onView(withId(R.id.user_name_input)).perform(clearText());
+        screenshot(mActivityRule.getActivity(), "empty");
         onView(withId(R.id.user_name_input)).perform(typeText(USER_NAME));
         screenshot(mActivityRule.getActivity(), "with_entered_user_name");
         onView(withId(R.id.search_repositories_button)).perform(click());
