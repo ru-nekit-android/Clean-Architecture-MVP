@@ -8,16 +8,17 @@ import java.util.List;
 
 import ru.nekit.android.clean_architecture.domain.entities.RepositoryEntity;
 import ru.nekit.android.clean_architecture.domain.interactors.RequestRepositoryListUseCase;
-import ru.nekit.android.clean_architecture.presentation.tools.BaseTest;
 import ru.nekit.android.clean_architecture.presentation.core.presenter.viewState.LceViewState;
 import ru.nekit.android.clean_architecture.presentation.model.IRepositoryListViewModel;
 import ru.nekit.android.clean_architecture.presentation.model.vo.RepositoryVO;
 import ru.nekit.android.clean_architecture.presentation.presenter.mapper.RepositoryEntityToVOMapper;
+import ru.nekit.android.clean_architecture.presentation.tools.BaseTest;
 import ru.nekit.android.clean_architecture.presentation.view.fragments.IRepositoryListView;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doAnswer;
@@ -49,12 +50,11 @@ public class RepositoryListPresenterTest extends BaseTest {
     @Mock
     private RepositoryEntityToVOMapper mapper;
 
-    //real
-    private RepositoryListPresenter presenter;
+    private RepositoryListPresenter target;
 
     public void setUp() {
         initMocks(this);
-        presenter = new RepositoryListPresenter(model, interactor, mapper);
+        target = new RepositoryListPresenter(model, interactor, mapper);
 
         repositoryEntityList = new ArrayList<>();
         repositoryEntityList.add(new RepositoryEntity(5301791, "abs-search-view", USER_NAME, "", "1", "1", "1"));
@@ -82,12 +82,12 @@ public class RepositoryListPresenterTest extends BaseTest {
 
     @Test
     public void createPresenterTest() {
-        presenter.onCreate(null);
-        presenter.attachView(view);
-        assertNotNull(presenter.getView());
-        assertNotNull(presenter.getViewModel());
-        presenter.onAttachView(presenter.getView());
-        assertEquals(LceViewState.EMPTY, presenter.getViewState());
+        target.onCreate(any());
+        target.attachView(view);
+        assertNotNull(target.getView());
+        assertNotNull(target.getViewModel());
+        target.onAttachView(target.getView());
+        assertEquals(LceViewState.EMPTY, target.getViewState());
         //apply state
         verify(view).hideLoading();
         verify(view).showEmptyList();
@@ -96,11 +96,11 @@ public class RepositoryListPresenterTest extends BaseTest {
 
     @Test
     public void requestRepositoriesTest() {
-        presenter.onCreate(null);
-        presenter.attachView(view);
-        presenter.onSearchClick();
+        target.onCreate(any());
+        target.attachView(view);
+        target.onSearchClick();
 
-        assertEquals(LceViewState.CONTENT, presenter.getViewState());
+        assertEquals(LceViewState.CONTENT, target.getViewState());
 
         verify(view).hideContent();
         verify(view).showLoading();
@@ -124,10 +124,10 @@ public class RepositoryListPresenterTest extends BaseTest {
                 .execute(USER_NAME)).thenReturn(just(repositoryEntityList));
         when(model.getRepositoriesList()).thenReturn(repositoryVOList);
 
-        presenter.onCreate(null);
-        presenter.attachView(view);
+        target.onCreate(any());
+        target.attachView(view);
 
-        presenter.onSearchClick();
+        target.onSearchClick();
 
         verify(view, atLeastOnce()).hideLoading();
         verify(view).showEmptyList();
@@ -136,11 +136,11 @@ public class RepositoryListPresenterTest extends BaseTest {
 
     @Test
     public void requestRepositoriesWithEmptyUserNameTest() {
-        presenter.onCreate(null);
-        presenter.attachView(view);
+        target.onCreate(any());
+        target.attachView(view);
 
         when(view.getUserName()).thenReturn("");
-        presenter.onSearchClick();
+        target.onSearchClick();
 
         verify(model, never()).setUserName(anyString());
 
@@ -154,8 +154,8 @@ public class RepositoryListPresenterTest extends BaseTest {
 
     @Test
     public void requestRepositoriesWithErrorTest() {
-        presenter.onCreate(null);
-        presenter.attachView(view);
+        target.onCreate(any());
+        target.attachView(view);
 
         Throwable throwable = new Throwable("error");
 
@@ -165,8 +165,8 @@ public class RepositoryListPresenterTest extends BaseTest {
                 .when(interactor)
                 .execute(USER_NAME);
 
-        presenter.onSearchClick();
-        assertEquals(LceViewState.ERROR, presenter.getViewState());
+        target.onSearchClick();
+        assertEquals(LceViewState.ERROR, target.getViewState());
 
         verify(view).hideLoading();
         verify(view).showEmptyList();
@@ -176,16 +176,16 @@ public class RepositoryListPresenterTest extends BaseTest {
 
     @Test
     public void selectRepositoryTest() {
-        presenter.onCreate(null);
-        presenter.attachView(view);
+        target.onCreate(any());
+        target.attachView(view);
         RepositoryVO repository = mock(RepositoryVO.class);
         when(repository.getId()).thenReturn(1);
-        presenter.selectRepository(repository);
+        target.selectRepository(repository);
         verify(view).showRepository(repository.getId());
     }
-
+    
     public void tearDown() {
-        presenter.detachView();
-        presenter.onDestroy();
+        target.detachView();
+        target.onDestroy();
     }
 }
