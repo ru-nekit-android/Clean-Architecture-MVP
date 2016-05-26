@@ -1,5 +1,6 @@
 package ru.nekit.android.clean_architecture.presentation.core.presenter;
 
+import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,7 +20,7 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by ru.nekit.android on 04.03.16.
  */
-public abstract class MVPPresenter<V extends IMVPView, VM extends IMVPViewModel> implements IMVPPresenter<V, VM> {
+public class MVPPresenter<V extends IMVPView, VM extends IMVPViewModel> implements IMVPPresenter<V, VM> {
 
     @Nullable
     private VM mViewModel;
@@ -56,7 +57,19 @@ public abstract class MVPPresenter<V extends IMVPView, VM extends IMVPViewModel>
     }
 
     @Override
-    abstract public void onAttachView(@NonNull V view);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    public void onSaveInstanceState(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onAttachView(@NonNull V view) {
+
+    }
 
     @Override
     public void attachView(@NonNull V view) {
